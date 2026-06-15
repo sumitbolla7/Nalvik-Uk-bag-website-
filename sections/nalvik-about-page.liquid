@@ -1,5 +1,5 @@
 {% comment %}
-  NALVIK — About page (mobile staggered grid mockup)
+  NALVIK — About/Craftsmanship page
 {% endcomment %}
 
 {%- style -%}
@@ -12,7 +12,7 @@
   .nalvik-about-page--{{ section.id }} {
     background: #ffffff;
     width: 100%;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
 
   .nalvik-about-page--{{ section.id }} .nalvik-about-page__hero {
@@ -21,18 +21,11 @@
     background: #eceae6;
   }
 
-  .nalvik-about-page--{{ section.id }} .nalvik-about-page__hero img,
-  .nalvik-about-page--{{ section.id }} .nalvik-about-page__hero-placeholder {
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__hero img {
     width: 100%;
     height: auto;
     display: block;
-    min-height: 200px;
     object-fit: cover;
-  }
-
-  .nalvik-about-page--{{ section.id }} .nalvik-about-page__hero-placeholder {
-    aspect-ratio: 16 / 10;
-    background: linear-gradient(135deg, #e8e4df 0%, #d4cfc8 100%);
   }
 
   .nalvik-about-page--{{ section.id }} .nalvik-about-page__grid {
@@ -60,19 +53,12 @@
     background: #eceae6;
   }
 
-  .nalvik-about-page--{{ section.id }} .nalvik-about-page__media img,
-  .nalvik-about-page--{{ section.id }} .nalvik-about-page__media-placeholder {
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__media img {
     width: 100%;
     display: block;
     object-fit: cover;
   }
 
-  .nalvik-about-page--{{ section.id }} .nalvik-about-page__media-placeholder {
-    aspect-ratio: 1 / 1;
-    background: linear-gradient(160deg, #ebe7e2 0%, #d8d3cc 100%);
-  }
-
-  .nalvik-about-page--{{ section.id }} .nalvik-about-page__media--tall .nalvik-about-page__media-placeholder,
   .nalvik-about-page--{{ section.id }} .nalvik-about-page__media--tall img {
     aspect-ratio: 3 / 4;
     min-height: 220px;
@@ -85,8 +71,9 @@
   }
 
   .nalvik-about-page--{{ section.id }} .nalvik-about-page__heading {
+    font-family: 'Montserrat', sans-serif;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600; /* Bold/semi-bold */
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: #000000;
@@ -95,6 +82,7 @@
   }
 
   .nalvik-about-page--{{ section.id }} .nalvik-about-page__body {
+    font-family: 'Montserrat', sans-serif;
     font-size: 9px;
     font-weight: 400;
     letter-spacing: 0.1em;
@@ -147,7 +135,13 @@
         loading="eager"
       >
     {%- else -%}
-      <div class="nalvik-about-page__hero-placeholder" role="img" aria-label="Hero image placeholder"></div>
+      <img
+        src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/first_image.png?v=1781546314"
+        alt="NALVIK craftsmanship"
+        width="1600"
+        height="1000"
+        loading="eager"
+      >
     {%- endif -%}
   </div>
 
@@ -157,26 +151,47 @@
         {%- if section.settings.image_mission != blank -%}
           <img src="{{ section.settings.image_mission | image_url: width: 800 }}" alt="" width="800" height="800" loading="lazy">
         {%- else -%}
-          <div class="nalvik-about-page__media-placeholder"></div>
+          <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/Our_mission_image_2nd.png?v=1781546416" alt="OUR MISSION" width="800" height="800" loading="lazy">
         {%- endif -%}
       </div>
 
       <div class="nalvik-about-page__block">
         <h2 class="nalvik-about-page__heading">{{ section.settings.mission_heading | default: 'OUR MISSION' }}</h2>
-        <p class="nalvik-about-page__body">{{ section.settings.mission_text }}</p>
+        <p class="nalvik-about-page__body">
+          {%- if section.settings.mission_text != blank -%}
+            {{ section.settings.mission_text | newline_to_br }}
+          {%- else -%}
+            NALVIK WAS NOT CREATED TO CHASE SEASONS, ALGORITHMS, OR VOLUME.<br>
+            IT BEGAN WITH A SIMPLE IDEA:<br>
+            FEWER THINGS, MADE WITH INTENTION, CARRY<br>
+            MORE MEANING.<br>
+            IN A WORLD OF EXCESS AND SPEED, WE CHOSE RESTRAINT.
+          {%- endif -%}
+        </p>
       </div>
 
       <div class="nalvik-about-page__media">
         {%- if section.settings.image_pricing != blank -%}
           <img src="{{ section.settings.image_pricing | image_url: width: 800 }}" alt="" width="800" height="800" loading="lazy">
         {%- else -%}
-          <div class="nalvik-about-page__media-placeholder"></div>
+          <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/why_price_this_waty_4th_iamge.png?v=1781546481" alt="WHY WE PRICE THIS WAY" width="800" height="800" loading="lazy">
         {%- endif -%}
       </div>
 
       <div class="nalvik-about-page__block">
         <h2 class="nalvik-about-page__heading">{{ section.settings.pricing_heading | default: 'WHY WE PRICE THIS WAY' }}</h2>
-        <p class="nalvik-about-page__body">{{ section.settings.pricing_text }}</p>
+        <p class="nalvik-about-page__body">
+          {%- if section.settings.pricing_text != blank -%}
+            {{ section.settings.pricing_text | newline_to_br }}
+          {%- else -%}
+            OUR PRICING REFLECTS INTENTION, NOT<br>
+            COMPARISON.<br>
+            IT ALLOWS US TO WORK WITHOUT<br>
+            COMPROMISE, REMAIN INDEPENDENT,<br>
+            AND PROTECT THE INTEGRITY OF WHAT WE<br>
+            MAKE. WE DO NOT DISCOUNT. WE DO NOT OVERPRODUCE.
+          {%- endif -%}
+        </p>
       </div>
     </div>
 
@@ -185,26 +200,43 @@
         {%- if section.settings.image_create != blank -%}
           <img src="{{ section.settings.image_create | image_url: width: 800 }}" alt="" width="800" height="1067" loading="lazy">
         {%- else -%}
-          <div class="nalvik-about-page__media-placeholder"></div>
+          <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/how_we_create_3rd_image.png?v=1781546443" alt="HOW WE CREATE" width="800" height="1067" loading="lazy">
         {%- endif -%}
       </div>
 
       <div class="nalvik-about-page__block">
         <h2 class="nalvik-about-page__heading">{{ section.settings.create_heading | default: 'HOW WE CREATE' }}</h2>
-        <p class="nalvik-about-page__body">{{ section.settings.create_text }}</p>
+        <p class="nalvik-about-page__body">
+          {%- if section.settings.create_text != blank -%}
+            {{ section.settings.create_text | newline_to_br }}
+          {%- else -%}
+            NALVIK PIECES ARE PRODUCED IN LIMITED NUMBERS, IN OUR OWN ATELIER.<br>
+            EVERY DECISION — FROM MATERIAL SELECTION TO FINISHING — IS DELIBERATE. WE WORK IN SMALL BATCHES, NOT BECAUSE WE CANNOT MAKE MORE,<br>
+            BUT BECAUSE MAKING MORE WOULD DILUTE WHAT MATTERS.<br>
+            EACH DESIGN IS RELEASED ONCE. NO RE-RUNS. NO EXCESS.
+          {%- endif -%}
+        </p>
       </div>
 
       <div class="nalvik-about-page__media nalvik-about-page__media--tall">
         {%- if section.settings.image_who != blank -%}
           <img src="{{ section.settings.image_who | image_url: width: 800 }}" alt="" width="800" height="1067" loading="lazy">
         {%- else -%}
-          <div class="nalvik-about-page__media-placeholder"></div>
+          <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/whos_this_for.png?v=1781546509" alt="WHO THIS IS FOR" width="800" height="1067" loading="lazy">
         {%- endif -%}
       </div>
 
       <div class="nalvik-about-page__block">
         <h2 class="nalvik-about-page__heading">{{ section.settings.who_heading | default: 'WHO THIS IS FOR' }}</h2>
-        <p class="nalvik-about-page__body">{{ section.settings.who_text }}</p>
+        <p class="nalvik-about-page__body">
+          {%- if section.settings.who_text != blank -%}
+            {{ section.settings.who_text | newline_to_br }}
+          {%- else -%}
+            NALVIK IS FOR THOSE WHO VALUE DISCRETION OVER DISPLAY.<br>
+            FOR THOSE WHO NOTICE FORM BEFORE BRANDING.<br>
+            FOR THOSE WHO PREFER FEWER OBJECTS, CHOSEN WELL.
+          {%- endif -%}
+        </p>
       </div>
     </div>
   </div>
@@ -240,7 +272,7 @@
       "type": "textarea",
       "id": "mission_text",
       "label": "Mission text",
-      "default": "NALVIK WAS NOT CREATED TO CHASE SEASONS, ALGORITHMS, OR VOLUME. IT BEGAN WITH A SIMPLE IDEA: FEWER THINGS, MADE WITH INTENTION, CARRY MORE MEANING. IN A WORLD OF EXCESS AND SPEED, WE CHOSE RESTRAINT."
+      "default": "NALVIK WAS NOT CREATED TO CHASE SEASONS, ALGORITHMS, OR VOLUME.\nIT BEGAN WITH A SIMPLE IDEA:\nFEWER THINGS, MADE WITH INTENTION, CARRY\nMORE MEANING.\nIN A WORLD OF EXCESS AND SPEED, WE CHOSE RESTRAINT."
     },
     {
       "type": "image_picker",
@@ -257,7 +289,7 @@
       "type": "textarea",
       "id": "pricing_text",
       "label": "Pricing text",
-      "default": "OUR PRICING REFLECTS INTENTION, NOT COMPARISON. IT ALLOWS US TO WORK WITHOUT COMPROMISE, REMAIN INDEPENDENT, AND PROTECT THE INTEGRITY OF WHAT WE MAKE. WE DO NOT DISCOUNT. WE DO NOT OVERPRODUCE."
+      "default": "OUR PRICING REFLECTS INTENTION, NOT\nCOMPARISON.\nIT ALLOWS US TO WORK WITHOUT\nCOMPROMISE, REMAIN INDEPENDENT,\nAND PROTECT THE INTEGRITY OF WHAT WE\nMAKE. WE DO NOT DISCOUNT. WE DO NOT OVERPRODUCE."
     },
     {
       "type": "header",
@@ -278,7 +310,7 @@
       "type": "textarea",
       "id": "create_text",
       "label": "Create text",
-      "default": "NALVIK PIECES ARE PRODUCED IN LIMITED NUMBERS, IN OUR OWN ATELIER. EVERY DECISION — FROM MATERIAL SELECTION TO FINISHING — IS DELIBERATE. WE WORK IN SMALL BATCHES, NOT BECAUSE WE CANNOT MAKE MORE, BUT BECAUSE MAKING MORE WOULD DILUTE WHAT MATTERS. EACH DESIGN IS RELEASED ONCE. NO RE-RUNS. NO EXCESS."
+      "default": "NALVIK PIECES ARE PRODUCED IN LIMITED NUMBERS, IN OUR OWN ATELIER.\nEVERY DECISION — FROM MATERIAL SELECTION TO FINISHING — IS DELIBERATE. WE WORK IN SMALL BATCHES, NOT BECAUSE WE CANNOT MAKE MORE,\nBUT BECAUSE MAKING MORE WOULD DILUTE WHAT MATTERS.\nEACH DESIGN IS RELEASED ONCE. NO RE-RUNS. NO EXCESS."
     },
     {
       "type": "image_picker",
@@ -295,7 +327,7 @@
       "type": "textarea",
       "id": "who_text",
       "label": "Who text",
-      "default": "NALVIK IS FOR THOSE WHO VALUE DISCRETION OVER DISPLAY. FOR THOSE WHO NOTICE FORM BEFORE BRANDING. FOR THOSE WHO PREFER FEWER OBJECTS, CHOSEN WELL."
+      "default": "NALVIK IS FOR THOSE WHO VALUE DISCRETION OVER DISPLAY.\nFOR THOSE WHO NOTICE FORM BEFORE BRANDING.\nFOR THOSE WHO PREFER FEWER OBJECTS, CHOSEN WELL."
     }
   ],
   "presets": [{ "name": "Nalvik About Page" }]
