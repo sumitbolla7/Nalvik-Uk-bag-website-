@@ -156,7 +156,8 @@ color: #000000 !important;
   .nalvik-left-group {
     display: flex;
     align-items: center;
-    gap: 56px;
+    flex: 1;
+    margin-right: 56px;
   }
 
   .nalvik-logo {
@@ -165,10 +166,10 @@ color: #000000 !important;
   }
 
   .nalvik-logo span {
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 20px;
-    letter-spacing: 0.35em;
-    font-weight: 700;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    letter-spacing: 0.25em;
+    font-weight: 500;
     font-style: normal;
     color: #000000;
     white-space: nowrap;
@@ -182,6 +183,7 @@ color: #000000 !important;
     display: flex;
     align-items: center;
     gap: 56px;
+    margin-left: auto;
   }
 
   .nalvik-nav-right {
@@ -191,11 +193,11 @@ color: #000000 !important;
   }
 
   .nalvik-nav-link {
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 12px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 500;
     color: #000000;
     text-decoration: none;
     transition: color 0.25s ease, opacity 0.2s;
@@ -235,10 +237,10 @@ color: #000000 !important;
   }
 
 .nalvik-mobile-logo span {
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 18px;
-    letter-spacing: 0.28em;
-    font-weight: 700;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    letter-spacing: 0.25em;
+    font-weight: 500;
     color: #000000;
     text-transform: uppercase;
     transition: color 0.25s ease;
@@ -505,7 +507,7 @@ color: #fff;
       <nav class="nalvik-nav-left">
         <a href="{{ routes.root_url }}collections/edition-1" class="nalvik-nav-link">Current Edition</a>
         <a href="{{ routes.root_url }}collections/archive" class="nalvik-nav-link">Archive</a>
-        <a href="{{ routes.root_url }}pages/about" class="nalvik-nav-link">About</a>
+        <a href="{{ routes.root_url }}pages/about" class="nalvik-nav-link">Craftsmanship</a>
       </nav>
     </div>
 
@@ -558,7 +560,7 @@ color: #fff;
   <div class="nalvik-drawer" id="NalvikDrawer">
     <a href="{{ routes.root_url }}collections/edition-1" class="nalvik-nav-link">Current Edition</a>
     <a href="{{ routes.root_url }}collections/archive" class="nalvik-nav-link">Archive</a>
-    <a href="{{ routes.root_url }}pages/about" class="nalvik-nav-link">About</a>
+    <a href="{{ routes.root_url }}pages/about" class="nalvik-nav-link">Craftsmanship</a>
     {%- if shop.customer_accounts_enabled -%}
       <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="nalvik-nav-link">Access</a>
     {%- endif -%}
