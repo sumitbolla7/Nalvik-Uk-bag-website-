@@ -1,0 +1,270 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+<style>
+  .nc-wrap * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── HERO ── */
+  .nc-hero {
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .nc-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* Archive overlay text bottom-left */
+  .nc-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 56px 64px;
+  }
+
+  .nc-hero__overlay-text {
+    color: #ffffff;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(32px, 4.5vw, 58px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    max-width: 640px;
+  }
+
+  /* ── INTRO ── */
+  .nc-intro {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 72px 48px 56px;
+    text-align: center;
+    border-bottom: 1px solid rgba(26,26,26,0.1);
+  }
+
+  .nc-intro__title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin: 0 0 28px;
+    display: block;
+  }
+
+  .nc-intro__desc {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.9;
+    color: #1a1a1a;
+    font-style: italic;
+    display: block;
+  }
+
+  /* ── GRID ── */
+  .nc-grid {
+    display: grid;
+    gap: 1px;
+    background: #ccc;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nc-grid--3col { grid-template-columns: repeat(3, 1fr); }
+  .nc-grid--founders { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); max-width: 1100px; margin: 0 auto; background: transparent; gap: 3px; }
+
+  @media (max-width: 860px) {
+    .nc-grid--3col,
+    .nc-grid--founders { grid-template-columns: repeat(2, 1fr); }
+    .nc-hero { height: 320px; }
+    .nc-hero__overlay { padding: 36px 32px; }
+    .nc-intro { padding: 52px 28px 40px; }
+    .nc-intro__desc { font-size: 17px; }
+  }
+
+  @media (max-width: 520px) {
+    .nc-grid--3col,
+    .nc-grid--founders { grid-template-columns: 1fr; }
+    .nc-hero { height: 240px; }
+  }
+
+  /* ── CARD ── */
+  .nc-card {
+    display: block;
+    text-decoration: none;
+    color: #1a1a1a;
+    background: #f0ede8;
+    position: relative;
+  }
+
+  .nc-card__img {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background: #e5e2dd;
+  }
+
+  .nc-card__img::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+
+  .nc-card__img img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    transition: transform 0.6s ease;
+  }
+
+  .nc-card:hover .nc-card__img img { transform: scale(1.04); }
+
+  /* Badge */
+  .nc-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(245,243,239,0.95);
+    color: #1a1a1a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    z-index: 2;
+  }
+
+  .nc-card__info {
+    padding: 20px 24px 24px;
+  }
+
+  /* Archive card */
+  .nc-card--archive .nc-card__name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    color: #1a1a1a;
+    display: block;
+    margin: 0 0 6px;
+  }
+
+  /* Founders card */
+  .nc-card--founders .nc-card__name {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    display: block;
+    margin: 0 0 6px;
+  }
+
+  .nc-card__price {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: #666;
+    display: block;
+  }
+
+  .nc-empty {
+    text-align: center;
+    padding: 100px 40px;
+    font-size: 13px;
+    color: #999;
+    letter-spacing: 0.1em;
+    background: #f0ede8;
+  }
+</style>
+
+{%- assign is_archive = false -%}
+{%- if collection.handle == 'archive' -%}
+  {%- assign is_archive = true -%}
+{%- endif -%}
+
+<div class="nc-wrap">
+
+  <!-- Hero -->
+  <div class="nc-hero">
+    {%- if collection.image -%}
+      <img src="{{ collection.image | image_url: width: 1800 }}" alt="{{ collection.title | escape }}" width="1800" height="480" loading="eager">
+    {%- elsif is_archive -%}
+      <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/image_2026-03-12_183522431.png?v=1773320729" alt="The Archive" width="1800" height="480" loading="eager">
+    {%- else -%}
+      <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/Untitled_design_5.png?v=1773319912" alt="{{ collection.title | escape }}" width="1800" height="480" loading="eager">
+    {%- endif -%}
+
+    {%- if is_archive -%}
+      <div class="nc-hero__overlay">
+        <div class="nc-hero__overlay-text">
+          The Archive.<br>
+          A permanent record<br>
+          of completed designs.
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <!-- Intro -->
+  <div class="nc-intro">
+    <span class="nc-intro__title">{{ collection.title }}</span>
+    {%- if collection.description != blank -%}
+      <span class="nc-intro__desc">{{ collection.description }}</span>
+    {%- endif -%}
+  </div>
+
+  <!-- Grid -->
+  {%- if collection.products.size > 0 -%}
+    <div class="nc-grid{% if is_archive %} nc-grid--3col{% else %} nc-grid--founders{% endif %}">
+      {%- for product in collection.products -%}
+        <a href="{{ product.url }}" class="nc-card nc-card--{% if is_archive %}archive{% else %}founders{% endif %}">
+          <div class="nc-card__img">
+            {%- if is_archive -%}
+              <span class="nc-badge">Archived — Edition Closed.</span>
+            {%- endif -%}
+            {%- if product.featured_image -%}
+              <img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | escape | default: product.title }}" width="900" height="900" loading="lazy">
+            {%- endif -%}
+          </div>
+          <div class="nc-card__info">
+            <span class="nc-card__name">{{ product.title }}</span>
+            <span class="nc-card__price">{{ product.price | money_with_currency }}</span>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <div class="nc-empty">No products in this collection.</div>
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "tag": "section",
+  "class": "section",
+  "settings": []
+}
+{% endschema %}

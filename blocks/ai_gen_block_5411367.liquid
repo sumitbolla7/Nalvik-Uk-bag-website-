@@ -1,0 +1,585 @@
+{% doc %}
+  @prompt
+    Create a custom header section with the following layout and behavior:
+    - Logo positioned on the left side
+    - Navigation menu positioned on the right side
+    - Transparent background header (overlays the hero/banner below it)
+    - Header becomes solid/opaque on scroll (sticky behavior)
+    - Clean, minimal design that suits a premium luxury lifestyle brand
+    - Mobile responsive with a hamburger menu for smaller screens
+    - Support for customizable logo image, menu link list, and color settings via theme editor settings
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-header-{{ ai_gen_id }} {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+  }
+
+  .ai-header-{{ ai_gen_id }}.transparent {
+    background-color: transparent;
+  }
+
+  .ai-header-{{ ai_gen_id }}.solid {
+    background-color: {{ block.settings.solid_bg_color }};
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-header-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: {{ block.settings.vertical_padding }}px {{ block.settings.horizontal_padding }}px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ai-header-logo-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    z-index: 2;
+  }
+
+  .ai-header-logo-{{ ai_gen_id }} a {
+    display: block;
+    line-height: 0;
+  }
+
+  .ai-header-logo-{{ ai_gen_id }} img {
+    height: {{ block.settings.logo_height }}px;
+    width: auto;
+    display: block;
+  }
+
+  .ai-header-logo-placeholder-{{ ai_gen_id }} {
+    height: {{ block.settings.logo_height }}px;
+    width: 120px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+
+  .ai-header-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-header-nav-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.nav_spacing }}px;
+  }
+
+  .ai-header-nav-{{ ai_gen_id }} a {
+    color: {{ block.settings.transparent_text_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.nav_font_size }}px;
+    font-weight: {{ block.settings.nav_font_weight }};
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    transition: opacity 0.2s ease;
+    text-transform: {{ block.settings.text_transform }};
+  }
+
+  .ai-header-{{ ai_gen_id }}.solid .ai-header-nav-{{ ai_gen_id }} a {
+    color: {{ block.settings.solid_text_color }};
+  }
+
+  .ai-header-nav-{{ ai_gen_id }} a:hover {
+    opacity: 0.7;
+  }
+
+  .ai-header-hamburger-{{ ai_gen_id }} {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 2;
+  }
+
+  .ai-header-hamburger-{{ ai_gen_id }} span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: {{ block.settings.transparent_text_color }};
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+
+  .ai-header-{{ ai_gen_id }}.solid .ai-header-hamburger-{{ ai_gen_id }} span {
+    background-color: {{ block.settings.solid_text_color }};
+  }
+
+  .ai-header-hamburger-{{ ai_gen_id }}.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+  }
+
+  .ai-header-hamburger-{{ ai_gen_id }}.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .ai-header-hamburger-{{ ai_gen_id }}.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+
+  .ai-header-mobile-menu-{{ ai_gen_id }} {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: {{ block.settings.mobile_menu_bg }};
+    z-index: 999;
+    padding: 100px 40px 40px;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .ai-header-mobile-menu-{{ ai_gen_id }}.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .ai-header-mobile-menu-{{ ai_gen_id }} a {
+    display: block;
+    color: {{ block.settings.mobile_menu_text }};
+    text-decoration: none;
+    font-size: {{ block.settings.mobile_font_size }}px;
+    font-weight: {{ block.settings.nav_font_weight }};
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-transform: {{ block.settings.text_transform }};
+    transition: opacity 0.2s ease;
+  }
+
+  .ai-header-mobile-menu-{{ ai_gen_id }} a:hover {
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-header-nav-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-header-hamburger-{{ ai_gen_id }} {
+      display: block;
+    }
+
+    .ai-header-mobile-menu-{{ ai_gen_id }} {
+      display: block;
+    }
+
+    .ai-header-container-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_vertical_padding }}px {{ block.settings.mobile_horizontal_padding }}px;
+    }
+
+    .ai-header-logo-{{ ai_gen_id }} img {
+      height: {{ block.settings.mobile_logo_height }}px;
+    }
+
+    .ai-header-logo-placeholder-{{ ai_gen_id }} {
+      height: {{ block.settings.mobile_logo_height }}px;
+    }
+  }
+{% endstyle %}
+
+<custom-header-{{ ai_gen_id }}
+  class="ai-header-{{ ai_gen_id }} transparent"
+  data-scroll-threshold="{{ block.settings.scroll_threshold }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-header-container-{{ ai_gen_id }}">
+    <div class="ai-header-logo-{{ ai_gen_id }}">
+      <a href="/">
+        {% if block.settings.logo %}
+          <img
+            src="{{ block.settings.logo | image_url: width: 400 }}"
+            alt="{{ shop.name }}"
+            width="{{ block.settings.logo.width }}"
+            height="{{ block.settings.logo.height }}"
+            loading="eager"
+          >
+        {% else %}
+          <div class="ai-header-logo-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </a>
+    </div>
+
+    <nav class="ai-header-nav-{{ ai_gen_id }}">
+      {% if block.settings.menu != blank %}
+        {% for link in linklists[block.settings.menu].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      {% else %}
+        <a href="#">Shop</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      {% endif %}
+    </nav>
+
+    <button
+      class="ai-header-hamburger-{{ ai_gen_id }}"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="ai-header-mobile-menu-{{ ai_gen_id }}">
+    {% if block.settings.menu != blank %}
+      {% for link in linklists[block.settings.menu].links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
+    {% else %}
+      <a href="#">Shop</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    {% endif %}
+  </div>
+</custom-header-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CustomHeader{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.header = this;
+        this.hamburger = this.querySelector('.ai-header-hamburger-{{ ai_gen_id }}');
+        this.mobileMenu = this.querySelector('.ai-header-mobile-menu-{{ ai_gen_id }}');
+        this.scrollThreshold = parseInt(this.dataset.scrollThreshold) || 50;
+        this.isMenuOpen = false;
+      }
+
+      connectedCallback() {
+        this.setupScrollBehavior();
+        this.setupMobileMenu();
+      }
+
+      setupScrollBehavior() {
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              this.handleScroll();
+              ticking = false;
+            });
+            ticking = true;
+          }
+        });
+
+        this.handleScroll();
+      }
+
+      handleScroll() {
+        if (window.scrollY > this.scrollThreshold) {
+          this.header.classList.remove('transparent');
+          this.header.classList.add('solid');
+        } else {
+          this.header.classList.remove('solid');
+          this.header.classList.add('transparent');
+        }
+      }
+
+      setupMobileMenu() {
+        this.hamburger.addEventListener('click', () => {
+          this.toggleMenu();
+        });
+
+        this.mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            this.closeMenu();
+          });
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.isMenuOpen) {
+            this.closeMenu();
+          }
+        });
+      }
+
+      toggleMenu() {
+        this.isMenuOpen = !this.isMenuOpen;
+        this.hamburger.classList.toggle('active');
+        this.mobileMenu.classList.toggle('active');
+        this.hamburger.setAttribute('aria-expanded', this.isMenuOpen);
+        document.body.style.overflow = this.isMenuOpen ? 'hidden' : '';
+      }
+
+      closeMenu() {
+        this.isMenuOpen = false;
+        this.hamburger.classList.remove('active');
+        this.mobileMenu.classList.remove('active');
+        this.hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    }
+
+    customElements.define('custom-header-{{ ai_gen_id }}', CustomHeader{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop logo height",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_height",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile logo height",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "range",
+      "id": "nav_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "nav_font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "nav_spacing",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Link spacing",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Transparent state"
+    },
+    {
+      "type": "color",
+      "id": "transparent_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Solid state"
+    },
+    {
+      "type": "color",
+      "id": "solid_bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "solid_text_color",
+      "label": "Text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "scroll_threshold",
+      "min": 10,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Scroll distance to trigger",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "label": "Container width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop vertical padding",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop horizontal padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_vertical_padding",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile vertical padding",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mobile_horizontal_padding",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile horizontal padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Mobile menu"
+    },
+    {
+      "type": "color",
+      "id": "mobile_menu_bg",
+      "label": "Background color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "mobile_menu_text",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Font size",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom header"
+    }
+  ]
+}
+{% endschema %}

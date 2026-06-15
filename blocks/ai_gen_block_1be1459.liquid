@@ -1,0 +1,72 @@
+{% doc %}
+  @prompt
+    On mobile (max-width: 749px), inside the slideshow section (section ID: template--22488057610480__slideshow_g8UPCX), fix two issues: 1. The button with text "SHOP THE DROP" is wrapping to 2 lines on mobile. Force it to stay on one line using white-space: nowrap and ensure the button is wide enough to contain it. 2. The slide heading "NO RERUNS ONCE SOLD OUT, IT CEASES TO EXIST" is breaking into too many short lines on mobile. Adjust font size so it reads across fewer lines (ideally 2 lines max). Apply only for mobile screens without affecting desktop.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  @media screen and (max-width: 749px) {
+    #shopify-section-template--22488057610480__slideshow_g8UPCX .slideshow__heading {
+      font-size: {{ block.settings.mobile_heading_size }}px !important;
+      line-height: 1.2 !important;
+    }
+
+    #shopify-section-template--22488057610480__slideshow_g8UPCX .button {
+      white-space: nowrap !important;
+      padding-left: {{ block.settings.button_padding_horizontal }}px !important;
+      padding-right: {{ block.settings.button_padding_horizontal }}px !important;
+      min-width: fit-content !important;
+    }
+  }
+
+  .ai-slideshow-mobile-fix-{{ ai_gen_id }} {
+    display: none;
+  }
+{% endstyle %}
+
+<div class="ai-slideshow-mobile-fix-{{ ai_gen_id }}" {{ block.shopify_attributes }}></div>
+
+{% schema %}
+{
+  "name": "Slideshow mobile fix",
+  "tag": null,
+  "class": "ai-slideshow-mobile-fix-block",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mobile heading"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading font size",
+      "min": 20,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 32,
+      "info": "Adjust to fit heading on 2 lines max"
+    },
+    {
+      "type": "header",
+      "content": "Mobile button"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "Button horizontal padding",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24,
+      "info": "Ensures button is wide enough for text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow mobile fix"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,45 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "nalvik_product": {
+      "type": "product-ysl",
+      "blocks": {
+        "detail_LtJb9V": {
+          "type": "detail",
+          "settings": {
+            "heading": "Material",
+            "content": "Full-grain textured leather, responsibly sourced."
+          }
+        },
+        "detail_kjPQwd": {
+          "type": "detail",
+          "settings": {
+            "heading": "Weight Approx",
+            "content": "Approx. 650–900 g"
+          }
+        }
+      },
+      "block_order": [
+        "detail_LtJb9V",
+        "detail_kjPQwd"
+      ],
+      "settings": {
+        "reservation_count": "37/40 RESERVED",
+        "video_url": "https://cdn.shopify.com/videos/c/o/v/c3bfccf134ac45f3bcfdf356f0838a00.mp4",
+        "video_padding_top": 0,
+        "video_padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "nalvik_product"
+  ]
+}

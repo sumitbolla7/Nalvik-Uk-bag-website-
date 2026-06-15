@@ -1,0 +1,634 @@
+{% comment %}
+  NALVIK Homepage Section
+  Custom luxury homepage — no header/footer modifications
+{% endcomment %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* =============================================
+     NUCLEAR RESET — KILL ALL SHOPIFY SPACING
+  ============================================= */
+  .shopify-section:has(#nalvik-homepage),
+  .shopify-section-group:has(#nalvik-homepage),
+  .main-content .shopify-section:has(#nalvik-homepage),
+  .main-content__inner .shopify-section:has(#nalvik-homepage),
+  [class*="shopify-section"]:has(#nalvik-homepage),
+  .nalvik-homepage-section,
+  .nalvik-homepage-section > *,
+  .nalvik-homepage-section .page-width,
+  .nalvik-homepage-section .container,
+  .nalvik-homepage-section .section-content,
+  .nalvik-homepage-section .content-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    border: none !important;
+    outline: none !important;
+  }
+
+  .shopify-section--nalvik-homepage,
+  .section-nalvik-homepage {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* =============================================
+     BASE RESET
+  ============================================= */
+  #nalvik-homepage,
+  #nalvik-homepage * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  #nalvik-homepage {
+    background: #ffffff;
+    width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: 0;
+  }
+
+  #nalvik-homepage > section {
+    display: block;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0;
+    font-size: 0;
+  }
+
+  /* =============================================
+     SECTION 1: HERO
+  ============================================= */
+  .nalvik-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    background: #111;
+  }
+
+  .nalvik-hero__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .nalvik-hero__media video,
+  .nalvik-hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin: 0;
+    padding: 0;
+    vertical-align: bottom;
+  }
+
+  .nalvik-hero__overlay-text {
+    position: absolute;
+    bottom: 48px;
+    left: 48px;
+    z-index: 2;
+    line-height: 1;
+    font-size: initial;
+  }
+
+  .nalvik-hero__overlay-text p {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 18px;
+    line-height: 1;
+  }
+
+  .nalvik-hero__btn {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 16px 40px;
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    line-height: 1;
+  }
+
+  .nalvik-hero__btn:hover {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  /* =============================================
+     SECTION 2: BAG IMAGE
+  ============================================= */
+  .nalvik-bag-section {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    display: block;
+    overflow: hidden;
+  }
+
+  .nalvik-bag-section__image-wrap {
+    width: 100%;
+    line-height: 0;
+    font-size: 0;
+    display: block;
+    overflow: hidden;
+  }
+
+  .nalvik-bag-section__image-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    vertical-align: bottom;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  .nalvik-bag-section__label {
+    position: absolute;
+    right: 48px;
+    bottom: 40px;
+    z-index: 2;
+    line-height: 1;
+    font-size: initial;
+  }
+
+  .nalvik-bag-section__label a,
+  .nalvik-bag-section__label span {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #000;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  /* =============================================
+     SECTION 2B: TEXT BADGES
+     Two short text blocks on white bg, matching reference image 3
+  ============================================= */
+  .nalvik-badges-section {
+    width: 100%;
+    background: #ffffff;
+    display: flex !important;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 28px 40px !important;
+    line-height: 1 !important;
+    font-size: initial !important;
+    gap: 24px;
+  }
+
+  .nalvik-badges-section__item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .nalvik-badges-section__item--right {
+    text-align: right;
+  }
+
+  .nalvik-badges-section__label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #111111;
+    line-height: 1.45;
+    display: block;
+  }
+
+  /* =============================================
+     SECTION 3: CRAFTSMANSHIP VIDEO / IMAGE
+  ============================================= */
+  .nalvik-craft-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #111;
+    line-height: 0;
+    font-size: 0;
+    display: block;
+  }
+
+  .nalvik-craft-section video,
+  .nalvik-craft-section img {
+    width: 100%;
+    height: auto;
+    display: block;
+    vertical-align: bottom;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* =============================================
+     SECTION 4: BRAID DETAIL
+  ============================================= */
+  .nalvik-braid-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #f5f4f2;
+    line-height: 0;
+    font-size: 0;
+    display: block;
+  }
+
+  .nalvik-braid-section__image-wrap {
+    width: 100%;
+    line-height: 0;
+    font-size: 0;
+    display: block;
+  }
+
+  .nalvik-braid-section__image-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    vertical-align: bottom;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nalvik-braid-section__overlay {
+    position: absolute;
+    top: 38%;
+    left: 60px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    line-height: 1;
+    font-size: initial;
+  }
+
+  .nalvik-braid-section__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #111;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .nalvik-braid-section__link {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: lowercase;
+    color: #111;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    line-height: 1;
+  }
+
+  /* =============================================
+     MOBILE
+  ============================================= */
+  @media (max-width: 768px) {
+
+    .nalvik-hero {
+      height: 100svh;
+      min-height: unset;
+    }
+
+    .nalvik-hero__overlay-text {
+      left: 20px;
+      bottom: 32px;
+    }
+
+    .nalvik-hero__btn {
+      padding: 13px 28px;
+      font-size: 10px;
+    }
+
+    .nalvik-bag-section__label {
+      right: 20px;
+      bottom: 20px;
+    }
+
+    .nalvik-bag-section__label a,
+    .nalvik-bag-section__label span {
+      font-size: 13px;
+    }
+
+    /* Mobile badges — force two columns side by side exactly like reference */
+    .nalvik-badges-section {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: flex-start !important;
+      justify-content: space-between !important;
+      padding: 18px 20px !important;
+      gap: 8px !important;
+    }
+
+    .nalvik-badges-section__item {
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+    }
+
+    .nalvik-badges-section__item--right {
+      text-align: right !important;
+    }
+
+    .nalvik-badges-section__label {
+      font-size: 8px !important;
+      letter-spacing: 0.16em !important;
+      line-height: 1.5 !important;
+    }
+
+    .nalvik-braid-section {
+      line-height: normal;
+      font-size: initial;
+    }
+
+    .nalvik-braid-section__overlay {
+      position: relative;
+      top: auto;
+      left: auto;
+      padding: 28px 24px;
+      background: #f5f4f2;
+    }
+
+    .nalvik-braid-section__title { font-size: 15px; }
+    .nalvik-braid-section__link { font-size: 12px; }
+  }
+</style>
+
+<div id="nalvik-homepage">
+
+  <!-- SECTION 1: HERO -->
+  <section class="nalvik-hero">
+    <div class="nalvik-hero__media">
+      {% if section.settings.hero_video_url != blank %}
+        <video autoplay muted loop playsinline
+          poster="{% if section.settings.hero_image != blank %}{{ section.settings.hero_image | image_url: width: 1920 }}{% endif %}"
+        >
+          <source src="{{ section.settings.hero_video_url }}" type="video/mp4">
+          {% if section.settings.hero_image != blank %}
+            <img src="{{ section.settings.hero_image | image_url: width: 1920 }}" alt="{{ section.settings.hero_image.alt | escape }}" width="1920" height="1080">
+          {% endif %}
+        </video>
+      {% elsif section.settings.hero_image != blank %}
+        <img src="{{ section.settings.hero_image | image_url: width: 1920 }}" alt="{{ section.settings.hero_image.alt | escape }}" width="1920" height="1080">
+      {% endif %}
+    </div>
+    <div class="nalvik-hero__overlay-text">
+      {% if section.settings.hero_label != blank %}
+        <p>{{ section.settings.hero_label }}</p>
+      {% endif %}
+      {% if section.settings.hero_btn_text != blank %}
+        <a href="{{ section.settings.hero_btn_url }}" class="nalvik-hero__btn">{{ section.settings.hero_btn_text }}</a>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- SECTION 2: BAG IMAGE -->
+  <section class="nalvik-bag-section">
+    {% if section.settings.bag_image != blank %}
+      <div class="nalvik-bag-section__image-wrap">
+        <img
+          src="{{ section.settings.bag_image | image_url: width: 2000 }}"
+          alt="{{ section.settings.bag_image.alt | default: 'Founders Edition Bag' | escape }}"
+          width="2000"
+          height="{{ 2000 | divided_by: section.settings.bag_image.aspect_ratio | round }}"
+          loading="eager"
+        >
+      </div>
+    {% endif %}
+    {% if section.settings.bag_label != blank %}
+      <div class="nalvik-bag-section__label">
+        {% if section.settings.bag_label_url != blank %}
+          <a href="{{ section.settings.bag_label_url }}">{{ section.settings.bag_label }}</a>
+        {% else %}
+          <span>{{ section.settings.bag_label }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </section>
+
+  <!-- SECTION 2B: TEXT BADGES — Limited Editions / Individually Numbered -->
+  <section class="nalvik-badges-section">
+    <div class="nalvik-badges-section__item nalvik-badges-section__item--left">
+      {% if section.settings.badge_left_line1 != blank %}
+        <span class="nalvik-badges-section__label">{{ section.settings.badge_left_line1 }}</span>
+      {% endif %}
+      {% if section.settings.badge_left_line2 != blank %}
+        <span class="nalvik-badges-section__label">{{ section.settings.badge_left_line2 }}</span>
+      {% endif %}
+    </div>
+    <div class="nalvik-badges-section__item nalvik-badges-section__item--right">
+      {% if section.settings.badge_right_line1 != blank %}
+        <span class="nalvik-badges-section__label">{{ section.settings.badge_right_line1 }}</span>
+      {% endif %}
+      {% if section.settings.badge_right_line2 != blank %}
+        <span class="nalvik-badges-section__label">{{ section.settings.badge_right_line2 }}</span>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- SECTION 3: CRAFTSMANSHIP VIDEO -->
+  <section class="nalvik-craft-section">
+    {% if section.settings.craft_video_url != blank %}
+      <video autoplay muted loop playsinline
+        poster="{% if section.settings.craft_image != blank %}{{ section.settings.craft_image | image_url: width: 1920 }}{% endif %}"
+      >
+        <source src="{{ section.settings.craft_video_url }}" type="video/mp4">
+      </video>
+    {% elsif section.settings.craft_image != blank %}
+      <img src="{{ section.settings.craft_image | image_url: width: 1920 }}" alt="{{ section.settings.craft_image.alt | escape }}" width="1920" height="1080">
+    {% endif %}
+  </section>
+
+  <!-- SECTION 4: BRAID DETAIL -->
+  <section class="nalvik-braid-section">
+    {% if section.settings.braid_image != blank %}
+      <div class="nalvik-braid-section__image-wrap">
+        <img
+          src="{{ section.settings.braid_image | image_url: width: 2000 }}"
+          alt="{{ section.settings.braid_image.alt | default: 'The Nalvik Braid' | escape }}"
+          width="2000"
+          height="{{ 2000 | divided_by: section.settings.braid_image.aspect_ratio | round }}"
+          loading="lazy"
+        >
+      </div>
+    {% endif %}
+    <div class="nalvik-braid-section__overlay">
+      {% if section.settings.braid_title != blank %}
+        <div class="nalvik-braid-section__title">{{ section.settings.braid_title }}</div>
+      {% endif %}
+      {% if section.settings.braid_link_text != blank %}
+        <a href="{{ section.settings.braid_link_url }}" class="nalvik-braid-section__link">{{ section.settings.braid_link_text }}</a>
+      {% endif %}
+    </div>
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "Nalvik Homepage",
+  "tag": "section",
+  "class": "nalvik-homepage-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section 1 — Hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_video_url",
+      "label": "Hero Video URL (MP4)"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image (fallback)"
+    },
+    {
+      "type": "text",
+      "id": "hero_label",
+      "label": "Hero Label Text",
+      "default": "Each Piece Individually Numbered"
+    },
+    {
+      "type": "text",
+      "id": "hero_btn_text",
+      "label": "Hero Button Text",
+      "default": "View Edition"
+    },
+    {
+      "type": "url",
+      "id": "hero_btn_url",
+      "label": "Hero Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Section 2 — Bag Feature Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bag_image",
+      "label": "Bag Feature Image"
+    },
+    {
+      "type": "text",
+      "id": "bag_label",
+      "label": "Bag Label Text",
+      "default": "Founder's Edition"
+    },
+    {
+      "type": "url",
+      "id": "bag_label_url",
+      "label": "Bag Label Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Section 2B — Text Badges"
+    },
+    {
+      "type": "text",
+      "id": "badge_left_line1",
+      "label": "Left Badge — Line 1",
+      "default": "Limited Editions"
+    },
+    {
+      "type": "text",
+      "id": "badge_left_line2",
+      "label": "Left Badge — Line 2",
+      "default": "Produced Once, Never Repeated"
+    },
+    {
+      "type": "text",
+      "id": "badge_right_line1",
+      "label": "Right Badge — Line 1",
+      "default": "Individually Numbered"
+    },
+    {
+      "type": "text",
+      "id": "badge_right_line2",
+      "label": "Right Badge — Line 2",
+      "default": "Each Piece Marked __ / 40."
+    },
+    {
+      "type": "header",
+      "content": "Section 3 — Craftsmanship"
+    },
+    {
+      "type": "text",
+      "id": "craft_video_url",
+      "label": "Craftsmanship Video URL (MP4)"
+    },
+    {
+      "type": "image_picker",
+      "id": "craft_image",
+      "label": "Craftsmanship Image (fallback)"
+    },
+    {
+      "type": "header",
+      "content": "Section 4 — Braid Detail"
+    },
+    {
+      "type": "image_picker",
+      "id": "braid_image",
+      "label": "Braid Detail Image"
+    },
+    {
+      "type": "text",
+      "id": "braid_title",
+      "label": "Braid Section Title",
+      "default": "The Nalvik Braid"
+    },
+    {
+      "type": "text",
+      "id": "braid_link_text",
+      "label": "Braid Link Text",
+      "default": "know more"
+    },
+    {
+      "type": "url",
+      "id": "braid_link_url",
+      "label": "Braid Link URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nalvik Homepage"
+    }
+  ]
+}
+{% endschema %}

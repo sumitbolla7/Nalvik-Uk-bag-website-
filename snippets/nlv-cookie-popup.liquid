@@ -1,0 +1,146 @@
+<style>
+  #nlv-cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    background: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+  }
+  #nlv-cookie-banner.nlv-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+  .nlv-cookie__text {
+    flex: 1;
+    font-family: Jost, sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+    color: #1a1a18;
+    text-transform: uppercase;
+
+    /* ── Scroll: show exactly 2 lines, rest scrollable ── */
+    max-height: calc(10px * 1.6 * 2); /* font-size × line-height × 2 lines */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #c0c0c0 transparent;
+    padding-right: 6px;
+  }
+  .nlv-cookie__text::-webkit-scrollbar {
+    width: 3px;
+  }
+  .nlv-cookie__text::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .nlv-cookie__text::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border-radius: 2px;
+  }
+  .nlv-cookie__text a {
+    color: #1a1a18;
+    text-decoration: underline;
+  }
+  .nlv-cookie__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .nlv-cookie__btn {
+    display: block;
+    padding: 12px 28px;
+    font-family: Jost, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    white-space: nowrap;
+    min-width: 180px;
+    transition: background 0.25s, color 0.25s;
+  }
+  .nlv-cookie__btn--accept {
+    background: #1a1a18;
+    color: #ffffff;
+  }
+  .nlv-cookie__btn--accept:hover { background: #333333; }
+  .nlv-cookie__btn--settings {
+    background: transparent;
+    color: #1a1a18;
+    border: 1px solid #c0c0c0;
+  }
+  .nlv-cookie__btn--settings:hover { background: #f5f5f5; }
+
+  @media (max-width: 768px) {
+    #nlv-cookie-banner {
+      flex-direction: column;
+      padding: 18px 20px;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .nlv-cookie__text {
+      width: 100%;
+    }
+    .nlv-cookie__btn {
+      min-width: unset;
+      width: 100%;
+    }
+  }
+</style>
+
+<div id="nlv-cookie-banner">
+  <p class="nlv-cookie__text">
+    In addition to the cookies that are strictly necessary for the operation
+    of this website, NALVIK uses cookies and other tracking tools to remember
+    your preference and propose additional services, to measure our website
+    performance, to improve our understanding of your interests, and to send
+    you cart notifications. Our partners use trackers to deliver personalized
+    advertising based on your browsing habits and your profile, including by
+    using profiling. You can click on Accept All Cookies to consent to these
+    uses or click on Cookie Settings to configure your choices. You may change
+    your preferences at any moment. For more information please consult our
+    <a href="/pages/cookie-policy">Cookie Policy</a>.
+  </p>
+  <div class="nlv-cookie__actions">
+    <button class="nlv-cookie__btn nlv-cookie__btn--settings" id="nlv-cookie-settings">COOKIES SETTINGS</button>
+    <button class="nlv-cookie__btn nlv-cookie__btn--accept" id="nlv-cookie-accept">ACCEPT ALL COOKIES</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var banner = document.getElementById('nlv-cookie-banner');
+  if (!localStorage.getItem('nlv_cookies')) {
+    setTimeout(function(){ banner.classList.add('nlv-visible'); }, 800);
+  }
+  document.getElementById('nlv-cookie-accept').addEventListener('click', function(){
+    localStorage.setItem('nlv_cookies', 'true');
+    banner.classList.remove('nlv-visible');
+    setTimeout(function(){
+      var w = document.getElementById('nlv-waitlist-overlay');
+      if (w && !localStorage.getItem('nlv_waitlist')) {
+        w.classList.add('nlv-visible');
+      }
+    }, 600);
+  });
+  document.getElementById('nlv-cookie-settings').addEventListener('click', function(){
+    localStorage.setItem('nlv_cookies', 'settings');
+    banner.classList.remove('nlv-visible');
+  });
+})();
+</script>

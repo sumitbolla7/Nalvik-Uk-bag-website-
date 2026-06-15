@@ -1,0 +1,141 @@
+{% doc %}
+  @prompt
+    Add a custom HTML block with CSS and JavaScript to make the video inside section ID "template--22488057610480__video_8xYirD" autoplay, muted, and loop continuously. Hide the play button overlay in that section. On mobile screens under 750px, set the minimum height of that video section to 500px.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-video-controller-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  #template--22488057610480__video_8xYirD .deferred-media__poster {
+    display: none !important;
+  }
+
+  #template--22488057610480__video_8xYirD .deferred-media__poster-button {
+    display: none !important;
+  }
+
+  #template--22488057610480__video_8xYirD video {
+    pointer-events: auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    #template--22488057610480__video_8xYirD {
+      min-height: 500px !important;
+    }
+
+    #template--22488057610480__video_8xYirD .video-section__media {
+      min-height: 500px !important;
+    }
+  }
+{% endstyle %}
+
+<video-autoplay-controller-{{ ai_gen_id }}
+  class="ai-video-controller-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+</video-autoplay-controller-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class VideoAutoplayController{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.targetSectionId = 'template--22488057610480__video_8xYirD';
+      }
+
+      connectedCallback() {
+        this.initializeVideo();
+      }
+
+      initializeVideo() {
+        const targetSection = document.getElementById(this.targetSectionId);
+        
+        if (!targetSection) {
+          return;
+        }
+
+        const videoElement = targetSection.querySelector('video');
+        const deferredMedia = targetSection.querySelector('deferred-media');
+        
+        if (videoElement) {
+          this.setupVideo(videoElement);
+        } else if (deferredMedia) {
+          this.loadAndSetupDeferredVideo(deferredMedia);
+        } else {
+          setTimeout(() => this.initializeVideo(), 500);
+        }
+      }
+
+      setupVideo(video) {
+        video.setAttribute('autoplay', '');
+        video.setAttribute('muted', '');
+        video.setAttribute('loop', '');
+        video.setAttribute('playsinline', '');
+        video.muted = true;
+        
+        const playVideo = () => {
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              video.muted = true;
+              video.play();
+            });
+          }
+        };
+
+        if (video.readyState >= 2) {
+          playVideo();
+        } else {
+          video.addEventListener('loadeddata', playVideo, { once: true });
+        }
+      }
+
+      loadAndSetupDeferredVideo(deferredMedia) {
+        if (deferredMedia.getAttribute('loaded') === 'true') {
+          const video = deferredMedia.querySelector('video');
+          if (video) {
+            this.setupVideo(video);
+          }
+        } else {
+          deferredMedia.loadContent(false);
+          
+          const observer = new MutationObserver(() => {
+            const video = deferredMedia.querySelector('video');
+            if (video) {
+              observer.disconnect();
+              this.setupVideo(video);
+            }
+          });
+
+          observer.observe(deferredMedia, {
+            childList: true,
+            subtree: true
+          });
+        }
+      }
+    }
+
+    customElements.define('video-autoplay-controller-{{ ai_gen_id }}', VideoAutoplayController{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Video autoplay controller",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "This block controls the video in section ID template--22488057610480__video_8xYirD to autoplay, mute, and loop. It also hides the play button and sets minimum height on mobile."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video autoplay controller"
+    }
+  ]
+}
+{% endschema %}

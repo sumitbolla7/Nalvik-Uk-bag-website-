@@ -1,0 +1,447 @@
+{% doc %}
+  @prompt
+    Create a two-column editorial section with text and images, responsive layout. Each column has a heading text block (uppercase, small caps style) above an image. Left column: text "LIMITED EDITIONS / PRODUCED ONCE, NEVER REPEATED" above a close-up leather product image. Right column: text "INDIVIDUALLY NUMBERED / EACH PIECE MARKED __ / 40." above a leather detail image. Clean white background, minimal luxury aesthetic. On mobile, columns stack vertically. Text is centered above each image. Font is light/thin weight, letter-spaced. Images are full-width within their column.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-editorial-columns-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-editorial-columns__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 {{ block.settings.horizontal_padding }}px;
+  }
+
+  .ai-editorial-columns__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.column_gap }}px;
+  }
+
+  .ai-editorial-columns__column-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.text_image_gap }}px;
+  }
+
+  .ai-editorial-columns__text-{{ ai_gen_id }} {
+    text-align: center;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    text-transform: uppercase;
+    line-height: 1.5;
+    padding: 0 {{ block.settings.text_horizontal_padding }}px;
+  }
+
+  .ai-editorial-columns__image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-editorial-columns__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .ai-editorial-columns__image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: {{ block.settings.image_aspect_ratio }};
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-editorial-columns__image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-editorial-columns__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-editorial-columns__grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.mobile_column_gap }}px;
+    }
+
+    .ai-editorial-columns__text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_text_size }}px;
+      letter-spacing: {{ block.settings.mobile_letter_spacing }}px;
+    }
+
+    .ai-editorial-columns__container-{{ ai_gen_id }} {
+      padding: 0 {{ block.settings.mobile_horizontal_padding }}px;
+    }
+  }
+{% endstyle %}
+
+<editorial-columns-{{ ai_gen_id }}
+  class="ai-editorial-columns-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-editorial-columns__container-{{ ai_gen_id }}">
+    <div class="ai-editorial-columns__grid-{{ ai_gen_id }}">
+      <div class="ai-editorial-columns__column-{{ ai_gen_id }}">
+        {% if block.settings.left_text != blank %}
+          <div class="ai-editorial-columns__text-{{ ai_gen_id }}">
+            {{ block.settings.left_text }}
+          </div>
+        {% endif %}
+        <div class="ai-editorial-columns__image-wrapper-{{ ai_gen_id }}">
+          {% if block.settings.left_image %}
+            <img
+              src="{{ block.settings.left_image | image_url: width: 1200 }}"
+              alt="{{ block.settings.left_image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.left_image.width }}"
+              height="{{ block.settings.left_image.height }}"
+              class="ai-editorial-columns__image-{{ ai_gen_id }}"
+            >
+          {% else %}
+            <div class="ai-editorial-columns__image-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+              <div class="ai-editorial-columns__empty-state-{{ ai_gen_id }}">
+                Add left column image
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-editorial-columns__column-{{ ai_gen_id }}">
+        {% if block.settings.right_text != blank %}
+          <div class="ai-editorial-columns__text-{{ ai_gen_id }}">
+            {{ block.settings.right_text }}
+          </div>
+        {% endif %}
+        <div class="ai-editorial-columns__image-wrapper-{{ ai_gen_id }}">
+          {% if block.settings.right_image %}
+            <img
+              src="{{ block.settings.right_image | image_url: width: 1200 }}"
+              alt="{{ block.settings.right_image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.right_image.width }}"
+              height="{{ block.settings.right_image.height }}"
+              class="ai-editorial-columns__image-{{ ai_gen_id }}"
+            >
+          {% else %}
+            <div class="ai-editorial-columns__image-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+              <div class="ai-editorial-columns__empty-state-{{ ai_gen_id }}">
+                Add right column image
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</editorial-columns-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class EditorialColumns{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('editorial-columns-{{ ai_gen_id }}', EditorialColumns{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Editorial columns",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left column"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "left_text",
+      "label": "Text",
+      "default": "LIMITED EDITIONS / PRODUCED ONCE, NEVER REPEATED"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Right column"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "right_text",
+      "label": "Text",
+      "default": "INDIVIDUALLY NUMBERED / EACH PIECE MARKED __ / 40"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 800,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_column_gap",
+      "label": "Mobile column gap",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "text_image_gap",
+      "label": "Text to image gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_horizontal_padding",
+      "label": "Mobile horizontal padding",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "mobile_text_size",
+      "label": "Mobile text size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        }
+      ],
+      "default": "300"
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "mobile_letter_spacing",
+      "label": "Mobile letter spacing",
+      "min": 0,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px",
+      "default": 1.5
+    },
+    {
+      "type": "range",
+      "id": "text_horizontal_padding",
+      "label": "Text horizontal padding",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        {
+          "value": "1 / 1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "4 / 5",
+          "label": "Portrait (4:5)"
+        },
+        {
+          "value": "2 / 3",
+          "label": "Portrait (2:3)"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Landscape (16:9)"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Landscape (4:3)"
+        }
+      ],
+      "default": "4 / 5"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1a1a1a"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial columns"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,62 @@
+{% doc %}
+  @prompt
+    Add a custom CSS override block to fix mobile menu drawer text visibility. The class .nalvik-drawer .nalvik-nav-link is hardcoded to color #000000 (black) but the drawer background is dark rgba(10,10,10,0.95). Force all text and links inside .nalvik-drawer to be #ffffff (white) using !important in all states: default, hover, focus, active, visited. Also fix .nalvik-mobile-header .nalvik-nav-link from #1a1a1a to #ffffff.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-css-override-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .nalvik-drawer,
+  .nalvik-drawer * {
+    color: #ffffff !important;
+  }
+
+  .nalvik-drawer .nalvik-nav-link,
+  .nalvik-drawer .nalvik-nav-link:link,
+  .nalvik-drawer .nalvik-nav-link:visited,
+  .nalvik-drawer .nalvik-nav-link:hover,
+  .nalvik-drawer .nalvik-nav-link:focus,
+  .nalvik-drawer .nalvik-nav-link:active {
+    color: #ffffff !important;
+  }
+
+  .nalvik-drawer a,
+  .nalvik-drawer a:link,
+  .nalvik-drawer a:visited,
+  .nalvik-drawer a:hover,
+  .nalvik-drawer a:focus,
+  .nalvik-drawer a:active {
+    color: #ffffff !important;
+  }
+
+  .nalvik-mobile-header .nalvik-nav-link,
+  .nalvik-mobile-header .nalvik-nav-link:link,
+  .nalvik-mobile-header .nalvik-nav-link:visited,
+  .nalvik-mobile-header .nalvik-nav-link:hover,
+  .nalvik-mobile-header .nalvik-nav-link:focus,
+  .nalvik-mobile-header .nalvik-nav-link:active {
+    color: #ffffff !important;
+  }
+{% endstyle %}
+
+<div class="ai-css-override-{{ ai_gen_id }}" {{ block.shopify_attributes }}></div>
+
+{% schema %}
+{
+  "name": "CSS override",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "This block applies custom CSS overrides to fix mobile menu drawer text visibility. All text and links inside .nalvik-drawer and .nalvik-mobile-header are forced to white (#ffffff) for proper contrast against the dark background."
+    }
+  ],
+  "presets": [
+    {
+      "name": "CSS override"
+    }
+  ]
+}
+{% endschema %}

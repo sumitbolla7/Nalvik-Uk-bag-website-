@@ -1,0 +1,133 @@
+<style>
+  .nbv-section {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 500px;
+    overflow: hidden;
+  }
+
+  .nbv-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  .nbv-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.05) 0%,
+      rgba(0,0,0,0.55) 100%
+    );
+    z-index: 1;
+  }
+
+  .nbv-content {
+    position: absolute;
+    bottom: 60px;
+    left: 64px;
+    z-index: 2;
+  }
+
+  .nbv-heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 300;
+    font-style: italic;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    margin: 0 0 20px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .nbv-btn {
+    display: inline-block;
+    padding: 12px 36px;
+    border: 1px solid rgba(255,255,255,0.8);
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .nbv-btn:hover {
+    background: #ffffff;
+    color: #1a1a1a;
+  }
+
+  @media (max-width: 749px) {
+    .nbv-content { left: 24px; bottom: 40px; }
+    .nbv-section { height: 60vh; }
+  }
+</style>
+
+<div class="nbv-section">
+  <video class="nbv-video" autoplay muted loop playsinline preload="auto">
+    <source src="{{ section.settings.video_url }}" type="video/mp4">
+  </video>
+  <div class="nbv-overlay"></div>
+  <div class="nbv-content">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="nbv-heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+      <a href="{{ section.settings.button_link }}" class="nbv-btn">{{ section.settings.button_label }}</a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "NALVIK Bottom Video",
+  "tag": "section",
+  "class": "nalvik-bottom-video",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL (MP4)",
+      "default": "https://cdn.shopify.com/videos/c/o/v/ebd19cbd33434ee5ad35d64c0dd28cb1.mp4",
+      "info": "Paste the full CDN URL of your video file"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Made once. Never reproduced"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "Know More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [{ "name": "NALVIK Bottom Video" }]
+}
+{% endschema %}

@@ -1,0 +1,117 @@
+{% comment %}
+  NALVIK — Founder's Edition (mobile only)
+  Assign template "founders-edition-mobile" to a page in theme editor.
+{% endcomment %}
+
+{{ 'nalvik-founders-mobile.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign img_crescent = section.settings.crescent_url | default: 'https://cdn.shopify.com/s/files/1/0812/9626/1360/files/crescent_bag_image_mobile_1.png?v=1779820365'
+  assign img_obsidian = section.settings.obsidian_url | default: 'https://cdn.shopify.com/s/files/1/0812/9626/1360/files/obsidian_mobile_pic_1.png?v=1779820366'
+  assign img_duffle = section.settings.duffle_url | default: 'https://cdn.shopify.com/s/files/1/0812/9626/1360/files/duffle_bag_pic.png?v=1779820365'
+-%}
+
+<div class="nalvik-fe-mobile{% if collection != blank and collection.handle == 'edition-1' %} nalvik-fe-mobile--edition-1{% endif %}" data-mobile-only>
+  <p class="nalvik-fe-mobile__desktop-note" aria-hidden="true">
+    This page is designed for mobile. Open on your phone or resize the browser.
+  </p>
+
+  <div class="nalvik-fe-mobile__content">
+    <h1 class="nalvik-fe-mobile__title">{{ section.settings.page_title | default: "THE FOUNDER'S EDITION" }}</h1>
+
+    <div class="nalvik-fe-mobile__stack">
+      <a class="nalvik-fe-mobile__item" href="{{ section.settings.crescent_link | default: '#' }}">
+        <span class="nalvik-fe-mobile__label">{{ section.settings.crescent_label | default: 'THE CRESCENT' }}</span>
+        <img src="{{ img_crescent }}" alt="{{ section.settings.crescent_label }}" width="750" height="500" loading="eager">
+      </a>
+      <a class="nalvik-fe-mobile__item" href="{{ section.settings.obsidian_link | default: '#' }}">
+        <span class="nalvik-fe-mobile__label">{{ section.settings.obsidian_label | default: 'THE OBSIDIAN' }}</span>
+        <img src="{{ img_obsidian }}" alt="{{ section.settings.obsidian_label }}" width="750" height="500" loading="lazy">
+      </a>
+      <a class="nalvik-fe-mobile__item" href="{{ section.settings.duffle_link | default: '#' }}">
+        <span class="nalvik-fe-mobile__label">{{ section.settings.duffle_label | default: 'THE DUFFLE' }}</span>
+        <img src="{{ img_duffle }}" alt="{{ section.settings.duffle_label }}" width="750" height="500" loading="lazy">
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Founders Edition Mobile",
+  "tag": "section",
+  "class": "nalvik-founders-mobile-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "page_title",
+      "label": "Page title",
+      "default": "THE FOUNDER'S EDITION"
+    },
+    {
+      "type": "header",
+      "content": "The Crescent"
+    },
+    {
+      "type": "text",
+      "id": "crescent_label",
+      "label": "Label",
+      "default": "THE CRESCENT"
+    },
+    {
+      "type": "url",
+      "id": "crescent_link",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "crescent_url",
+      "label": "Image URL",
+      "default": "https://cdn.shopify.com/s/files/1/0812/9626/1360/files/crescent_bag_image_mobile_1.png?v=1779820365"
+    },
+    {
+      "type": "header",
+      "content": "The Obsidian"
+    },
+    {
+      "type": "text",
+      "id": "obsidian_label",
+      "label": "Label",
+      "default": "THE OBSIDIAN"
+    },
+    {
+      "type": "url",
+      "id": "obsidian_link",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "obsidian_url",
+      "label": "Image URL",
+      "default": "https://cdn.shopify.com/s/files/1/0812/9626/1360/files/obsidian_mobile_pic_1.png?v=1779820366"
+    },
+    {
+      "type": "header",
+      "content": "The Duffle"
+    },
+    {
+      "type": "text",
+      "id": "duffle_label",
+      "label": "Label",
+      "default": "THE DUFFLE"
+    },
+    {
+      "type": "url",
+      "id": "duffle_link",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "duffle_url",
+      "label": "Image URL",
+      "default": "https://cdn.shopify.com/s/files/1/0812/9626/1360/files/duffle_bag_pic.png?v=1779820365"
+    }
+  ],
+  "presets": [{ "name": "Founders Edition Mobile" }]
+}
+{% endschema %}

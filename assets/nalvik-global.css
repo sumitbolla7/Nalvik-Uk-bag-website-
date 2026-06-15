@@ -1,0 +1,20 @@
+/* Nalvik Hero — homepage only (all pages) */
+
+/* Never show hero inside the header group (appears on every page if misplaced) */
+.shopify-section-group-header-group .nalvik-hero-section,
+.shopify-section-group-header-group .shopify-section:has(.nalvik-hero),
+.shopify-section-group-header-group section.nalvik-hero {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+}
+
+/* Hide hero in page content on non-homepage templates */
+body:not(.template-index) #MainContent .shopify-section.nalvik-hero-section {
+  display: none !important;
+}

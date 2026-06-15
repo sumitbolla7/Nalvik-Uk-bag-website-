@@ -1,0 +1,235 @@
+{%- style -%}
+  .nv-about {
+    font-family: 'Times New Roman', Georgia, serif;
+    background: #ffffff;
+    color: #111;
+    width: 100%;
+  }
+
+  /* ── Intro / Note: centered text block ── */
+  .nv-about__center {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 100px 40px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+
+  /* ── Split row ── */
+  .nv-about__row {
+    display: flex;
+    width: 100%;
+    min-height: 560px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+
+  /* Image side */
+  .nv-about__img {
+    flex: 0 0 50%;
+    width: 50%;
+    overflow: hidden;
+  }
+  .nv-about__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Text side */
+  .nv-about__text {
+    flex: 0 0 50%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 64px;
+    text-align: center;
+    background: #ffffff;
+    box-sizing: border-box;
+  }
+
+  /* Typography */
+  .nv-about__heading {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #111;
+    margin-bottom: 32px;
+  }
+  .nv-about__body {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 2.4;
+    color: #444;
+  }
+
+  .nv-about__spacer { height: 80px; }
+
+  @media screen and (max-width: 749px) {
+    .nv-about__row {
+      flex-direction: column;
+      min-height: auto;
+    }
+    .nv-about__img,
+    .nv-about__text {
+      width: 100%;
+      flex: none;
+    }
+    .nv-about__img img { height: 80vw; }
+    .nv-about__text { padding: 48px 24px; }
+    .nv-about__center { padding: 60px 24px; }
+  }
+{%- endstyle -%}
+
+<div class="nv-about">
+
+  {{- 'section-main-page.css' | asset_url | stylesheet_tag -}}
+
+  <!-- Intro -->
+  <div class="nv-about__center">
+    <span class="nv-about__heading">Our Philosophy</span>
+    <span class="nv-about__body">
+      Nalvik was not created to chase seasons, algorithms, or volume.<br>
+      It began with a simple idea — fewer things, made with intention, carry more meaning.<br>
+      In a world of excess and speed, we chose restraint.
+    </span>
+  </div>
+
+  <!-- Row 1: Text Left · Image Right -->
+  <div class="nv-about__row">
+    <div class="nv-about__text">
+      <span class="nv-about__heading">What We Believe</span>
+      <span class="nv-about__body">
+        Objects should earn their place.<br>
+        Through design. Through material honesty. Through care.<br>
+        Luxury is not defined by logos or noise,<br>
+        but by confidence, proportion, and quiet detail.<br>
+        Some things are better kept small, precise, and personal.
+      </span>
+    </div>
+    <div class="nv-about__img">
+      {%- if section.settings.image_1 != blank -%}
+        {{ section.settings.image_1 | image_url: width: 1200 | image_tag: loading: 'lazy', width: 1200, height: 1200 }}
+      {%- else -%}
+        <div style="background:#e8e4de;width:100%;height:100%;"></div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- Row 2: Image Left · Text Right -->
+  <div class="nv-about__row">
+    <div class="nv-about__img">
+      {%- if section.settings.image_2 != blank -%}
+        {{ section.settings.image_2 | image_url: width: 1200 | image_tag: loading: 'lazy', width: 1200, height: 1200 }}
+      {%- else -%}
+        <div style="background:#dedad4;width:100%;height:100%;"></div>
+      {%- endif -%}
+    </div>
+    <div class="nv-about__text">
+      <span class="nv-about__heading">How We Create</span>
+      <span class="nv-about__body">
+        Nalvik pieces are produced in limited numbers, in our own atelier.<br>
+        Every decision from material selection to finishing is deliberate.<br>
+        We work in small batches — not because we cannot make more,<br>
+        but because making more would dilute what matters.<br>
+        Each design is released once. No re-runs. No excess.
+      </span>
+    </div>
+  </div>
+
+  <!-- Row 3: Text Left · Image Right -->
+  <div class="nv-about__row">
+    <div class="nv-about__text">
+      <span class="nv-about__heading">Why We Price This Way</span>
+      <span class="nv-about__body">
+        Our pricing reflects intention, not comparison.<br>
+        It allows us to work without compromise, remain independent,<br>
+        and protect the integrity of what we make.<br>
+        We do not discount. We do not overproduce.
+      </span>
+    </div>
+    <div class="nv-about__img">
+      {%- if section.settings.image_3 != blank -%}
+        {{ section.settings.image_3 | image_url: width: 1200 | image_tag: loading: 'lazy', width: 1200, height: 1200 }}
+      {%- else -%}
+        <div style="background:#d4d0c8;width:100%;height:100%;"></div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- Row 4: Image Left · Text Right -->
+  <div class="nv-about__row">
+    <div class="nv-about__img">
+      {%- if section.settings.image_4 != blank -%}
+        {{ section.settings.image_4 | image_url: width: 1200 | image_tag: loading: 'lazy', width: 1200, height: 1200 }}
+      {%- else -%}
+        <div style="background:#ccc8c0;width:100%;height:100%;"></div>
+      {%- endif -%}
+    </div>
+    <div class="nv-about__text">
+      <span class="nv-about__heading">Who This Is For</span>
+      <span class="nv-about__body">
+        Nalvik is for those who value discretion over display.<br>
+        For those who notice form before branding.<br>
+        For those who prefer fewer objects, chosen well.
+      </span>
+    </div>
+  </div>
+
+  <!-- Founder note -->
+  <div class="nv-about__center">
+    <span class="nv-about__heading">A Note From The Founder</span>
+    <span class="nv-about__body">
+      Nalvik is a long-term idea.<br>
+      It is not built to impress quickly, but to remain relevant quietly.<br>
+      This Founders Edition is a beginning —<br>
+      not a statement of volume, but a statement of intent.
+    </span>
+  </div>
+
+  <div class="nv-about__spacer"></div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Nalvik About",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Row 1 image — What We Believe (right side)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Row 2 image — How We Create (left side)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Row 3 image — Why We Price This Way (right side)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Row 4 image — Who This Is For (left side)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nalvik About"
+    }
+  ]
+}
+{% endschema %}

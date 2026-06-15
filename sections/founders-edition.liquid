@@ -1,0 +1,416 @@
+{% comment %}
+  NALVIK — Founder's Edition
+  Desktop: 3-column product grid (original)
+  Mobile: full-bleed stacked images with top-left labels (mockup)
+{% endcomment %}
+
+<style>
+  .fe-wrap * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .fe-wrap {
+    background: #ffffff;
+  }
+
+  /* ── DESKTOP (750px+) ── */
+  .fe-desktop {
+    display: none;
+    font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
+  }
+
+  .fe-desktop__title {
+    text-align: center;
+    padding: 20px 40px 60px;
+  }
+
+  .fe-desktop__title h2 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    font-family: inherit;
+  }
+
+  .fe-desktop__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px 80px;
+  }
+
+  .fe-desktop__card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 0 20px;
+  }
+
+  .fe-desktop__card-img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: #ffffff;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .fe-desktop__card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    display: block;
+    transition: transform 0.7s ease;
+  }
+
+  .fe-desktop__card:hover .fe-desktop__card-img img {
+    transform: scale(1.04);
+  }
+
+  .fe-desktop__card-name {
+    text-align: center;
+    padding: 10px 0 0;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    font-family: inherit;
+  }
+
+  /* ── MOBILE (max 749px) ── */
+  .fe-mobile {
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #ffffff;
+  }
+
+  .fe-mobile__header {
+    text-align: center;
+    padding: 36px 20px 28px;
+  }
+
+  .fe-mobile__title {
+    font-family: var(--font-heading-family), Georgia, 'Times New Roman', serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #000;
+  }
+
+  .fe-mobile__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .fe-mobile__item {
+    position: relative;
+    display: block;
+    width: 100%;
+    line-height: 0;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .fe-mobile__item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .fe-mobile__label {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    pointer-events: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .fe-desktop {
+      display: block;
+    }
+
+    .fe-mobile {
+      display: none !important;
+    }
+  }
+</style>
+
+{%- liquid
+  assign m1 = section.settings.mobile_1_image
+  assign m2 = section.settings.mobile_2_image
+  assign m3 = section.settings.mobile_3_image
+  assign d1 = section.settings.desktop_1_image
+  assign d2 = section.settings.desktop_2_image
+  assign d3 = section.settings.desktop_3_image
+
+  assign crescent_cdn = 'https://cdn.shopify.com/s/files/1/0812/9626/1360/files/crescent_bag_image_mobile_1.png?v=1779820365'
+  assign obsidian_cdn = 'https://cdn.shopify.com/s/files/1/0812/9626/1360/files/obsidian_mobile_pic_1.png?v=1779820366'
+  assign duffle_cdn = 'https://cdn.shopify.com/s/files/1/0812/9626/1360/files/duffle_bag_pic.png?v=1779820365'
+-%}
+
+<div class="fe-wrap">
+
+  {%- comment -%} DESKTOP ONLY {%- endcomment -%}
+  <div class="fe-desktop">
+    <div class="fe-desktop__title">
+      <h2>{{ section.settings.title | default: "The Founder's Edition" }}</h2>
+    </div>
+
+    <div class="fe-desktop__grid">
+      <a href="{{ section.settings.desktop_1_link | default: section.settings.mobile_1_link | default: '#' }}" class="fe-desktop__card">
+        <div class="fe-desktop__card-img">
+          {% if d1 != blank %}
+            <img src="{{ d1 | image_url: width: 800 }}" alt="{{ section.settings.desktop_1_name }}" width="800" height="1067" loading="lazy">
+          {% elsif section.settings.product_1_image != blank %}
+            <img src="{{ section.settings.product_1_image | image_url: width: 800 }}" alt="{{ section.settings.desktop_1_name }}" width="800" height="1067" loading="lazy">
+          {% endif %}
+        </div>
+        <p class="fe-desktop__card-name">{{ section.settings.desktop_1_name | default: 'The Crescent' }}</p>
+      </a>
+
+      <a href="{{ section.settings.desktop_2_link | default: section.settings.mobile_2_link | default: '#' }}" class="fe-desktop__card">
+        <div class="fe-desktop__card-img">
+          {% if d2 != blank %}
+            <img src="{{ d2 | image_url: width: 800 }}" alt="{{ section.settings.desktop_2_name }}" width="800" height="1067" loading="lazy">
+          {% elsif section.settings.product_2_image != blank %}
+            <img src="{{ section.settings.product_2_image | image_url: width: 800 }}" alt="{{ section.settings.desktop_2_name }}" width="800" height="1067" loading="lazy">
+          {% endif %}
+        </div>
+        <p class="fe-desktop__card-name">{{ section.settings.desktop_2_name | default: 'The Obsidian' }}</p>
+      </a>
+
+      <a href="{{ section.settings.desktop_3_link | default: section.settings.mobile_3_link | default: '#' }}" class="fe-desktop__card">
+        <div class="fe-desktop__card-img">
+          {% if d3 != blank %}
+            <img src="{{ d3 | image_url: width: 800 }}" alt="{{ section.settings.desktop_3_name }}" width="800" height="1067" loading="lazy">
+          {% elsif section.settings.product_3_image != blank %}
+            <img src="{{ section.settings.product_3_image | image_url: width: 800 }}" alt="{{ section.settings.desktop_3_name }}" width="800" height="1067" loading="lazy">
+          {% endif %}
+        </div>
+        <p class="fe-desktop__card-name">{{ section.settings.desktop_3_name | default: 'The Duffle' }}</p>
+      </a>
+    </div>
+  </div>
+
+  {%- comment -%} MOBILE ONLY {%- endcomment -%}
+  <div class="fe-mobile">
+    <header class="fe-mobile__header">
+      <h1 class="fe-mobile__title">{{ section.settings.mobile_title | default: "THE FOUNDER'S EDITION" }}</h1>
+    </header>
+
+    <div class="fe-mobile__stack">
+      <a href="{{ section.settings.mobile_1_link | default: '#' }}" class="fe-mobile__item">
+        <span class="fe-mobile__label">{{ section.settings.mobile_1_name | default: 'THE CRESCENT' }}</span>
+        {% if m1 != blank %}
+          <img src="{{ m1 | image_url: width: 1200 }}" alt="{{ section.settings.mobile_1_name }}" width="1200" height="800" loading="eager">
+        {% else %}
+          <img src="{{ crescent_cdn }}" alt="The Crescent" width="1200" height="800" loading="eager">
+        {% endif %}
+      </a>
+
+      <a href="{{ section.settings.mobile_2_link | default: '#' }}" class="fe-mobile__item">
+        <span class="fe-mobile__label">{{ section.settings.mobile_2_name | default: 'THE OBSIDIAN' }}</span>
+        {% if m2 != blank %}
+          <img src="{{ m2 | image_url: width: 1200 }}" alt="{{ section.settings.mobile_2_name }}" width="1200" height="800" loading="lazy">
+        {% else %}
+          <img src="{{ obsidian_cdn }}" alt="The Obsidian" width="1200" height="800" loading="lazy">
+        {% endif %}
+      </a>
+
+      <a href="{{ section.settings.mobile_3_link | default: '#' }}" class="fe-mobile__item">
+        <span class="fe-mobile__label">{{ section.settings.mobile_3_name | default: 'THE DUFFLE' }}</span>
+        {% if m3 != blank %}
+          <img src="{{ m3 | image_url: width: 1200 }}" alt="{{ section.settings.mobile_3_name }}" width="1200" height="800" loading="lazy">
+        {% else %}
+          <img src="{{ duffle_cdn }}" alt="The Duffle" width="1200" height="800" loading="lazy">
+        {% endif %}
+      </a>
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Founders Edition",
+  "tag": "section",
+  "class": "founders-edition",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Desktop (PC) — 3 column grid"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Desktop title",
+      "default": "The Founder's Edition"
+    },
+    {
+      "type": "header",
+      "content": "Desktop — Product 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_1_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "text",
+      "id": "desktop_1_name",
+      "label": "Name",
+      "default": "The Crescent"
+    },
+    {
+      "type": "url",
+      "id": "desktop_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Desktop — Product 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_2_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "text",
+      "id": "desktop_2_name",
+      "label": "Name",
+      "default": "The Obsidian"
+    },
+    {
+      "type": "url",
+      "id": "desktop_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Desktop — Product 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_3_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "text",
+      "id": "desktop_3_name",
+      "label": "Name",
+      "default": "The Duffle"
+    },
+    {
+      "type": "url",
+      "id": "desktop_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Mobile only — full-width stack"
+    },
+    {
+      "type": "text",
+      "id": "mobile_title",
+      "label": "Mobile title",
+      "default": "THE FOUNDER'S EDITION"
+    },
+    {
+      "type": "header",
+      "content": "Mobile — The Crescent"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_1_image",
+      "label": "Mobile image (Crescent)"
+    },
+    {
+      "type": "text",
+      "id": "mobile_1_name",
+      "label": "Label",
+      "default": "THE CRESCENT"
+    },
+    {
+      "type": "url",
+      "id": "mobile_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Mobile — The Obsidian"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_2_image",
+      "label": "Mobile image (Obsidian)"
+    },
+    {
+      "type": "text",
+      "id": "mobile_2_name",
+      "label": "Label",
+      "default": "THE OBSIDIAN"
+    },
+    {
+      "type": "url",
+      "id": "mobile_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Mobile — The Duffle"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_3_image",
+      "label": "Mobile image (Duffle)"
+    },
+    {
+      "type": "text",
+      "id": "mobile_3_name",
+      "label": "Label",
+      "default": "THE DUFFLE"
+    },
+    {
+      "type": "url",
+      "id": "mobile_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "paragraph",
+      "content": "Legacy: if Desktop images are empty, old product_1/2/3 pickers are used as fallback on desktop only."
+    },
+    {
+      "type": "image_picker",
+      "id": "product_1_image",
+      "label": "Legacy desktop fallback 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_2_image",
+      "label": "Legacy desktop fallback 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_3_image",
+      "label": "Legacy desktop fallback 3"
+    }
+  ],
+  "presets": [{ "name": "Founders Edition" }]
+}
+{% endschema %}

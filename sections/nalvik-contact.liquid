@@ -1,0 +1,135 @@
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  .nk-contact * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+  .nk-contact {
+    width: 100%;
+    background: #ffffff;
+    padding: 80px 60px 100px;
+  }
+
+  .nk-contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-bottom: 0;
+  }
+
+  .nk-contact__col {
+    padding: 48px 48px 48px 0;
+  }
+
+  .nk-contact__col:nth-child(2) {
+    padding-left: 48px;
+  }
+
+  .nk-contact__col--full {
+    grid-column: 1 / -1;
+    padding: 48px 0;
+    max-width: 50%;
+  }
+
+  .nk-contact__heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+  }
+
+  .nk-contact__body {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    line-height: 1.9;
+    margin-bottom: 32px;
+  }
+
+  .nk-contact__btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background: #1a1a1a;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .nk-contact__btn:hover { background: #333; }
+
+  @media (max-width: 749px) {
+    .nk-contact { padding: 48px 24px 60px; }
+    .nk-contact__grid { grid-template-columns: 1fr; }
+    .nk-contact__col { padding: 36px 0; }
+    .nk-contact__col--full { max-width: 100%; }
+  }
+</style>
+
+<div class="nk-contact">
+  <div class="nk-contact__grid">
+
+    <!-- FAQ -->
+    <div class="nk-contact__col">
+      <p class="nk-contact__heading">{{ section.settings.col1_heading | default: 'Frequently Asked Questions' }}</p>
+      <p class="nk-contact__body">{{ section.settings.col1_body | default: 'Find answers to common questions about our editions, shipping, and returns. You can also track your order through our FAQ page.' }}</p>
+      <a href="{{ section.settings.col1_btn_url | default: '/pages/faq' }}" class="nk-contact__btn">{{ section.settings.col1_btn_label | default: 'FAQ' }}</a>
+    </div>
+
+    <!-- Contact / WhatsApp -->
+    <div class="nk-contact__col">
+      <p class="nk-contact__heading">{{ section.settings.col2_heading | default: 'Contact Us' }}</p>
+      <p class="nk-contact__body">{{ section.settings.col2_body | default: 'Speak to one of our team members directly.' | newline_to_br }}</p>
+      <a href="{{ section.settings.col2_btn_url | default: '/pages/contact' }}" class="nk-contact__btn">{{ section.settings.col2_btn_label | default: 'Contact Us' }}</a>
+    </div>
+
+    <!-- Email -->
+    <div class="nk-contact__col nk-contact__col--full">
+      <p class="nk-contact__heading">{{ section.settings.col3_heading | default: 'Email' }}</p>
+      <p class="nk-contact__body">{{ section.settings.col3_body | default: 'We strive to reply to you within 48 hours during business days.' }}</p>
+      <a href="{{ section.settings.col3_btn_url | default: 'mailto:hello@nalvik.com' }}" class="nk-contact__btn">{{ section.settings.col3_btn_label | default: 'Email Us' }}</a>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "NALVIK Contact",
+  "tag": "section",
+  "class": "nalvik-contact-section",
+  "settings": [
+    { "type": "header", "content": "Column 1 — FAQ" },
+    { "type": "text", "id": "col1_heading", "label": "Heading", "default": "Frequently Asked Questions" },
+    { "type": "textarea", "id": "col1_body", "label": "Body text", "default": "Find answers to common questions about our editions, shipping, and returns. You can also track your order through our FAQ page." },
+    { "type": "text", "id": "col1_btn_label", "label": "Button label", "default": "FAQ" },
+    { "type": "url", "id": "col1_btn_url", "label": "Button URL" },
+
+    { "type": "header", "content": "Column 2 — Contact" },
+    { "type": "text", "id": "col2_heading", "label": "Heading", "default": "Contact Us" },
+    { "type": "textarea", "id": "col2_body", "label": "Body text", "default": "Speak to one of our team members directly." },
+    { "type": "text", "id": "col2_btn_label", "label": "Button label", "default": "Contact Us" },
+    { "type": "url", "id": "col2_btn_url", "label": "Button URL" },
+
+    { "type": "header", "content": "Column 3 — Email" },
+    { "type": "text", "id": "col3_heading", "label": "Heading", "default": "Email" },
+    { "type": "textarea", "id": "col3_body", "label": "Body text", "default": "We strive to reply to you within 48 hours during business days." },
+    { "type": "text", "id": "col3_btn_label", "label": "Button label", "default": "Email Us" },
+    { "type": "text", "id": "col3_btn_url", "label": "Button URL (mailto or page)", "default": "mailto:hello@nalvik.com" }
+  ],
+  "presets": [{ "name": "NALVIK Contact" }]
+}
+{% endschema %}

@@ -1,0 +1,94 @@
+<style>
+  .nw-section {
+    background: #ffffff;
+    padding: {{ section.settings.padding_top }}px 40px {{ section.settings.padding_bottom }}px;
+    text-align: center;
+    font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
+  }
+  .nw-heading {
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    color: #1a1a1a;
+    margin-bottom: 48px;
+    text-transform: uppercase;
+  }
+  .nw-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .nw-item {
+    padding: 0 40px;
+    border-right: 1px solid #e0ddd8;
+  }
+  .nw-item:last-child { border-right: none; }
+  .nw-item-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin-bottom: 14px;
+    font-style: normal;
+  }
+  .nw-item-text {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+    line-height: 1.8;
+    font-style: normal;
+  }
+  @media (max-width: 768px) {
+    .nw-grid { grid-template-columns: 1fr; gap: 36px; }
+    .nw-item { border-right: none; border-bottom: 1px solid #e0ddd8; padding: 0 0 36px; }
+    .nw-item:last-child { border-bottom: none; }
+    .nw-section { padding: 48px 24px; }
+  }
+</style>
+
+<div class="nw-section">
+  {% if section.settings.heading != blank %}
+    <h2 class="nw-heading">{{ section.settings.heading }}</h2>
+  {% endif %}
+  <div class="nw-grid">
+    <div class="nw-item">
+      <p class="nw-item-title">{{ section.settings.col1_title }}</p>
+      <p class="nw-item-text">{{ section.settings.col1_text }}</p>
+    </div>
+    <div class="nw-item">
+      <p class="nw-item-title">{{ section.settings.col2_title }}</p>
+      <p class="nw-item-text">{{ section.settings.col2_text }}</p>
+    </div>
+    <div class="nw-item">
+      <p class="nw-item-title">{{ section.settings.col3_title }}</p>
+      <p class="nw-item-text">{{ section.settings.col3_text }}</p>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Why Nalvik",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "WHY NALVIK?" },
+    { "type": "range", "id": "heading_size", "min": 16, "max": 48, "step": 2, "unit": "px", "label": "Heading size", "default": 26 },
+    { "type": "range", "id": "padding_top", "min": 40, "max": 120, "step": 8, "unit": "px", "label": "Padding top", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "min": 40, "max": 120, "step": 8, "unit": "px", "label": "Padding bottom", "default": 72 },
+    { "type": "header", "content": "Column 1" },
+    { "type": "text", "id": "col1_title", "label": "Title", "default": "LIMITED EDITIONS" },
+    { "type": "text", "id": "col1_text", "label": "Text", "default": "PRODUCED ONCE, NEVER REPEATED" },
+    { "type": "header", "content": "Column 2" },
+    { "type": "text", "id": "col2_title", "label": "Title", "default": "INDIVIDUALLY NUMBERED" },
+    { "type": "text", "id": "col2_text", "label": "Text", "default": "EACH PIECE MARKED __ / 40." },
+    { "type": "header", "content": "Column 3" },
+    { "type": "text", "id": "col3_title", "label": "Title", "default": "NO RESTOCK" },
+    { "type": "text", "id": "col3_text", "label": "Text", "default": "WHEN IT ENDS, IT ENDS" }
+  ],
+  "presets": [{ "name": "Why Nalvik" }]
+}
+{% endschema %}

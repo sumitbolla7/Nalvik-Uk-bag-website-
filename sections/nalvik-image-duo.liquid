@@ -1,0 +1,94 @@
+{% comment %}
+  NALVIK — Homepage two-column images (no text — text lives in info bar)
+{% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .nalvik-image-duo--{{ section.id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    width: 100%;
+    background: #fff;
+  }
+
+  .nalvik-image-duo--{{ section.id }} .nalvik-image-duo__item {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+  }
+
+  .nalvik-image-duo--{{ section.id }} .nalvik-image-duo__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* Mobile: stay side-by-side — see assets/nalvik-mobile.css */
+{%- endstyle -%}
+
+<section class="nalvik-image-duo nalvik-image-duo--{{ section.id }}" aria-label="Product details">
+  {%- if section.settings.left_image != blank -%}
+    <div class="nalvik-image-duo__item">
+      <img
+        src="{{ section.settings.left_image | image_url: width: 1200 }}"
+        srcset="
+          {{ section.settings.left_image | image_url: width: 600 }} 600w,
+          {{ section.settings.left_image | image_url: width: 900 }} 900w,
+          {{ section.settings.left_image | image_url: width: 1200 }} 1200w
+        "
+        sizes="50vw"
+        alt="{{ section.settings.left_image.alt | default: 'NALVIK numbered edition' | escape }}"
+        width="1200"
+        height="{{ 1200 | divided_by: section.settings.left_image.aspect_ratio | round }}"
+        loading="lazy"
+      >
+    </div>
+  {%- endif -%}
+  {%- if section.settings.right_image != blank -%}
+    <div class="nalvik-image-duo__item">
+      <img
+        src="{{ section.settings.right_image | image_url: width: 1200 }}"
+        srcset="
+          {{ section.settings.right_image | image_url: width: 600 }} 600w,
+          {{ section.settings.right_image | image_url: width: 900 }} 900w,
+          {{ section.settings.right_image | image_url: width: 1200 }} 1200w
+        "
+        sizes="50vw"
+        alt="{{ section.settings.right_image.alt | default: 'NALVIK leather detail' | escape }}"
+        width="1200"
+        height="{{ 1200 | divided_by: section.settings.right_image.aspect_ratio | round }}"
+        loading="lazy"
+      >
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Nalvik Image Duo",
+  "tag": "section",
+  "class": "nalvik-image-duo-section",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Left image"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right image"
+    }
+  ],
+  "presets": [{ "name": "Nalvik Image Duo" }]
+}
+{% endschema %}

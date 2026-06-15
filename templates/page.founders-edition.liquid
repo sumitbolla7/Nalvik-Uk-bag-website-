@@ -1,0 +1,261 @@
+{% assign collection = collections['edition-1'] %}
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.fe-wrap {
+  background: #F9F6F1;
+  font-family: 'Cormorant Garamond', 'Cormorant', serif;
+}
+
+/* ── HERO ── */
+.fe-hero {
+  width: 100%;
+  height: 70vh;
+  min-height: 420px;
+  max-height: 600px;
+  overflow: hidden;
+  position: relative;
+}
+.fe-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  display: block;
+}
+.fe-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
+}
+.fe-hero-text {
+  position: absolute;
+  bottom: 48px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #fff;
+}
+.fe-hero-text h1 {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-family: 'Cormorant Garamond', 'Cormorant', serif;
+}
+.fe-hero-text p {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  font-family: 'Cormorant Garamond', 'Cormorant', serif;
+}
+
+/* ── COLLECTION HEADER ── */
+.fe-header {
+  text-align: center;
+  padding: 72px 40px 56px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.fe-header h2 {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #1A1A1A;
+  margin-bottom: 32px;
+  font-family: 'Cormorant Garamond', 'Cormorant', serif;
+}
+.fe-header p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: #555;
+  letter-spacing: 0.03em;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+.fe-header-divider {
+  width: 32px;
+  height: 1px;
+  background: #1A1A1A;
+  margin: 40px auto 0;
+}
+
+/* ── PRODUCT GRID ── */
+.fe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto 80px;
+  padding: 0 48px;
+}
+.fe-product {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.fe-product-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #E8E5E0;
+  position: relative;
+}
+.fe-product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+}
+.fe-product:hover .fe-product-img img {
+  transform: scale(1.04);
+}
+.fe-product-info {
+  padding: 18px 0 0;
+  text-align: center;
+}
+.fe-product-name {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #1A1A1A;
+  margin-bottom: 8px;
+  font-family: 'Cormorant Garamond', 'Cormorant', serif;
+}
+.fe-product-price {
+  font-size: 13px;
+  color: #777;
+  letter-spacing: 0.05em;
+  font-family: 'Cormorant Garamond', 'Cormorant', serif;
+}
+
+/* ── CRAFT TEXT BAND ── */
+.fe-craft {
+  background: #F9F6F1;
+  padding: 56px 48px;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 0;
+}
+.fe-craft p {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #888;
+  line-height: 2;
+  font-family: 'Cormorant Garamond', 'Cormorant', serif;
+}
+
+/* ── VIDEO ── */
+.fe-video {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  max-height: 600px;
+}
+.fe-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  max-height: 600px;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .fe-hero {
+    height: 55vh;
+    min-height: 320px;
+  }
+  .fe-header {
+    padding: 48px 24px 40px;
+  }
+  .fe-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 20px;
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+  .fe-craft {
+    padding: 40px 24px;
+  }
+}
+@media (max-width: 480px) {
+  .fe-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<div class="fe-wrap">
+
+  <!-- HERO BANNER -->
+  <div class="fe-hero">
+    {% assign hero_product = collection.products.first %}
+    {% if collection.image %}
+      <img src="{{ collection.image | img_url: '2000x' }}" alt="{{ collection.title }}">
+    {% elsif hero_product and hero_product.featured_image %}
+      <img src="{{ hero_product.featured_image | img_url: '2000x' }}" alt="{{ collection.title }}">
+    {% endif %}
+    <div class="fe-hero-overlay"></div>
+    <div class="fe-hero-text">
+      <h1>The Founder's Edition</h1>
+      <p>Three designs &nbsp;·&nbsp; Forty pieces each &nbsp;·&nbsp; Individually numbered</p>
+    </div>
+  </div>
+
+  <!-- COLLECTION HEADER -->
+  <div class="fe-header">
+    <h2>{{ collection.title }}</h2>
+    {% if collection.description != blank %}
+      {{ collection.description }}
+    {% else %}
+      <p>This is not an introduction. It is a position — the first permanent record of what NALVIK is and intends to remain.</p>
+      <p>Each bag in this edition is a reference point: for material, for proportion, for the standard that follows.</p>
+      <p>Full-grain leather. No compromise. No restock.</p>
+    {% endif %}
+    <div class="fe-header-divider"></div>
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <div class="fe-grid">
+    {% for product in collection.products %}
+      <a href="{{ product.url }}" class="fe-product">
+        <div class="fe-product-img">
+          {% if product.featured_image %}
+            <img
+              src="{{ product.featured_image | img_url: '800x800', crop: 'center' }}"
+              alt="{{ product.featured_image.alt | default: product.title }}"
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
+        <div class="fe-product-info">
+          <p class="fe-product-name">{{ product.title }}</p>
+          <p class="fe-product-price">{{ product.price | money }}</p>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+
+  <!-- CRAFT TEXT -->
+  <div class="fe-craft">
+    <p>Braiding becomes structural rather than decorative. Supple strands interlace with quiet precision,<br>
+    creating a surface that feels fluid yet intentional. What appears effortless is carefully constructed.</p>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="fe-video">
+    <video autoplay muted loop playsinline>
+      <source src="https://cdn.shopify.com/videos/c/o/v/b3b298d5e05e4552af1cbcfc5287116f.mp4" type="video/mp4">
+    </video>
+  </div>
+
+</div>

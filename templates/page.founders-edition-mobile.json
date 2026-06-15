@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "nalvik-founders-mobile",
+      "settings": {
+        "page_title": "THE FOUNDER'S EDITION",
+        "crescent_label": "THE CRESCENT",
+        "crescent_url": "https://cdn.shopify.com/s/files/1/0812/9626/1360/files/crescent_bag_image_mobile_1.png?v=1779820365",
+        "obsidian_label": "THE OBSIDIAN",
+        "obsidian_url": "https://cdn.shopify.com/s/files/1/0812/9626/1360/files/obsidian_mobile_pic_1.png?v=1779820366",
+        "duffle_label": "THE DUFFLE",
+        "duffle_url": "https://cdn.shopify.com/s/files/1/0812/9626/1360/files/duffle_bag_pic.png?v=1779820365"
+      }
+    }
+  },
+  "order": ["main"]
+}

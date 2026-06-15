@@ -1,0 +1,136 @@
+{% doc %}
+  @prompt
+    Create a custom CSS code block that reduces heading sizes to 60% of their current size. The code should target all heading elements (h1, h2, h3, h4, h5, h6) and scale them down proportionally.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-custom-css-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  {% if block.settings.enable_css %}
+    .ai-custom-css-{{ ai_gen_id }} h1,
+    .ai-custom-css-{{ ai_gen_id }} ~ * h1,
+    .ai-custom-css-{{ ai_gen_id }} ~ h1 {
+      font-size: calc(var(--font-heading-scale, 1) * {{ block.settings.h1_scale }}%);
+    }
+
+    .ai-custom-css-{{ ai_gen_id }} h2,
+    .ai-custom-css-{{ ai_gen_id }} ~ * h2,
+    .ai-custom-css-{{ ai_gen_id }} ~ h2 {
+      font-size: calc(var(--font-heading-scale, 1) * {{ block.settings.h2_scale }}%);
+    }
+
+    .ai-custom-css-{{ ai_gen_id }} h3,
+    .ai-custom-css-{{ ai_gen_id }} ~ * h3,
+    .ai-custom-css-{{ ai_gen_id }} ~ h3 {
+      font-size: calc(var(--font-heading-scale, 1) * {{ block.settings.h3_scale }}%);
+    }
+
+    .ai-custom-css-{{ ai_gen_id }} h4,
+    .ai-custom-css-{{ ai_gen_id }} ~ * h4,
+    .ai-custom-css-{{ ai_gen_id }} ~ h4 {
+      font-size: calc(var(--font-heading-scale, 1) * {{ block.settings.h4_scale }}%);
+    }
+
+    .ai-custom-css-{{ ai_gen_id }} h5,
+    .ai-custom-css-{{ ai_gen_id }} ~ * h5,
+    .ai-custom-css-{{ ai_gen_id }} ~ h5 {
+      font-size: calc(var(--font-heading-scale, 1) * {{ block.settings.h5_scale }}%);
+    }
+
+    .ai-custom-css-{{ ai_gen_id }} h6,
+    .ai-custom-css-{{ ai_gen_id }} ~ * h6,
+    .ai-custom-css-{{ ai_gen_id }} ~ h6 {
+      font-size: calc(var(--font-heading-scale, 1) * {{ block.settings.h6_scale }}%);
+    }
+  {% endif %}
+{% endstyle %}
+
+<div class="ai-custom-css-{{ ai_gen_id }}" {{ block.shopify_attributes }}></div>
+
+{% schema %}
+{
+  "name": "Custom heading sizes",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_css",
+      "label": "Enable custom heading sizes",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Heading sizes"
+    },
+    {
+      "type": "range",
+      "id": "h1_scale",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "label": "H1 size",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "h2_scale",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "label": "H2 size",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "h3_scale",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "label": "H3 size",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "h4_scale",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "label": "H4 size",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "h5_scale",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "label": "H5 size",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "h6_scale",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "label": "H6 size",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom heading sizes"
+    }
+  ]
+}
+{% endschema %}

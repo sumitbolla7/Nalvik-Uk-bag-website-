@@ -1,0 +1,264 @@
+<style>
+  .bp-wrap {
+    background: #ffffff;
+    font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
+  }
+
+  /* VIDEO */
+  .bp-video-wrap {
+    width: 100%;
+    height: {{ section.settings.video_height }}px;
+    overflow: hidden;
+    background: #000;
+  }
+  .bp-video-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* TITLE */
+  .bp-title {
+    text-align: center;
+    padding: 72px 40px 48px;
+  }
+  .bp-title h1 {
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    font-style: normal;
+    margin: 0;
+  }
+
+  /* DESCRIPTION */
+  .bp-desc {
+    max-width: {{ section.settings.text_width }}px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+    text-align: center;
+  }
+  .bp-desc p {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    font-weight: 600;
+    line-height: 2.2;
+    margin-bottom: 24px;
+    font-style: normal;
+  }
+  .bp-desc p:last-child { margin-bottom: 0; }
+
+  /* IMAGE */
+  .bp-image-wrap {
+    max-width: {{ section.settings.image_max_width }}px;
+    margin: 0 auto 80px;
+    padding: 0 40px;
+    position: relative;
+  }
+  .bp-image-inner {
+    width: 100%;
+    overflow: hidden;
+  }
+  .bp-image-inner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  .bp-image-overlay {
+    position: absolute;
+    top: 40px;
+    left: 80px;
+    color: #ffffff;
+  }
+  .bp-image-overlay p {
+    font-size: {{ section.settings.overlay_size }}px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    font-style: normal;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    margin: 0;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .bp-video-wrap { height: {{ section.settings.video_height | times: 0.55 | round }}px; }
+    .bp-title { padding: 48px 24px 36px; }
+    .bp-title h1 { font-size: {{ section.settings.title_size | minus: 4 }}px; }
+    .bp-desc { padding: 0 24px 60px; }
+    .bp-image-wrap { padding: 0 16px; margin-bottom: 60px; }
+    .bp-image-overlay { left: 24px; top: 24px; }
+  }
+</style>
+
+<div class="bp-wrap">
+
+  <!-- VIDEO -->
+  {% if section.settings.video_url != blank %}
+  <div class="bp-video-wrap">
+    <video autoplay muted loop playsinline>
+      <source src="{{ section.settings.video_url }}" type="video/mp4">
+    </video>
+  </div>
+  {% endif %}
+
+  <!-- TITLE -->
+  <div class="bp-title">
+    <h1>{{ section.settings.title }}</h1>
+  </div>
+
+  <!-- DESCRIPTION -->
+  <div class="bp-desc">
+    {% assign lines = section.settings.description | newline_to_br | split: '<br />' %}
+    {% for line in lines %}
+      {% if line != blank %}
+        <p>{{ line }}</p>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- IMAGE -->
+  <div class="bp-image-wrap">
+    <div class="bp-image-inner">
+      {% if section.settings.image %}
+        <img src="{{ section.settings.image | image_url: width: 1400 }}" alt="{{ section.settings.title }}" width="1400" height="800" loading="lazy">
+      {% elsif section.settings.image_url != blank %}
+        <img src="{{ section.settings.image_url }}" alt="{{ section.settings.title }}" width="1400" height="800" loading="lazy">
+      {% endif %}
+    </div>
+    {% if section.settings.overlay_line1 != blank or section.settings.overlay_line2 != blank %}
+    <div class="bp-image-overlay">
+      {% if section.settings.overlay_line1 != blank %}<p>{{ section.settings.overlay_line1 }}</p>{% endif %}
+      {% if section.settings.overlay_line2 != blank %}<p>{{ section.settings.overlay_line2 }}</p>{% endif %}
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Braid Page",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL (MP4)",
+      "default": "https://cdn.shopify.com/videos/c/o/v/c3ae39eb2f65445db336852ceddf835d.mp4"
+    },
+    {
+      "type": "range",
+      "id": "video_height",
+      "min": 300,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Video height",
+      "default": 560
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "THE NALVIK BRAID"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 14,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description text (one paragraph per line)",
+      "default": "THE NALVIK BRAID IS A HAND-EXECUTED LEATHER TECHNIQUE WHERE TWO STRANDS ARE CUT, CONDITIONED, AND PRECISELY INTERLACED TO BUILD STRUCTURE WITHIN THE MATERIAL.\nEACH BRAID TAKES SIX HOURS. TENSION, ALIGNMENT, AND CONSISTENCY DEFINE BOTH STRENGTH AND FINISH — MAKING THE PROCESS IMPOSSIBLE TO RUSH OR MECHANISE.\nTHIS IS NOT DECORATION. IT IS CONSTRUCTION.\nTHE INTERLOCKING STRANDS CREATE A SURFACE THAT IS BOTH REINFORCED AND FLEXIBLE, ALLOWING THE LEATHER TO HOLD FORM WHILE RETAINING MOVEMENT. NO TWO BRAIDS ARE IDENTICAL.\nTHE NALVIK BRAID IS NOT ADDED. IT IS BUILT.\nAND ONCE COMPLETE, IT CANNOT BE UNDONE."
+    },
+    {
+      "type": "range",
+      "id": "text_width",
+      "min": 500,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "label": "Text max width",
+      "default": 580
+    },
+    {
+      "type": "header",
+      "content": "Bottom Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Upload image"
+    },
+    {
+      "type": "text",
+      "id": "image_url",
+      "label": "Or paste image URL",
+      "default": "https://cdn.shopify.com/s/files/1/0812/9626/1360/files/Gemini_Generated_Image_rkj9aarkj9aarkj9.png?v=1773321605"
+    },
+    {
+      "type": "range",
+      "id": "image_max_width",
+      "min": 500,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "label": "Image max width",
+      "default": 800
+    },
+    {
+      "type": "header",
+      "content": "Image overlay text"
+    },
+    {
+      "type": "text",
+      "id": "overlay_line1",
+      "label": "Overlay line 1",
+      "default": "6 HOURS"
+    },
+    {
+      "type": "text",
+      "id": "overlay_line2",
+      "label": "Overlay line 2",
+      "default": "ONE BRAID"
+    },
+    {
+      "type": "range",
+      "id": "overlay_size",
+      "min": 14,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Overlay font size",
+      "default": 28
+    }
+  ],
+  "presets": [{ "name": "Braid Page" }]
+}
+{% endschema %}

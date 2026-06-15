@@ -1,0 +1,1038 @@
+{% assign formatted_price = product.price | money %}
+{% assign images = product.images %}
+{% assign image_count = images | size %}
+
+<div class="nv-wrap">
+  <div class="nv-grid">
+
+    <!-- LEFT: IMAGE CAROUSEL -->
+    <div class="nv-img-col">
+      <div class="nv-carousel" id="nv-carousel">
+        <div class="nv-carousel-track" id="nv-track">
+          {% for image in images %}
+            <div class="nv-slide" data-index="{{ forloop.index0 }}">
+              <img
+                src="{{ image | img_url: 'master' }}"
+                alt="{{ image.alt | default: product.title | escape }}"
+                class="nv-slide-img"
+                loading="{{ forloop.first | iif: 'eager', 'lazy' }}"
+              />
+            </div>
+          {% else %}
+            <div class="nv-slide" data-index="0">
+              <div class="nv-no-image"></div>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if image_count > 1 %}
+          <button class="nv-arrow nv-arrow-prev" id="nv-prev" aria-label="Previous image">&#8592;</button>
+          <button class="nv-arrow nv-arrow-next" id="nv-next" aria-label="Next image">&#8594;</button>
+          <div class="nv-counter" id="nv-counter">1 / {{ image_count }}</div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- RIGHT: PRODUCT INFO -->
+    <div class="nv-info-col">
+      <div class="nv-info-inner">
+
+        <h1 class="nv-title">{{ product.title | upcase }}</h1>
+        <p class="nv-price">{{ formatted_price }} GBP</p>
+
+        <div class="nv-qty-wrap">
+          <span class="nv-lbl">QUANTITY</span>
+          <div class="nv-qty-row">
+            <button class="nv-qty-btn" id="nv-minus">−</button>
+            <span class="nv-qty-num" id="nv-qty">1</span>
+            <button class="nv-qty-btn" id="nv-plus">+</button>
+          </div>
+        </div>
+
+        <span class="nv-reserved">{{ section.settings.reservation_count | default: '37/40 RESERVED' }}</span>
+
+        <p class="nv-mat-head">FULL-GRAIN TEXTURED LEATHER</p>
+        <ul class="nv-list">
+          <li>STRUCTURED CRESCENT SILHOUETTE</li>
+          <li>BRAIDED LEATHER SEAM DETAIL</li>
+          <li>TOP ZIP CLOSURE</li>
+          <li>ADJUSTABLE SHOULDER STRAP</li>
+          <li>MINIMAL SILVER HARDWARE</li>
+        </ul>
+
+        <div class="nv-details-trigger" id="nv-details-trigger">
+          <span class="nv-details-label">DETAILS</span>
+          <span class="nv-details-icon" id="nv-details-icon">+</span>
+        </div>
+
+        <div class="nv-btns">
+          <form method="post" action="/cart/add">
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+            <input type="hidden" name="quantity" id="nv-form-qty" value="1" />
+            <button type="submit" class="nv-btn-acquire">ACQUIRE</button>
+          </form>
+          <div class="nv-mono-anchor">
+            <button class="nv-btn-mono" id="nv-mono-btn">CUSTOM MONOGRAM</button>
+            <div class="nv-mono-popup" id="nv-mono-popup">
+              <div class="nv-popup-inner">
+                <div class="nv-popup-head">
+                  <p class="nv-popup-title">CUSTOM MONOGRAM</p>
+                  <button class="nv-popup-close" id="nv-popup-close">✕</button>
+                </div>
+                <p class="nv-popup-sub">Blind embossed. Complimentary. Permanent.</p>
+                <div class="nv-popup-field">
+                  <label class="nv-popup-lbl">INITIALS (MAX 4 CHARACTERS)</label>
+                  <input type="text" maxlength="4" placeholder="E.G. J.L.V" class="nv-popup-input" id="nv-popup-input" autocomplete="off" />
+                </div>
+                <div class="nv-popup-field">
+                  <label class="nv-popup-lbl">EMBOSS COLOR</label>
+                  <select class="nv-popup-input" id="nv-popup-color">
+                    <option value="BLIND">BLIND (No color)</option>
+                    <option value="GOLD">GOLD FOIL</option>
+                    <option value="SILVER">SILVER FOIL</option>
+                  </select>
+                </div>
+                <button class="nv-popup-confirm" id="nv-popup-confirm">SAVE MONOGRAM</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAILS PANEL (slides from right) -->
+<div class="nv-panel" id="nv-panel">
+  <div class="nv-panel-inner">
+    <div class="nv-panel-head">
+      <h3 class="nv-panel-title">PRODUCT DETAILS</h3>
+      <button class="nv-panel-close" id="nv-panel-close">✕</button>
+    </div>
+    <div class="nv-panel-body">
+      {% for block in section.blocks %}
+        {% if block.type == 'detail' %}
+          <div class="nv-panel-row" {{ block.shopify_attributes }}>
+            <p class="nv-panel-lbl">{{ block.settings.heading | upcase }}</p>
+            <p class="nv-panel-txt">{{ block.settings.content }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+      {% if section.blocks.size == 0 %}
+        <div class="nv-panel-row"><p class="nv-panel-lbl">MATERIAL</p><p class="nv-panel-txt">Full-grain cow leather with polyester twill lining</p></div>
+        <div class="nv-panel-row"><p class="nv-panel-lbl">WEIGHT</p><p class="nv-panel-txt">Approx. 650–900 g</p></div>
+        <div class="nv-panel-row"><p class="nv-panel-lbl">DIMENSIONS</p><p class="nv-panel-txt">L: XX cm · H: XX cm · W: XX cm</p></div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="nv-overlay" id="nv-overlay"></div>
+
+<!-- LIGHTBOX -->
+<div class="nv-lightbox" id="nv-lightbox" role="dialog" aria-modal="true">
+  <button class="nv-lb-close" id="nv-lb-close" aria-label="Close">✕</button>
+  <button class="nv-lb-arrow nv-lb-prev" id="nv-lb-prev" aria-label="Previous">&#8592;</button>
+  <button class="nv-lb-arrow nv-lb-next" id="nv-lb-next" aria-label="Next">&#8594;</button>
+  <div class="nv-lb-track" id="nv-lb-track">
+    {% for image in images %}
+      <div class="nv-lb-slide">
+        <img src="{{ image | img_url: 'master' }}" alt="{{ image.alt | default: product.title | escape }}" class="nv-lb-img" loading="lazy" />
+      </div>
+    {% endfor %}
+  </div>
+  <div class="nv-lb-counter" id="nv-lb-counter">1 / {{ image_count }}</div>
+</div>
+<div class="nv-lb-overlay" id="nv-lb-overlay"></div>
+
+<!-- DESCRIPTION -->
+<section class="nv-desc-section">
+  <div class="nv-desc-inner">
+    {{ product.description }}
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="nv-video-section" style="padding-top:{{ section.settings.video_padding_top | default: 0 }}px; padding-bottom:{{ section.settings.video_padding_bottom | default: 0 }}px;">
+  <video
+    class="nv-video"
+    src="{{ section.settings.video_url | default: 'https://cdn.shopify.com/videos/c/o/v/c3bfccf134ac45f3bcfdf356f0838a00.mp4' }}"
+    autoplay muted loop playsinline
+  ></video>
+</section>
+
+{% stylesheet %}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.nv-wrap {
+  background: #ffffff;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+}
+
+.nv-grid {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  min-height: 100vh;
+  align-items: start;
+  background: #ffffff;
+}
+
+.nv-img-col {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  background: #ffffff;
+}
+
+.nv-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.nv-carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.77,0,0.175,1);
+  will-change: transform;
+}
+
+.nv-slide {
+  min-width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nv-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  background: #ffffff;
+}
+
+.nv-no-image {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+}
+
+.nv-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.85);
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111;
+  z-index: 10;
+  transition: background 0.2s, opacity 0.2s;
+  opacity: 0;
+}
+
+.nv-carousel:hover .nv-arrow { opacity: 1; }
+.nv-arrow:hover { background: #fff; }
+.nv-arrow-prev { left: 16px; }
+.nv-arrow-next { right: 16px; }
+
+.nv-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #fff;
+  background: rgba(0,0,0,0.35);
+  padding: 4px 12px;
+  pointer-events: none;
+}
+
+/* ── PRODUCT INFO ── */
+.nv-info-col {
+  background: #fff;
+  padding: 72px 52px 80px 48px;
+  min-height: 100vh;
+}
+
+.nv-info-inner { max-width: 420px; }
+
+.nv-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #111;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.nv-price {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #111;
+  margin-bottom: 36px;
+}
+
+.nv-qty-wrap { margin-bottom: 28px; }
+
+.nv-lbl {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+.nv-qty-row {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.nv-qty-btn {
+  background: none;
+  border: 1px solid #ddd;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+  font-weight: 300;
+  cursor: pointer;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+
+.nv-qty-btn:hover { background: #f5f5f5; }
+
+.nv-qty-num {
+  width: 48px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  color: #111;
+}
+
+.nv-reserved {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-bottom: 24px;
+}
+
+.nv-mat-head {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.nv-list { list-style: none; margin-bottom: 0; }
+
+.nv-list li {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: #555;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.nv-list li::before {
+  content: '•';
+  color: #ccc;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.nv-details-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  cursor: pointer;
+  margin: 24px 0;
+  user-select: none;
+  transition: opacity 0.2s;
+}
+
+.nv-details-trigger:hover { opacity: 0.6; }
+
+.nv-details-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #111;
+}
+
+.nv-details-icon {
+  font-size: 18px;
+  font-weight: 300;
+  color: #111;
+  line-height: 1;
+  transition: transform 0.38s cubic-bezier(0.77,0,0.175,1);
+  display: inline-block;
+}
+
+.nv-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.nv-btn-acquire {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 17px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nv-btn-acquire:hover { background: #333; }
+
+/* MONOGRAM ANCHORED POPUP */
+.nv-mono-anchor { position: relative; }
+
+.nv-btn-mono {
+  width: 100%;
+  background: transparent;
+  color: #111;
+  border: 1px solid #111;
+  padding: 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nv-btn-mono:hover { background: #111; color: #fff; }
+
+.nv-mono-popup {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  z-index: 500;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.nv-mono-popup.is-open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.nv-popup-inner { padding: 28px 28px 24px; }
+
+.nv-popup-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.nv-popup-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #111;
+}
+
+.nv-popup-close {
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  color: #888;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.nv-popup-close:hover { color: #111; }
+
+.nv-popup-sub {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: #aaa;
+  margin-bottom: 18px;
+}
+
+.nv-popup-field { margin-bottom: 14px; }
+
+.nv-popup-lbl {
+  display: block;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+
+.nv-popup-input {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 0;
+  padding: 11px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #111;
+  outline: none;
+  background: #fff;
+  appearance: none;
+  transition: border-color 0.2s;
+}
+
+.nv-popup-input:focus { border-color: #111; }
+
+.nv-popup-confirm {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background 0.2s;
+}
+
+.nv-popup-confirm:hover { background: #333; }
+
+/* DETAILS PANEL */
+.nv-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 38%;
+  height: 100vh;
+  background: #fff;
+  z-index: 800;
+  transform: translateX(100%);
+  transition: transform 0.48s cubic-bezier(0.77,0,0.175,1);
+  overflow-y: auto;
+  box-shadow: -4px 0 48px rgba(0,0,0,0.07);
+}
+
+.nv-panel.is-open { transform: translateX(0); }
+
+.nv-panel-inner { padding: 52px 40px 64px; }
+
+.nv-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.nv-panel-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: #111;
+}
+
+.nv-panel-close {
+  background: none;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  color: #111;
+  padding: 0;
+  line-height: 1;
+  transition: opacity 0.2s;
+}
+
+.nv-panel-close:hover { opacity: 0.5; }
+
+.nv-panel-row {
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.nv-panel-row:last-child { border-bottom: none; margin-bottom: 0; }
+
+.nv-panel-lbl {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #aaa;
+  margin-bottom: 9px;
+}
+
+.nv-panel-txt {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+  color: #333;
+}
+
+.nv-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.28);
+  z-index: 799;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.nv-overlay.is-visible { opacity: 1; pointer-events: all; }
+
+/* LIGHTBOX */
+.nv-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s;
+}
+
+.nv-lightbox.is-open { opacity: 1; pointer-events: all; }
+
+.nv-lb-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.77,0,0.175,1);
+}
+
+.nv-lb-slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 80px;
+}
+
+.nv-lb-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+
+.nv-lb-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 2010;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.nv-lb-close:hover { color: #fff; }
+
+.nv-lb-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 2010;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.nv-lb-arrow:hover { color: #fff; }
+.nv-lb-prev { left: 12px; }
+.nv-lb-next { right: 12px; }
+
+.nv-lb-counter {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.5);
+  pointer-events: none;
+}
+
+.nv-lb-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1999;
+  display: none;
+}
+
+.nv-lb-overlay.is-visible { display: block; }
+
+/* DESCRIPTION */
+.nv-desc-section {
+  background: #fff;
+  padding: 100px 24px;
+}
+
+.nv-desc-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.nv-desc-inner p {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 2.1;
+  color: #444;
+  letter-spacing: 0.03em;
+  margin-bottom: 26px;
+}
+
+.nv-desc-inner p:last-child { margin-bottom: 0; }
+
+/* VIDEO */
+.nv-video-section {
+  width: 100%;
+  background: #000;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.nv-video {
+  width: 100%;
+  height: 85vh;
+  min-height: 700px;
+  object-fit: cover;
+  display: block;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .nv-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .nv-img-col {
+    position: relative;
+    height: 80vw;
+    min-height: 300px;
+  }
+
+  .nv-info-col {
+    padding: 36px 20px 60px;
+    min-height: auto;
+  }
+
+  .nv-info-inner { max-width: 100%; }
+
+  .nv-title { font-size: 18px; }
+
+  .nv-panel { width: 100vw; }
+
+  .nv-mono-popup {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    transform: translateY(12px);
+  }
+
+  .nv-mono-popup.is-open { transform: translateY(0); }
+
+  .nv-video { height: 60vw; min-height: 320px; }
+
+  .nv-desc-section { padding: 64px 20px; }
+
+  .nv-lb-slide { padding: 20px 48px; }
+}
+{% endstylesheet %}
+
+<script>
+(function() {
+
+  /* ── QUANTITY ── */
+  var qty = document.getElementById('nv-qty');
+  var formQty = document.getElementById('nv-form-qty');
+  document.getElementById('nv-minus') && document.getElementById('nv-minus').addEventListener('click', function() {
+    var v = parseInt(qty.textContent); if (v > 1) { qty.textContent = v - 1; if (formQty) formQty.value = v - 1; }
+  });
+  document.getElementById('nv-plus') && document.getElementById('nv-plus').addEventListener('click', function() {
+    var v = parseInt(qty.textContent); qty.textContent = v + 1; if (formQty) formQty.value = v + 1;
+  });
+
+  /* ── CAROUSEL ── */
+  var track = document.getElementById('nv-track');
+  var counter = document.getElementById('nv-counter');
+  var slides = track ? track.querySelectorAll('.nv-slide') : [];
+  var total = slides.length;
+  var current = 0;
+
+  function goTo(n) {
+    if (total === 0) return;
+    current = (n + total) % total;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    if (counter) counter.textContent = (current + 1) + ' / ' + total;
+  }
+
+  document.getElementById('nv-prev') && document.getElementById('nv-prev').addEventListener('click', function(e) { e.stopPropagation(); goTo(current - 1); });
+  document.getElementById('nv-next') && document.getElementById('nv-next').addEventListener('click', function(e) { e.stopPropagation(); goTo(current + 1); });
+
+  /* swipe/drag on carousel */
+  var carousel = document.getElementById('nv-carousel');
+  if (carousel) {
+    var startX = 0, isDragging = false;
+    carousel.addEventListener('mousedown', function(e) { startX = e.clientX; isDragging = true; });
+    carousel.addEventListener('mousemove', function(e) { if (isDragging) e.preventDefault(); });
+    carousel.addEventListener('mouseup', function(e) {
+      if (!isDragging) return; isDragging = false;
+      var diff = startX - e.clientX;
+      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+    });
+    carousel.addEventListener('mouseleave', function() { isDragging = false; });
+    carousel.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, {passive: true});
+    carousel.addEventListener('touchend', function(e) {
+      var diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+    }, {passive: true});
+  }
+
+  /* ── LIGHTBOX ── */
+  var lb = document.getElementById('nv-lightbox');
+  var lbOverlay = document.getElementById('nv-lb-overlay');
+  var lbTrack = document.getElementById('nv-lb-track');
+  var lbCounter = document.getElementById('nv-lb-counter');
+  var lbCurrent = 0;
+
+  function lbGoTo(n) {
+    lbCurrent = (n + total) % total;
+    lbTrack.style.transform = 'translateX(-' + (lbCurrent * 100) + '%)';
+    if (lbCounter) lbCounter.textContent = (lbCurrent + 1) + ' / ' + total;
+  }
+
+  function openLightbox(idx) {
+    lb.classList.add('is-open');
+    lbOverlay.classList.add('is-visible');
+    lbGoTo(idx);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('is-open');
+    lbOverlay.classList.remove('is-visible');
+    document.body.style.overflow = '';
+  }
+
+  carousel && carousel.addEventListener('click', function(e) {
+    var slide = e.target.closest('.nv-slide');
+    if (!slide) return;
+    var index = parseInt(slide.dataset.index);
+    openLightbox(index);
+  });
+
+  document.getElementById('nv-lb-close') && document.getElementById('nv-lb-close').addEventListener('click', closeLightbox);
+  document.getElementById('nv-lb-prev') && document.getElementById('nv-lb-prev').addEventListener('click', function(e) { e.stopPropagation(); lbGoTo(lbCurrent - 1); });
+  document.getElementById('nv-lb-next') && document.getElementById('nv-lb-next').addEventListener('click', function(e) { e.stopPropagation(); lbGoTo(lbCurrent + 1); });
+  lbOverlay && lbOverlay.addEventListener('click', closeLightbox);
+
+  /* lightbox swipe */
+  if (lb) {
+    var lbStartX = 0;
+    lb.addEventListener('touchstart', function(e) { lbStartX = e.touches[0].clientX; }, {passive: true});
+    lb.addEventListener('touchend', function(e) {
+      var diff = lbStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) lbGoTo(diff > 0 ? lbCurrent + 1 : lbCurrent - 1);
+    }, {passive: true});
+  }
+
+  /* keyboard nav */
+  document.addEventListener('keydown', function(e) {
+    if (lb && lb.classList.contains('is-open')) {
+      if (e.key === 'ArrowLeft') lbGoTo(lbCurrent - 1);
+      if (e.key === 'ArrowRight') lbGoTo(lbCurrent + 1);
+      if (e.key === 'Escape') closeLightbox();
+    }
+  });
+
+  /* ── DETAILS PANEL ── */
+  var panel = document.getElementById('nv-panel');
+  var overlay = document.getElementById('nv-overlay');
+  var trigger = document.getElementById('nv-details-trigger');
+  var icon = document.getElementById('nv-details-icon');
+  var panelClose = document.getElementById('nv-panel-close');
+
+  function openPanel() { panel.classList.add('is-open'); overlay.classList.add('is-visible'); if (icon) icon.style.transform = 'rotate(45deg)'; }
+  function closePanel() { panel.classList.remove('is-open'); overlay.classList.remove('is-visible'); if (icon) icon.style.transform = 'rotate(0deg)'; }
+
+  trigger && trigger.addEventListener('click', function() { panel.classList.contains('is-open') ? closePanel() : openPanel(); });
+  overlay && overlay.addEventListener('click', closePanel);
+  panelClose && panelClose.addEventListener('click', closePanel);
+
+  /* ── MONOGRAM POPUP ── */
+  var monoBtn = document.getElementById('nv-mono-btn');
+  var monoPopup = document.getElementById('nv-mono-popup');
+  var popupClose = document.getElementById('nv-popup-close');
+  var monoInput = document.getElementById('nv-popup-input');
+
+  function openPopup() { monoPopup.classList.add('is-open'); if (monoInput) setTimeout(function(){ monoInput.focus(); }, 280); }
+  function closePopup() { monoPopup.classList.remove('is-open'); }
+
+  monoBtn && monoBtn.addEventListener('click', function(e) { e.stopPropagation(); monoPopup.classList.contains('is-open') ? closePopup() : openPopup(); });
+  popupClose && popupClose.addEventListener('click', closePopup);
+
+  document.addEventListener('click', function(e) {
+    var anchor = document.querySelector('.nv-mono-anchor');
+    if (anchor && !anchor.contains(e.target)) closePopup();
+  });
+
+  document.getElementById('nv-popup-confirm') && document.getElementById('nv-popup-confirm').addEventListener('click', function() {
+    var initials = monoInput ? monoInput.value.toUpperCase().trim() : '';
+    var color = document.getElementById('nv-popup-color') ? document.getElementById('nv-popup-color').value : '';
+    if (initials.length > 0) {
+      this.textContent = '✓ SAVED';
+      this.style.background = '#2a7a4b';
+      setTimeout(function() { closePopup(); }, 1200);
+    } else {
+      monoInput && monoInput.focus();
+    }
+  });
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Product YSL",
+  "settings": [
+    {
+      "type": "text",
+      "id": "reservation_count",
+      "label": "Reservation Count",
+      "default": "37/40 RESERVED"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL",
+      "default": "https://cdn.shopify.com/videos/c/o/v/c3bfccf134ac45f3bcfdf356f0838a00.mp4"
+    },
+    {
+      "type": "range",
+      "id": "video_padding_top",
+      "label": "Video Top Padding (px)",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "video_padding_bottom",
+      "label": "Video Bottom Padding (px)",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "detail",
+      "name": "Detail Block",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Material" },
+        { "type": "textarea", "id": "content", "label": "Content", "default": "Full-grain cow leather with polyester twill lining" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product YSL",
+      "category": "Product",
+      "blocks": [
+        { "type": "detail", "settings": { "heading": "Material", "content": "Full-grain cow leather with polyester twill lining" } },
+        { "type": "detail", "settings": { "heading": "Weight", "content": "Approx. 650–900 g" } },
+        { "type": "detail", "settings": { "heading": "Dimensions", "content": "L: XX cm · H: XX cm · W: XX cm" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
