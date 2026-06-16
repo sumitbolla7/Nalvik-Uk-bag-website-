@@ -1,374 +1,483 @@
-{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+{% comment %}
+  NALVIK — FAQ Page Redesign with Demellier Aesthetics
+{% endcomment %}
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-.nv-faq-wrap {
+.faq-hero {
+  position: relative;
   width: 100%;
-  background: #fff;
-  font-family: 'Inter', 'Helvetica Neue', sans-serif;
-  padding: 80px 40px 120px;
+  height: 400px;
+  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.nv-faq-inner {
-  max-width: 760px;
-  margin: 0 auto;
+.faq-hero img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
 }
 
-.nv-faq-page-title {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.36em;
-  text-transform: uppercase;
-  color: #111;
+.faq-hero__content {
+  position: relative;
+  z-index: 2;
   text-align: center;
-  margin-bottom: 72px;
 }
 
-.nv-faq-category {
-  margin-bottom: 0;
+.faq-hero__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px;
+  font-weight: 300;
+  color: #ffffff;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.faq-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 48px;
+  background-color: #ffffff;
+}
+
+.faq-title-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.faq-sections-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.faq-section-group {
   border-top: 1px solid #e5e5e5;
+  padding-top: 30px;
 }
 
-.nv-faq-category:last-child {
-  border-bottom: 1px solid #e5e5e5;
+.faq-section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: #000000;
+  margin-bottom: 24px;
+  text-transform: uppercase;
 }
 
-.nv-faq-cat-header {
+.faq-accordion-item {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.faq-accordion-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 22px 0;
   cursor: pointer;
   user-select: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
 }
 
-.nv-faq-category.is-open .nv-faq-cat-header {
-  border-bottom-color: #e5e5e5;
-}
-
-.nv-faq-cat-title {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.28em;
+.faq-question-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: #000000;
   text-transform: uppercase;
-  color: #111;
-}
-
-.nv-faq-cat-icon {
-  font-size: 18px;
-  font-weight: 300;
-  color: #111;
-  line-height: 1;
-  transition: transform 0.35s cubic-bezier(0.77,0,0.175,1);
-  flex-shrink: 0;
-}
-
-.nv-faq-category.is-open .nv-faq-cat-icon {
-  transform: rotate(45deg);
-}
-
-.nv-faq-cat-body {
-  display: none;
-  padding-bottom: 8px;
-}
-
-.nv-faq-category.is-open .nv-faq-cat-body {
-  display: block;
-}
-
-.nv-faq-item {
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.nv-faq-item:last-child {
-  border-bottom: none;
-}
-
-.nv-faq-q {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 18px 0;
-  cursor: pointer;
-  user-select: none;
-  gap: 20px;
 }
 
-.nv-faq-q-text {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #111;
-  line-height: 1.5;
-}
-
-.nv-faq-q-icon {
-  font-size: 14px;
+.faq-question-text::before {
+  content: "+ ";
+  margin-right: 12px;
   font-weight: 300;
-  color: #888;
-  flex-shrink: 0;
-  line-height: 1;
-  transition: transform 0.3s cubic-bezier(0.77,0,0.175,1);
+  font-size: 14px;
 }
 
-.nv-faq-item.is-open .nv-faq-q-icon {
-  transform: rotate(45deg);
-  color: #111;
+.faq-accordion-item.is-open .faq-question-text::before {
+  content: "− ";
 }
 
-.nv-faq-a {
-  display: none;
-  padding: 0 0 20px;
+.faq-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
 }
 
-.nv-faq-item.is-open .nv-faq-a {
-  display: block;
+.faq-accordion-item.is-open .faq-accordion-content {
+  max-height: 1000px;
+  transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
 }
 
-.nv-faq-a p {
+.faq-answer-inner {
+  padding: 0 0 24px 22px;
+}
+
+.faq-answer-inner p {
+  font-family: 'Montserrat', sans-serif;
   font-size: 11px;
   font-weight: 400;
+  line-height: 1.8;
   letter-spacing: 0.08em;
-  line-height: 1.9;
-  color: #555;
-  text-transform: uppercase;
+  color: #555555;
+  margin: 0;
+  text-transform: none;
 }
 
-.nv-faq-contact-strip {
-  margin-top: 72px;
-  padding: 40px 0;
-  border-top: 1px solid #e5e5e5;
-  text-align: center;
-}
-
-.nv-faq-contact-text {
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #777;
-  margin-bottom: 24px;
-}
-
-.nv-faq-contact-link {
-  display: inline-block;
-  background: #111;
-  color: #fff;
-  padding: 16px 40px;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 1px solid #111;
-  font-family: 'Inter', 'Helvetica Neue', sans-serif;
-  transition: background 0.2s, color 0.2s;
-}
-
-.nv-faq-contact-link:hover {
-  background: #fff;
-  color: #111;
-}
-
-@media (max-width: 600px) {
-  .nv-faq-wrap { padding: 56px 20px 80px; }
-  .nv-faq-page-title { margin-bottom: 48px; }
+@media (max-width: 749px) {
+  .faq-hero {
+    height: 250px;
+  }
+  .faq-hero__title {
+    font-size: 38px;
+  }
+  .faq-container {
+    padding: 48px 24px;
+  }
+  .faq-title-main {
+    margin-bottom: 40px;
+  }
 }
 </style>
 
-<div class="nv-faq-wrap">
-  <div class="nv-faq-inner">
-
-    <p class="nv-faq-page-title">FREQUENTLY ASKED QUESTIONS</p>
-
-    <!-- 1. ORDERS & AVAILABILITY -->
-    <div class="nv-faq-category" id="nv-cat-1">
-      <div class="nv-faq-cat-header" data-cat="nv-cat-1">
-        <span class="nv-faq-cat-title">01 — ORDERS & AVAILABILITY</span>
-        <span class="nv-faq-cat-icon">+</span>
-      </div>
-      <div class="nv-faq-cat-body">
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WHY ARE PRODUCTS LIMITED?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>EACH NALVIK PIECE IS PRODUCED IN SMALL BATCHES. QUANTITIES ARE INTENTIONALLY RESTRICTED.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WILL SOLD-OUT ITEMS RETURN?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>NO. ONCE A PIECE IS SOLD OUT, IT IS NOT REPRODUCED.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">CAN I MODIFY OR CANCEL MY ORDER?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>ORDERS MAY BE MODIFIED OR CANCELLED AFTER PLACEMENT. PLEASE CONTACT US AT THE EARLIEST. OUR STAFF WOULD BE HAPPY TO ASSIST.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">HOW DO I KNOW ABOUT NEW RELEASES?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>PLEASE SUBSCRIBE OR FOLLOW OUR UPDATES TO STAY INFORMED ABOUT UPCOMING RELEASES.</p></div>
-        </div>
-      </div>
+<div class="faq-page">
+  <!-- FAQ Hero Banner -->
+  <div class="faq-hero">
+    {%- if section.settings.banner_image != blank -%}
+      <img src="{{ section.settings.banner_image | image_url: width: 1800 }}" alt="FAQ Banner">
+    {%- else -%}
+      <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/first_image.png?v=1781546314" alt="FAQ Banner">
+    {%- endif -%}
+    <div class="faq-hero__content">
+      <h1 class="faq-hero__title">FAQ</h1>
     </div>
+  </div>
 
-    <!-- 2. EARLY ACCESS -->
-    <div class="nv-faq-category" id="nv-cat-2">
-      <div class="nv-faq-cat-header" data-cat="nv-cat-2">
-        <span class="nv-faq-cat-title">02 — EARLY ACCESS</span>
-        <span class="nv-faq-cat-icon">+</span>
+  <div class="faq-container">
+    <div class="faq-title-main">NALVIK — FREQUENTLY ASKED QUESTIONS</div>
+
+    <div class="faq-sections-grid">
+      <!-- 1. Orders & Availability -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">1. Orders & Availability</h2>
+        <div class="faq-accordions">
+          
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Where do you ship?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Nalvik ships worldwide. Delivery timelines may vary depending on location and courier conditions Shipping is always free..</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Can I modify or cancel my order?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Orders may be modified or cancelled after placement. Please contact us at the earliest. Our staff would be happy to assist.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Why are products limited?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Each Nalvik piece is produced in limited edition only. Once it gets sold out, it won’t be made again..</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">How do I know about new releases?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Please subscribe or follow our updates to stay informed about upcoming releases.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="nv-faq-cat-body">
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WHAT IS EARLY ACCESS?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>EARLY ACCESS IS A RESTRICTED RELEASE WINDOW OFFERED TO A LIMITED GROUP PRIOR TO PUBLIC AVAILABILITY.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WHO RECEIVES EARLY ACCESS?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>ACCESS IS EXTENDED SELECTIVELY. IT IS NOT AUTOMATICALLY GRANTED.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">HOW CAN I BE CONSIDERED FOR EARLY ACCESS?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>YOU MAY KINDLY SUBMIT YOUR INTEREST BY REGISTERING YOUR EMAIL OR CONTACTING US DIRECTLY. OUR STAFF WOULD BE HAPPY TO ASSIST.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WHY IS ACCESS LIMITED?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>EACH RELEASE IS PRODUCED IN SMALL QUANTITIES. LIMITING ACCESS ENSURES CONTROLLED DISTRIBUTION.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">HOW WILL I KNOW IF I'VE BEEN SELECTED?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>SELECTED INDIVIDUALS WILL BE NOTIFIED DIRECTLY VIA EMAIL.</p></div>
+
+      <!-- 2. Early Access -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">2. Early Access</h2>
+        <div class="faq-accordions">
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What is Early Access?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Early Access is a restricted release window offered to a limited group prior to public availability.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Who receives Early Access?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Access is extended selectively. It is not automatically granted.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">How can I be considered for Early Access?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>You may kindly submit your interest by registering your email or contacting us directly. Our staff would be happy to assist.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">How will I know if I’ve been selected?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Selected individuals will be notified directly via email.</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
+
+      <!-- 3. Shipping & Delivery -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">3. Shipping & Delivery</h2>
+        <div class="faq-accordions">
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What is the delivery timeline?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Ready-to-ship orders are delivered within 3–7 business days.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">How can I track my order?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>A tracking link is shared upon dispatch. You will also receive order updates via email.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What if I enter an incorrect shipping address?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Please contact us immediately. We will assist if the order has not yet been dispatched.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What if my order is delayed?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Delays may occur due to courier or external factors. Please allow additional time where required. Feel free to contact us if any concern.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 4. Returns & Exchanges -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">4. Returns & Exchanges</h2>
+        <div class="faq-accordions">
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Do you accept returns?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Returns are accepted only for items that arrive damaged or defective.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Do you offer exchanges?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>No. Exchanges are not available.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What if I receive a damaged item?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Please contact us within 4 days of delivery with supporting images. Our staff would be happy to assist.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 5. Payments & Pricing -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">5. Payments & Pricing</h2>
+        <div class="faq-accordions">
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What payment methods are accepted?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>All major cards and secure payment gateways are supported.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Do you offer discounts?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>No. Nalvik does not operate on a discount model.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Are prices inclusive of taxes?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Yes. Prices are inclusive unless stated otherwise. Shipping is complimentary.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 6. Support -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">6. Support</h2>
+        <div class="faq-accordions">
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">How can I contact Nalvik?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Please reach us via the Contact page. Our staff would be happy to assist.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What is the response time?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Responses are typically provided within 24 hours.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
-
-    <!-- 3. SHIPPING & DELIVERY -->
-    <div class="nv-faq-category" id="nv-cat-3">
-      <div class="nv-faq-cat-header" data-cat="nv-cat-3">
-        <span class="nv-faq-cat-title">03 — SHIPPING & DELIVERY</span>
-        <span class="nv-faq-cat-icon">+</span>
-      </div>
-      <div class="nv-faq-cat-body">
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WHERE DO YOU SHIP?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>NALVIK SHIPS WORLDWIDE. DELIVERY TIMELINES MAY VARY DEPENDING ON LOCATION AND COURIER CONDITIONS.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WHAT IS THE DELIVERY TIMELINE?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>READY-TO-SHIP ORDERS ARE DELIVERED WITHIN 3–7 BUSINESS DAYS.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">HOW CAN I TRACK MY ORDER?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>A TRACKING LINK IS SHARED UPON DISPATCH. YOU WILL ALSO RECEIVE ORDER UPDATES VIA EMAIL.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WHAT IF I ENTER AN INCORRECT SHIPPING ADDRESS?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>PLEASE CONTACT US IMMEDIATELY. WE WILL ASSIST IF THE ORDER HAS NOT YET BEEN DISPATCHED.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WHAT IF MY ORDER IS DELAYED?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>DELAYS MAY OCCUR DUE TO COURIER OR EXTERNAL FACTORS. PLEASE ALLOW ADDITIONAL TIME WHERE REQUIRED.</p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. RETURNS & EXCHANGES -->
-    <div class="nv-faq-category" id="nv-cat-4">
-      <div class="nv-faq-cat-header" data-cat="nv-cat-4">
-        <span class="nv-faq-cat-title">04 — RETURNS & EXCHANGES</span>
-        <span class="nv-faq-cat-icon">+</span>
-      </div>
-      <div class="nv-faq-cat-body">
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">DO YOU ACCEPT RETURNS?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>RETURNS ARE ACCEPTED ONLY FOR ITEMS THAT ARRIVE DAMAGED OR DEFECTIVE.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">DO YOU OFFER EXCHANGES?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>NO. EXCHANGES ARE NOT AVAILABLE.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WHAT IF I RECEIVE A DAMAGED ITEM?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>PLEASE CONTACT US WITHIN 4 DAYS OF DELIVERY WITH SUPPORTING IMAGES. OUR STAFF WOULD BE HAPPY TO ASSIST.</p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. PAYMENTS & PRICING -->
-    <div class="nv-faq-category" id="nv-cat-5">
-      <div class="nv-faq-cat-header" data-cat="nv-cat-5">
-        <span class="nv-faq-cat-title">05 — PAYMENTS & PRICING</span>
-        <span class="nv-faq-cat-icon">+</span>
-      </div>
-      <div class="nv-faq-cat-body">
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WHAT PAYMENT METHODS ARE ACCEPTED?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>ALL MAJOR CARDS AND SECURE PAYMENT GATEWAYS ARE SUPPORTED.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">DO YOU OFFER DISCOUNTS?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>NO. NALVIK DOES NOT OPERATE ON A DISCOUNT MODEL.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">ARE PRICES INCLUSIVE OF TAXES?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>YES. PRICES ARE INCLUSIVE UNLESS STATED OTHERWISE. SHIPPING IS COMPLIMENTARY.</p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. SUPPORT -->
-    <div class="nv-faq-category" id="nv-cat-6">
-      <div class="nv-faq-cat-header" data-cat="nv-cat-6">
-        <span class="nv-faq-cat-title">06 — SUPPORT</span>
-        <span class="nv-faq-cat-icon">+</span>
-      </div>
-      <div class="nv-faq-cat-body">
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">HOW CAN I CONTACT NALVIK?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>PLEASE REACH US VIA <a href="/pages/contact" style="color:#111;text-decoration:underline;">THE CONTACT PAGE</a> OR DIRECTLY AT <a href="mailto:care@nalvik.com" style="color:#111;text-decoration:underline;">CARE@NALVIK.COM</a>. OUR STAFF WOULD BE HAPPY TO ASSIST.</p></div>
-        </div>
-        <div class="nv-faq-item">
-          <div class="nv-faq-q"><span class="nv-faq-q-text">WHAT IS THE RESPONSE TIME?</span><span class="nv-faq-q-icon">+</span></div>
-          <div class="nv-faq-a"><p>RESPONSES ARE TYPICALLY PROVIDED WITHIN 24–48 HOURS.</p></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="nv-faq-contact-strip">
-      <p class="nv-faq-contact-text">STILL HAVE A QUESTION? WE'RE HERE TO HELP.</p>
-      <a href="mailto:care@nalvik.com" class="nv-faq-contact-link">CONTACT US</a>
-    </div>
-
   </div>
 </div>
 
 <script>
-(function(){
-  document.querySelectorAll('.nv-faq-cat-header').forEach(function(header){
-    header.addEventListener('click', function(){
-      var cat = document.getElementById(header.getAttribute('data-cat'));
-      if(!cat) return;
-      var isOpen = cat.classList.contains('is-open');
-      document.querySelectorAll('.nv-faq-category').forEach(function(c){ c.classList.remove('is-open'); });
-      if(!isOpen) cat.classList.add('is-open');
+document.addEventListener('DOMContentLoaded', function() {
+  const headers = document.querySelectorAll('.faq-accordion-header');
+  headers.forEach(header => {
+    header.addEventListener('click', function() {
+      const item = this.parentElement;
+      const content = item.querySelector('.faq-accordion-content');
+      
+      const isOpen = item.classList.contains('is-open');
+      if (isOpen) {
+        item.classList.remove('is-open');
+        content.style.maxHeight = null;
+      } else {
+        item.classList.add('is-open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
     });
   });
-
-  document.querySelectorAll('.nv-faq-q').forEach(function(q){
-    q.addEventListener('click', function(){
-      var item = q.closest('.nv-faq-item');
-      if(!item) return;
-      var isOpen = item.classList.contains('is-open');
-      item.closest('.nv-faq-cat-body').querySelectorAll('.nv-faq-item').forEach(function(i){ i.classList.remove('is-open'); });
-      if(!isOpen) item.classList.add('is-open');
-    });
-  });
-})();
+});
 </script>
 
 {% schema %}
 {
   "name": "Nalvik FAQ",
-  "settings": [],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    }
+  ],
   "presets": [
     {
       "name": "Nalvik FAQ"

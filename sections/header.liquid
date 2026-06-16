@@ -10,138 +10,67 @@
 
   .nalvik-header-wrapper {
     width: 100%;
-    z-index: 100;
+    z-index: 9999;
     transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.3s ease;
   }
 
-  /* === HOMEPAGE: fixed + transparent by default === */
+  /* ================= HOMEPAGE HEADER (Transparent + White Text) ================= */
   .nalvik-header-wrapper.is-homepage {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: transparent;
-    box-shadow: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
   }
 
-  /* === WHITE STATE: hover OR scrolled (homepage) === */
-  .nalvik-header-wrapper.is-homepage.scrolled,
-  .nalvik-header-wrapper.is-homepage:hover {
+  .nalvik-header-wrapper.is-homepage .nalvik-logo span,
+  .nalvik-header-wrapper.is-homepage .nalvik-nav-link,
+  .nalvik-header-wrapper.is-homepage .nalvik-mobile-logo span {
+    color: #ffffff !important;
+  }
+
+  .nalvik-header-wrapper.is-homepage .nalvik-hamburger span {
     background: #ffffff !important;
-    {% comment %} box-shadow: 0 1px 12px rgba(0,0,0,0.08) !important; {% endcomment %}
-    color:#1a1a1a;
   }
 
-  /* === Desktop logo + nav text goes dark on scroll/hover === */
-  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-logo span,
-  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-nav-link,
-  .nalvik-header-wrapper.is-homepage:hover .nalvik-logo span,
-  .nalvik-header-wrapper.is-homepage:hover .nalvik-nav-link {
-    color: #1a1a1a;
+  .nalvik-header-wrapper.is-homepage .nalvik-cart-count {
+    background: #ffffff !important;
+    color: #000000 !important;
   }
 
-  /* === Desktop hamburger lines go dark on scroll/hover === */
-  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-hamburger span,
-  .nalvik-header-wrapper.is-homepage:hover .nalvik-hamburger span {
-    background: #1a1a1a;
-  }
-
-  /* === Cart count badge goes dark on scroll/hover === */
-  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-cart-count,
-  .nalvik-header-wrapper.is-homepage:hover .nalvik-cart-count {
-    background: #1a1a1a;
-    color: #ffffff;
-  }
-
-  /* === Mobile logo text goes dark on scroll/hover === */
-  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-mobile-logo span,
-  .nalvik-header-wrapper.is-homepage:hover .nalvik-mobile-logo span {
-    color: #1a1a1a;
-  }
-
-  /* === Mobile cart link goes dark on scroll/hover === */
-  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-mobile-header .nalvik-nav-link,
-  .nalvik-header-wrapper.is-homepage:hover .nalvik-mobile-header .nalvik-nav-link {
-    color: #1a1a1a;
-  }
-
-  /* === Mobile hamburger lines go dark on scroll/hover === */
-  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-mobile-header .nalvik-hamburger span,
-  .nalvik-header-wrapper.is-homepage:hover .nalvik-mobile-header .nalvik-hamburger span {
-    background: #1a1a1a;
-  }
-
-  /* === NON-HOMEPAGE: always sticky white === */
+  /* ================= OTHER PAGES HEADER (White Bg + Black Text) ================= */
   .nalvik-header-wrapper:not(.is-homepage) {
-    position: sticky;
-    top: 0;
-    background: #ffffff;
-    box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+    position: sticky !important;
+    top: 0 !important;
+    background: #ffffff !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.06) !important;
   }
 
   .nalvik-header-wrapper:not(.is-homepage) .nalvik-logo span,
-  .nalvik-header-wrapper:not(.is-homepage) .nalvik-nav-link {
-    color: #1a1a1a;
-  }
-
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-nav-link,
   .nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-logo span {
-    color: #1a1a1a;
+    color: #000000 !important;
   }
 
   .nalvik-header-wrapper:not(.is-homepage) .nalvik-hamburger span {
-    background: #1a1a1a;
+    background: #000000 !important;
   }
 
   .nalvik-header-wrapper:not(.is-homepage) .nalvik-cart-count {
-    background: #1a1a1a;
-    color: #ffffff;
+    background: #000000 !important;
+    color: #ffffff !important;
   }
 
   .nalvik-header-wrapper.hide-header {
     transform: translateY(-100%);
   }
 
-  /* ===== FIX OVERLAY / BLUR ISSUE ===== */
-.section-header {
-position: sticky !important;
-top: 0;
-z-index: 9999;
-background:#ffffff;
-}
-
-/* ===== FORCE CLEAN BACKGROUND ===== */
-.nalvik-header-wrapper {
-position: sticky !important;
-top: 0;
-width: 100%;
-z-index: 9999;
-background: transparent !important;
-transition: all 0.3s ease;
-
-}
-
-/* ===== HOVER + SCROLL (CLEAN WHITE) ===== */
-.nalvik-header-wrapper.scrolled,
-.nalvik-header-wrapper:hover {
-background: #ffffff !important;
-backdrop-filter: none !important; /* 🔥 REMOVE BLUR EFFECT */
-}
-
-/* ===== TEXT FIX ===== */
-.nalvik-header-wrapper.scrolled .nalvik-logo span,
-.nalvik-header-wrapper.scrolled .nalvik-nav-link,
-.nalvik-header-wrapper:hover .nalvik-logo span,
-.nalvik-header-wrapper:hover .nalvik-nav-link {
-color: #000000 !important;
-
-}
-
-/* ===== DEFAULT WHITE TEXT ===== */
-.nalvik-header-wrapper .nalvik-logo span,
-.nalvik-header-wrapper .nalvik-nav-link {
-{% comment %} color: #ffffff !important; {% endcomment %}
- 
-}
-
+  .section-header {
+    position: sticky !important;
+    top: 0;
+    z-index: 9999;
+  }
 
   .nalvik-header {
     display: flex;
@@ -150,7 +79,6 @@ color: #000000 !important;
     max-width: 1400px;
     margin: 0 auto;
     padding: 22px 48px;
-    
   }
 
   .nalvik-left-group {
@@ -171,7 +99,6 @@ color: #000000 !important;
     letter-spacing: 0.25em;
     font-weight: 500;
     font-style: normal;
-    color: #000000;
     white-space: nowrap;
     text-transform: uppercase;
     transition: color 0.25s ease;
@@ -198,7 +125,6 @@ color: #000000 !important;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     font-weight: 500;
-    color: #000000;
     text-decoration: none;
     transition: color 0.25s ease, opacity 0.2s;
     white-space: nowrap;
@@ -212,8 +138,6 @@ color: #000000 !important;
     position: absolute;
     top: -6px;
     right: -10px;
-    background: #ffffff;
-    color: #1a1a1a;
     font-size: 8px;
     width: 14px;
     height: 14px;
@@ -236,12 +160,11 @@ color: #000000 !important;
     text-decoration: none;
   }
 
-.nalvik-mobile-logo span {
+  .nalvik-mobile-logo span {
     font-family: 'Cormorant Garamond', serif;
     font-size: 22px;
     letter-spacing: 0.25em;
     font-weight: 500;
-    color: #000000;
     text-transform: uppercase;
     transition: color 0.25s ease;
   }
@@ -256,15 +179,14 @@ color: #000000 !important;
     padding: 4px;
   }
 
- .nalvik-hamburger span {
+  .nalvik-hamburger span {
     display: block;
     width: 22px;
     height: 1px;
-    background: #000000 !important;
     transition: background 0.25s ease, transform 0.3s;
   }
 
- .nalvik-drawer {
+  .nalvik-drawer {
     display: none;
     flex-direction: column;
     padding: 24px;
@@ -272,100 +194,21 @@ color: #000000 !important;
     gap: 20px;
     background: #000000 !important;
   }
+  
   .nalvik-drawer.is-open { display: flex; }
 
-  /* Drawer nav links always white (dark bg drawer) */
- .nalvik-drawer .nalvik-nav-link {
+  .nalvik-drawer .nalvik-nav-link {
     color: #ffffff !important;
   }
 
-  /* ================= STICKY NAVBAR ================= */
-.nalvik-header-wrapper {
-position: sticky !important;
-top: 0;
-width: 100%;
-z-index: 9999;
-background: transparent;
-transition: all 0.3s ease;
-}
-
-/* ================= DEFAULT (TOP STATE) ================= */
-.nalvik-header-wrapper .nalvik-logo span,
-.nalvik-header-wrapper .nalvik-nav-link,
-.nalvik-header-wrapper .nalvik-mobile-logo span {
-color: #000000 !important;
-transition: color 0.25s ease;
-}
-
-/* ================= HOVER + SCROLL SAME ================= */
-.nalvik-header-wrapper.scrolled,
-.nalvik-header-wrapper:hover {
-background: #ffffff !important;
-box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-backdrop-filter: blur(8px);
-}
-
-/* TEXT → BLACK */
-.nalvik-header-wrapper.scrolled .nalvik-logo span,
-.nalvik-header-wrapper.scrolled .nalvik-nav-link,
-.nalvik-header-wrapper.scrolled .nalvik-mobile-logo span,
-.nalvik-header-wrapper:hover .nalvik-logo span,
-.nalvik-header-wrapper:hover .nalvik-nav-link,
-.nalvik-header-wrapper:hover .nalvik-mobile-logo span {
-color: #000000 !important;
-}
-
-/* ================= HAMBURGER ================= */
-.nalvik-header-wrapper .nalvik-hamburger span {
-background: #000000 !important;
-transition: background 0.25s ease;
-}
-
-.nalvik-header-wrapper.scrolled .nalvik-hamburger span,
-.nalvik-header-wrapper:hover .nalvik-hamburger span {
-background: #000000 !important;
-}
-/* ================= CART BADGE ================= */
-.nalvik-header-wrapper .nalvik-cart-count {
-background: #ffffff !important;
-color: #000000 !important;
-}
-
-.nalvik-header-wrapper.scrolled .nalvik-cart-count,
-.nalvik-header-wrapper:hover .nalvik-cart-count {
-background: #000000 !important;
-color: #ffffff !important;
-}
-
-/* ================= RESPONSIVE FIX ================= */
-@media (max-width: 989px) {
-
-.nalvik-mobile-header {
-display: flex !important;
-}
-
-.nalvik-header {
-display: none !important;
-}
-
-/* mobile text behavior */
-.nalvik-header-wrapper.scrolled .nalvik-mobile-logo span,
-.nalvik-header-wrapper:hover .nalvik-mobile-logo span {
-color: #000000 !important;
-}
-}
-
-/* ================= REMOVE CONFLICTS ================= */
-.nalvik-header-wrapper.is-homepage {
-background: transparent !important;
-}
-
-.nalvik-header-wrapper.is-homepage.scrolled,
-.nalvik-header-wrapper.is-homepage:hover {
-background: #ffffff !important;
-}
-
-  
+  @media (max-width: 989px) {
+    .nalvik-mobile-header {
+      display: flex !important;
+    }
+    .nalvik-header {
+      display: none !important;
+    }
+  }
 
   @media screen and (max-width: 989px) {
     .nalvik-header { display: none; }
@@ -376,86 +219,13 @@ background: #ffffff !important;
     .nalvik-mobile-header { display: none; }
     .nalvik-drawer { display: none !important; }
   }
-  /* ================= FINAL CLEAN NAVBAR ================= */
 
-.nalvik-header-wrapper {
-position: sticky;
-top: 0;
-width: 100%;
-z-index: 9999;
-background: transparent;
-transition: all 0.3s ease;
-}
-
-/* DEFAULT */
-.nalvik-logo span,
-.nalvik-nav-link,
-.nalvik-mobile-logo span {
-color: #ffffff;
-transition: color 0.25s ease;
-}
-
-/* HOVER + SCROLL */
-.nalvik-header-wrapper,
-.nalvik-header-wrapper.scrolled {
-background: #ffffff;
-box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-}
-
-/* TEXT BLACK */
-.nalvik-header-wrapper .nalvik-logo span,
-.nalvik-header-wrapper .nalvik-nav-link,
-.nalvik-header-wrapper.scrolled .nalvik-logo span,
-.nalvik-header-wrapper.scrolled .nalvik-nav-link {
-color: #000000;
-}
-
-/* HAMBURGER */
-.nalvik-hamburger span {
-background: #000000;
-}
-
-.nalvik-header-wrapper .nalvik-hamburger span,
-.nalvik-header-wrapper.scrolled .nalvik-hamburger span {
-background: #000000;
-}
-
-/* CART */
-.nalvik-cart-count {
-background: #ffffff;
-color: #000000;
-}
-
-.nalvik-header-wrapper .nalvik-cart-count,
-.nalvik-header-wrapper.scrolled .nalvik-cart-count {
-background: #000;
-color: #fff;
-}
-
-/* Mobile header always white bg on non-homepage */
-.nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-header {
-  background: #ffffff;
-}
-
-.nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-logo span {
-  color: #000000 !important;
-}
-
-.nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-header .nalvik-hamburger span {
-  background: #000000 !important;
-}
-
-.nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-header .nalvik-nav-link {
-  color: #000000 !important;
-}
-/* ===== DRAWER LINKS ALWAYS WHITE — MUST BE LAST ===== */
-#NalvikDrawer .nalvik-nav-link,
-#NalvikDrawer a {
-  color: #ffffff !important;
-  opacity: 1 !important;
-}
-
-
+  /* ===== DRAWER LINKS ALWAYS WHITE — MUST BE LAST ===== */
+  #NalvikDrawer .nalvik-nav-link,
+  #NalvikDrawer a {
+    color: #ffffff !important;
+    opacity: 1 !important;
+  }
 </style>
 
 {%- style -%}

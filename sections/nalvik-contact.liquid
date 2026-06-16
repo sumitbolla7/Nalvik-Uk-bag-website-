@@ -84,23 +84,23 @@
 
     <!-- FAQ -->
     <div class="nk-contact__col">
-      <p class="nk-contact__heading">{{ section.settings.col1_heading | default: 'Frequently Asked Questions' }}</p>
-      <p class="nk-contact__body">{{ section.settings.col1_body | default: 'Find answers to common questions about our editions, shipping, and returns. You can also track your order through our FAQ page.' }}</p>
+      <p class="nk-contact__heading">{{ section.settings.col1_heading | default: 'FREQUENTLY ASKED QUESTIONS' }}</p>
+      <p class="nk-contact__body">{{ section.settings.col1_body | default: "YOU CAN ALSO USE THIS AREA TO CONSULT THE FAQ'S, FOLLOW YOUR ORDER AND TRACK YOUR RETURN." }}</p>
       <a href="{{ section.settings.col1_btn_url | default: '/pages/faq' }}" class="nk-contact__btn">{{ section.settings.col1_btn_label | default: 'FAQ' }}</a>
     </div>
 
     <!-- Contact / WhatsApp -->
     <div class="nk-contact__col">
-      <p class="nk-contact__heading">{{ section.settings.col2_heading | default: 'Contact Us' }}</p>
-      <p class="nk-contact__body">{{ section.settings.col2_body | default: 'Speak to one of our team members directly.' | newline_to_br }}</p>
-      <a href="{{ section.settings.col2_btn_url | default: '/pages/contact' }}" class="nk-contact__btn">{{ section.settings.col2_btn_label | default: 'Contact Us' }}</a>
+      <p class="nk-contact__heading">{{ section.settings.col2_heading | default: 'CALL US' }}</p>
+      <p class="nk-contact__body">{{ section.settings.col2_body | default: "SPEAK TO ONE OF OUR AMBASSADORS AT:<br>+91 9955800734<br>MON-SAT 9AM-7PM EST" }}</p>
+      <a href="{{ section.settings.col2_btn_url | default: 'tel:+919955800734' }}" class="nk-contact__btn">{{ section.settings.col2_btn_label | default: 'CALL US' }}</a>
     </div>
 
     <!-- Email -->
     <div class="nk-contact__col nk-contact__col--full">
-      <p class="nk-contact__heading">{{ section.settings.col3_heading | default: 'Email' }}</p>
-      <p class="nk-contact__body">{{ section.settings.col3_body | default: 'We strive to reply to you within 48 hours during business days.' }}</p>
-      <a href="{{ section.settings.col3_btn_url | default: 'mailto:hello@nalvik.com' }}" class="nk-contact__btn">{{ section.settings.col3_btn_label | default: 'Email Us' }}</a>
+      <p class="nk-contact__heading">{{ section.settings.col3_heading | default: 'EMAIL' }}</p>
+      <p class="nk-contact__body">{{ section.settings.col3_body | default: 'WE STRIVE TO REPLY TO YOU WITHIN 48H DURING BUSINESS DAYS.' }}</p>
+      <a href="{{ section.settings.col3_btn_url | default: 'mailto:care@nalvik.com' }}" class="nk-contact__btn">{{ section.settings.col3_btn_label | default: 'EMAIL US' }}</a>
     </div>
 
   </div>
@@ -113,22 +113,22 @@
   "class": "nalvik-contact-section",
   "settings": [
     { "type": "header", "content": "Column 1 — FAQ" },
-    { "type": "text", "id": "col1_heading", "label": "Heading", "default": "Frequently Asked Questions" },
-    { "type": "textarea", "id": "col1_body", "label": "Body text", "default": "Find answers to common questions about our editions, shipping, and returns. You can also track your order through our FAQ page." },
+    { "type": "text", "id": "col1_heading", "label": "Heading", "default": "FREQUENTLY ASKED QUESTIONS" },
+    { "type": "textarea", "id": "col1_body", "label": "Body text", "default": "YOU CAN ALSO USE THIS AREA TO CONSULT THE FAQ'S, FOLLOW YOUR ORDER AND TRACK YOUR RETURN." },
     { "type": "text", "id": "col1_btn_label", "label": "Button label", "default": "FAQ" },
     { "type": "url", "id": "col1_btn_url", "label": "Button URL" },
 
     { "type": "header", "content": "Column 2 — Contact" },
-    { "type": "text", "id": "col2_heading", "label": "Heading", "default": "Contact Us" },
-    { "type": "textarea", "id": "col2_body", "label": "Body text", "default": "Speak to one of our team members directly." },
-    { "type": "text", "id": "col2_btn_label", "label": "Button label", "default": "Contact Us" },
+    { "type": "text", "id": "col2_heading", "label": "Heading", "default": "CALL US" },
+    { "type": "textarea", "id": "col2_body", "label": "Body text", "default": "SPEAK TO ONE OF OUR AMBASSADORS AT:\n+91 9955800734\nMON-SAT 9AM-7PM EST" },
+    { "type": "text", "id": "col2_btn_label", "label": "Button label", "default": "CALL US" },
     { "type": "url", "id": "col2_btn_url", "label": "Button URL" },
 
     { "type": "header", "content": "Column 3 — Email" },
-    { "type": "text", "id": "col3_heading", "label": "Heading", "default": "Email" },
-    { "type": "textarea", "id": "col3_body", "label": "Body text", "default": "We strive to reply to you within 48 hours during business days." },
-    { "type": "text", "id": "col3_btn_label", "label": "Button label", "default": "Email Us" },
-    { "type": "text", "id": "col3_btn_url", "label": "Button URL (mailto or page)", "default": "mailto:hello@nalvik.com" }
+    { "type": "text", "id": "col3_heading", "label": "Heading", "default": "EMAIL" },
+    { "type": "textarea", "id": "col3_body", "label": "Body text", "default": "WE STRIVE TO REPLY TO YOU WITHIN 48H DURING BUSINESS DAYS." },
+    { "type": "text", "id": "col3_btn_label", "label": "Button label", "default": "EMAIL US" },
+    { "type": "text", "id": "col3_btn_url", "label": "Button URL (mailto or page)", "default": "mailto:care@nalvik.com" }
   ],
   "presets": [{ "name": "NALVIK Contact" }]
 }
