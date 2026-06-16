@@ -85,21 +85,21 @@
     <!-- FAQ -->
     <div class="nk-contact__col">
       <p class="nk-contact__heading">{{ section.settings.col1_heading | default: 'FREQUENTLY ASKED QUESTIONS' }}</p>
-      <p class="nk-contact__body">{{ section.settings.col1_body | default: "YOU CAN ALSO USE THIS AREA TO CONSULT THE FAQ'S, FOLLOW YOUR ORDER AND TRACK YOUR RETURN." }}</p>
+      <p class="nk-contact__body">{{ section.settings.col1_body | default: "YOU CAN ALSO USE THIS AREA TO CONSULT THE FAQ'S, FOLLOW YOUR ORDER AND TRACK YOUR RETURN." | newline_to_br }}</p>
       <a href="{{ section.settings.col1_btn_url | default: '/pages/faq' }}" class="nk-contact__btn">{{ section.settings.col1_btn_label | default: 'FAQ' }}</a>
     </div>
 
     <!-- Contact / WhatsApp -->
     <div class="nk-contact__col">
       <p class="nk-contact__heading">{{ section.settings.col2_heading | default: 'CALL US' }}</p>
-      <p class="nk-contact__body">{{ section.settings.col2_body | default: "SPEAK TO ONE OF OUR AMBASSADORS AT:<br>+91 9955800734<br>MON-SAT 9AM-7PM EST" }}</p>
+      <p class="nk-contact__body">{{ section.settings.col2_body | default: "SPEAK TO ONE OF OUR AMBASSADORS AT:\n+91 9955800734\nMON-SAT 9AM-7PM EST" | newline_to_br }}</p>
       <a href="{{ section.settings.col2_btn_url | default: 'tel:+919955800734' }}" class="nk-contact__btn">{{ section.settings.col2_btn_label | default: 'CALL US' }}</a>
     </div>
 
     <!-- Email -->
     <div class="nk-contact__col nk-contact__col--full">
       <p class="nk-contact__heading">{{ section.settings.col3_heading | default: 'EMAIL' }}</p>
-      <p class="nk-contact__body">{{ section.settings.col3_body | default: 'WE STRIVE TO REPLY TO YOU WITHIN 48H DURING BUSINESS DAYS.' }}</p>
+      <p class="nk-contact__body">{{ section.settings.col3_body | default: 'WE STRIVE TO REPLY TO YOU WITHIN 48H DURING BUSINESS DAYS.' | newline_to_br }}</p>
       <a href="{{ section.settings.col3_btn_url | default: 'mailto:care@nalvik.com' }}" class="nk-contact__btn">{{ section.settings.col3_btn_label | default: 'EMAIL US' }}</a>
     </div>
 

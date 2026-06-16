@@ -2,8 +2,7 @@
   NALVIK — Homepage Hero (pc + phone mockup)
 {% endcomment %}
 
-{%- unless template.name == 'index' -%}
-{%- else -%}
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 {%- style -%}
   #shopify-section-{{ section.id }} {
@@ -63,8 +62,9 @@
   }
 
   .nalvik-hero--{{ section.id }} .nalvik-hero__promo-line {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
     font-size: 13px;
     line-height: 1.5;
     letter-spacing: 0.1em;
@@ -80,8 +80,9 @@
   }
 
   .nalvik-hero--{{ section.id }} .nalvik-hero__promo-link {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
     font-size: 11px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -157,7 +158,6 @@
   </div>
 </section>
 
-{%- endunless -%}
 
 {% schema %}
 {

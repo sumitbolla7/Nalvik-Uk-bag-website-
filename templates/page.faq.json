@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "nalvik-faq",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
