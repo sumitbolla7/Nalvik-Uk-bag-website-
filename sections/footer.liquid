@@ -1,17 +1,132 @@
+<style>
+  .site-footer {
+    padding: 60px 48px 40px;
+    background: #ffffff;
+    border-top: 1px solid #f0f0f0;
+  }
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer-localization {
+    margin-bottom: 30px;
+    text-align: left;
+  }
+  .footer-localization__label {
+    display: block;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .footer-select-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  .footer-localization__select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #ffffff;
+    border: 1px solid #d3d3d3;
+    padding: 10px 40px 10px 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: #111;
+    cursor: pointer;
+    outline: none;
+    min-width: 160px;
+    border-radius: 0px;
+    font-weight: 500;
+  }
+  .footer-select-wrapper::after {
+    content: "✕";
+    /* Simple chevron fallback */
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #111;
+    pointer-events: none;
+  }
+  .footer-bottom {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 24px;
+  }
+  .footer-copy {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    color: #888;
+  }
+  .footer-dot {
+    color: #888;
+    font-size: 11px;
+  }
+  .footer-nav-link {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-nav-link:hover {
+    color: #111;
+  }
+  @media (max-width: 749px) {
+    .site-footer {
+      padding: 40px 20px 30px;
+    }
+  }
+</style>
+
 <footer class="site-footer">
   <div class="footer-inner">
-    <span class="footer-copy">&copy; {{ 'now' | date: '%Y' }}, NALVIK</span>
     
-    <nav class="footer-nav">
-      <a href="/policies/privacy-policy">PRIVACY POLICY</a>
-      <span class="footer-dot">&bull;</span>
-      <a href="/pages/contact">CONTACT</a>
-      <span class="footer-dot">&bull;</span>
-      <a href="/policies/refund-policy">REFUND POLICY</a>
-      <span class="footer-dot">&bull;</span>
-      <a href="/policies/shipping-policy">SHIPPING POLICY</a>
-      <span class="footer-dot">&bull;</span>
-      <a href="/policies/terms-of-service">TERMS OF SERVICE</a>
-    </nav>
+    <!-- Country Selector Form -->
+    {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
+      <div class="footer-localization">
+        <label for="FooterCountrySelect" class="footer-localization__label">Country/region</label>
+        <div class="footer-select-wrapper">
+          <select id="FooterCountrySelect" name="country_code" class="footer-localization__select" onchange="this.form.submit()">
+            {%- for country in localization.available_countries -%}
+              <option value="{{ country.iso_code }}"{%- if country.iso_code == localization.country.iso_code %} selected{%- endif -%}>
+                {{ country.name }} | {{ country.currency.iso_code }} {{ country.currency.symbol }}
+              </option>
+            {%- endfor -%}
+          </select>
+        </div>
+      </div>
+    {%- endform -%}
+
+    <!-- Footer Copyright & Policy Links -->
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; {{ 'now' | date: '%Y' }}, NALVIK</span>
+      <span class="footer-dot">&middot;</span>
+      <a href="/policies/privacy-policy" class="footer-nav-link">Privacy policy</a>
+      <span class="footer-dot">&middot;</span>
+      <a href="/pages/contact" class="footer-nav-link">Contact information</a>
+      <span class="footer-dot">&middot;</span>
+      <a href="/policies/refund-policy" class="footer-nav-link">Refund policy</a>
+      <span class="footer-dot">&middot;</span>
+      <a href="/policies/shipping-policy" class="footer-nav-link">Shipping policy</a>
+      <span class="footer-dot">&middot;</span>
+      <a href="/policies/terms-of-service" class="footer-nav-link">Terms of service</a>
+    </div>
+
   </div>
 </footer>

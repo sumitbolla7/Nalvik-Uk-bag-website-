@@ -197,17 +197,81 @@
 
   .nalvik-drawer {
     display: none;
+    position: fixed;
+    top: 58px; /* Height of mobile header */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 58px);
+    background: #ffffff !important;
+    z-index: 9998;
     flex-direction: column;
-    padding: 24px;
-    border-top: 1px solid rgba(255,255,255,0.15);
-    gap: 20px;
-    background: #000000 !important;
+    padding: 50px 30px 40px;
+    box-sizing: border-box;
   }
   
-  .nalvik-drawer.is-open { display: flex; }
+  .nalvik-drawer.is-open {
+    display: flex !important;
+  }
 
-  .nalvik-drawer .nalvik-nav-link {
-    color: #ffffff !important;
+  .nalvik-drawer__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: auto;
+    text-align: left;
+  }
+
+  .nalvik-drawer__nav .nalvik-nav-link {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 26px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.05em !important;
+    color: #000000 !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    line-height: 1.2 !important;
+    opacity: 1 !important;
+  }
+
+  .nalvik-drawer__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .nalvik-drawer__footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+  }
+
+  .nalvik-drawer__footer-link {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    color: #000000 !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+  }
+
+  .nalvik-drawer__footer-link.underline {
+    text-decoration: underline !important;
+    text-underline-offset: 4px;
+  }
+
+  .nalvik-drawer__footer-right {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 8px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em !important;
+    color: #888888 !important;
+    text-align: right;
+    line-height: 1.5;
+    text-transform: uppercase;
   }
 
   @media (max-width: 989px) {
@@ -229,10 +293,10 @@
     .nalvik-drawer { display: none !important; }
   }
 
-  /* ===== DRAWER LINKS ALWAYS WHITE — MUST BE LAST ===== */
+  /* ===== DRAWER LINKS ALWAYS BLACK — MUST BE LAST ===== */
   #NalvikDrawer .nalvik-nav-link,
   #NalvikDrawer a {
-    color: #ffffff !important;
+    color: #000000 !important;
     opacity: 1 !important;
   }
 </style>
@@ -340,12 +404,24 @@
 
   <!-- MOBILE DRAWER -->
   <div class="nalvik-drawer" id="NalvikDrawer">
-    <a href="{{ routes.root_url }}collections/edition-1" class="nalvik-nav-link">Current Edition</a>
-    <a href="{{ routes.root_url }}collections/archive" class="nalvik-nav-link">Archive</a>
-    <a href="{{ routes.root_url }}pages/about" class="nalvik-nav-link">About</a>
-    {%- if shop.customer_accounts_enabled -%}
-      <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="nalvik-nav-link">Access</a>
-    {%- endif -%}
+    <div class="nalvik-drawer__nav">
+      <a href="{{ routes.root_url }}collections/edition-1" class="nalvik-nav-link">Current Edition</a>
+      <a href="{{ routes.root_url }}pages/about" class="nalvik-nav-link">Craftsmanship</a>
+      <a href="{{ routes.root_url }}collections/archive" class="nalvik-nav-link">Archive</a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="nalvik-nav-link">Access</a>
+      {%- endif -%}
+      <a href="/pages/contact" class="nalvik-nav-link">Contact</a>
+    </div>
+    <div class="nalvik-drawer__footer">
+      <div class="nalvik-drawer__footer-left">
+        <a href="https://instagram.com" class="nalvik-drawer__footer-link">FOLLOW US ON INSTAGRAM</a>
+        <a href="/account" class="nalvik-drawer__footer-link underline">OUR ACCOUNT</a>
+      </div>
+      <div class="nalvik-drawer__footer-right">
+        <span>NO RERUNS ONCE<br>SOLD OUT, IT CEASES<br>TO EXIST</span>
+      </div>
+    </div>
   </div>
 
 </{{ header_tag }}>

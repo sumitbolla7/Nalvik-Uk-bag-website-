@@ -1,0 +1,475 @@
+{% comment %}
+  NALVIK — FAQ Page Template Content (renders automatically for pages with handle 'faq')
+{% endcomment %}
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+.faq-hero {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.faq-hero img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.faq-hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.faq-hero__title {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 56px;
+  font-weight: 300;
+  font-style: normal !important;
+  color: #ffffff !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  background-color: #ffffff;
+}
+
+.faq-title-main {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 12px;
+  font-weight: 600;
+  font-style: normal !important;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #000000 !important;
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.faq-sections-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.faq-section-group {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 30px;
+}
+
+.faq-section-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal !important;
+  letter-spacing: 0.15em;
+  color: #000000 !important;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.faq-accordion-item {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.faq-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.faq-question-text {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 11px;
+  font-weight: 500;
+  font-style: normal !important;
+  letter-spacing: 0.12em;
+  color: #000000 !important;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.faq-question-text::before {
+  content: "+ ";
+  margin-right: 12px;
+  font-weight: 300;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.faq-accordion-item.is-open .faq-question-text::before {
+  content: "− ";
+}
+
+.faq-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+}
+
+.faq-accordion-item.is-open .faq-accordion-content {
+  max-height: 1000px;
+  transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
+}
+
+.faq-answer-inner {
+  padding: 0 0 20px 22px;
+}
+
+.faq-answer-inner p {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 11px;
+  font-weight: 400;
+  font-style: normal !important;
+  line-height: 1.8;
+  letter-spacing: 0.06em;
+  color: #555555 !important;
+  margin: 0;
+  text-transform: none;
+  text-align: left;
+}
+
+@media (max-width: 749px) {
+  .faq-hero {
+    height: 250px;
+  }
+  .faq-hero__title {
+    font-size: 38px;
+  }
+  .faq-container {
+    padding: 48px 20px;
+  }
+  .faq-title-main {
+    margin-bottom: 40px;
+  }
+}
+</style>
+
+<div class="faq-page">
+  <!-- FAQ Hero Banner -->
+  <div class="faq-hero">
+    <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/first_image.png?v=1781546314" alt="FAQ Banner">
+    <div class="faq-hero__content">
+      <h1 class="faq-hero__title">FAQ</h1>
+    </div>
+  </div>
+
+  <div class="faq-container">
+    <div class="faq-title-main">NALVIK — FREQUENTLY ASKED QUESTIONS</div>
+
+    <div class="faq-sections-grid">
+      <!-- 1. Orders & Availability -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">1. Orders & Availability</h2>
+        <div class="faq-accordions">
+          
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Where do you ship?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Nalvik ships worldwide. Delivery timelines may vary depending on location and courier conditions Shipping is always free..</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Can I modify or cancel my order?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Orders may be modified or cancelled after placement. Please contact us at the earliest. Our staff would be happy to assist.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Why are products limited?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Each Nalvik piece is produced in limited edition only. Once it gets sold out, it won’t be made again..</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">How do I know about new releases?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Please subscribe or follow our updates to stay informed about upcoming releases.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 2. Early Access -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">2. Early Access</h2>
+        <div class="faq-accordions">
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What is Early Access?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Early Access is a restricted release window offered to a limited group prior to public availability.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Who receives Early Access?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Access is extended selectively. It is not automatically granted.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">How can I be considered for Early Access?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>You may kindly submit your interest by registering your email or contacting us directly. Our staff would be happy to assist.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">How will I know if I’ve been selected?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Selected individuals will be notified directly via email.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 3. Shipping & Delivery -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">3. Shipping & Delivery</h2>
+        <div class="faq-accordions">
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What is the delivery timeline?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Ready-to-ship orders are delivered within 3–7 business days.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">How can I track my order?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>A tracking link is shared upon dispatch. You will also receive order updates via email.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What if I enter an incorrect shipping address?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Please contact us immediately. We will assist if the order has not yet been dispatched.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What if my order is delayed?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Delays may occur due to courier or external factors. Please allow additional time where required. Feel free to contact us if any concern.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 4. Returns & Exchanges -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">4. Returns & Exchanges</h2>
+        <div class="faq-accordions">
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Do you accept returns?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Returns are accepted only for items that arrive damaged or defective.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Do you offer exchanges?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>No. Exchanges are not available.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What if I receive a damaged item?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Please contact us within 4 days of delivery with supporting images. Our staff would be happy to assist.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 5. Payments & Pricing -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">5. Payments & Pricing</h2>
+        <div class="faq-accordions">
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What payment methods are accepted?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>All major cards and secure payment gateways are supported.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Do you offer discounts?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>No. Nalvik does not operate on a discount model.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">Are prices inclusive of taxes?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Yes. Prices are inclusive unless stated otherwise. Shipping is complimentary.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 6. Support -->
+      <div class="faq-section-group">
+        <h2 class="faq-section-title">6. Support</h2>
+        <div class="faq-accordions">
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">How can I contact Nalvik?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Please reach us via the Contact page. Our staff would be happy to assist.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-accordion-header">
+              <span class="faq-question-text">What is the response time?</span>
+            </div>
+            <div class="faq-accordion-content">
+              <div class="faq-answer-inner">
+                <p>Responses are typically provided within 24 hours.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const headers = document.querySelectorAll('.faq-accordion-header');
+  headers.forEach(header => {
+    header.addEventListener('click', function() {
+      const item = this.parentElement;
+      const content = item.querySelector('.faq-accordion-content');
+      
+      const isOpen = item.classList.contains('is-open');
+      if (isOpen) {
+        item.classList.remove('is-open');
+        content.style.maxHeight = null;
+      } else {
+        item.classList.add('is-open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+});
+</script>
