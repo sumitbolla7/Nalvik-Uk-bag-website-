@@ -14,14 +14,23 @@
     grid-template-columns: 1fr 1fr;
     gap: 0;
     margin-bottom: 0;
+    align-items: stretch;
   }
 
   .nk-contact__col {
     padding: 48px 48px 48px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nk-contact__col .nk-contact__body {
+    flex: 1;
   }
 
   .nk-contact__col:nth-child(2) {
     padding-left: 48px;
+    display: flex;
+    flex-direction: column;
   }
 
   .nk-contact__col--full {
@@ -132,4 +141,5 @@
   ],
   "presets": [{ "name": "NALVIK Contact" }]
 }
+
 {% endschema %}
