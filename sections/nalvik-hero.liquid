@@ -52,7 +52,7 @@
     pointer-events: none;
   }
 
-  .nalvik-hero--{{ section.id }} .nalvik-hero__promo {
+  #shopify-section-{{ section.id }} .nalvik-hero__promo {
     position: absolute;
     right: 52px;
     bottom: 48px;
@@ -60,12 +60,12 @@
     text-align: right;
   }
 
-  .nalvik-hero--{{ section.id }} .nalvik-hero__promo-lines {
+  #shopify-section-{{ section.id }} .nalvik-hero__promo-lines {
     margin: 0 0 10px;
     text-align: right;
   }
 
-  .nalvik-hero--{{ section.id }} .nalvik-hero__promo-line {
+  #shopify-section-{{ section.id }} .nalvik-hero__promo-line {
     font-family: 'Montserrat', sans-serif !important;
     font-weight: 400 !important;
     font-style: normal !important;
@@ -79,11 +79,11 @@
     text-align: right;
   }
 
-  .nalvik-hero--{{ section.id }} .nalvik-hero__promo-line--1 {
+  #shopify-section-{{ section.id }} .nalvik-hero__promo-line--1 {
     white-space: nowrap;
   }
 
-  .nalvik-hero--{{ section.id }} .nalvik-hero__promo-link {
+  #shopify-section-{{ section.id }} .nalvik-hero__promo-link {
     font-family: 'Montserrat', sans-serif !important;
     font-weight: 400 !important;
     font-style: normal !important;
@@ -100,22 +100,22 @@
   }
 
   @media (max-width: 749px) {
-    .nalvik-hero--{{ section.id }} {
+    #shopify-section-{{ section.id }} .nalvik-hero--{{ section.id }} {
       height: 100svh;
       max-height: none;
     }
 
-    .nalvik-hero--{{ section.id }} .nalvik-hero__promo {
+    #shopify-section-{{ section.id }} .nalvik-hero__promo {
       right: 20px;
       bottom: 28px;
     }
 
-    .nalvik-hero--{{ section.id }} .nalvik-hero__promo-line {
+    #shopify-section-{{ section.id }} .nalvik-hero__promo-line {
       font-size: 11px;
       white-space: normal;
     }
 
-    .nalvik-hero--{{ section.id }} .nalvik-hero__promo-line--1 {
+    #shopify-section-{{ section.id }} .nalvik-hero__promo-line--1 {
       white-space: nowrap;
     }
   }
@@ -139,14 +139,9 @@
         fetchpriority="high"
       >
     {%- else -%}
-      <img
-        src="{{ default_hero_asset | asset_url }}"
-        alt="NALVIK"
-        width="1920"
-        height="1080"
-        loading="eager"
-        fetchpriority="high"
-      >
+      <video autoplay muted loop playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover;">
+        <source src="https://cdn.shopify.com/videos/c/o/v/517ab404df4545c0ae83bac074147b2c.mp4" type="video/mp4">
+      </video>
     {%- endif -%}
   </div>
 
