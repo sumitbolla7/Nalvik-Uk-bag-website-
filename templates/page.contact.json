@@ -12,8 +12,18 @@
     "nalvik_contact": {
       "type": "nalvik-contact",
       "settings": {
-        "padding_top": 80,
-        "padding_bottom": 96
+        "col1_heading": "FREQUENTLY ASKED QUESTIONS",
+        "col1_body": "YOU CAN ALSO USE THIS AREA TO CONSULT THE FAQ'S, FOLLOW YOUR ORDER AND TRACK YOUR RETURN.",
+        "col1_btn_label": "FAQ",
+        "col1_btn_url": "shopify://pages/faq",
+        "col2_heading": "CALL US",
+        "col2_body": "SPEAK TO ONE OF OUR AMBASSADORS AT:\n+91 9955800734\nMON-SAT 9AM-7PM EST",
+        "col2_btn_label": "CALL US",
+        "col2_btn_url": "",
+        "col3_heading": "EMAIL",
+        "col3_body": "WE STRIVE TO REPLY TO YOU WITHIN 48H DURING BUSINESS DAYS.",
+        "col3_btn_label": "EMAIL US",
+        "col3_btn_url": "mailto:care@nalvik.com"
       }
     }
   },
