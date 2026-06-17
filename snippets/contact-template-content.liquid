@@ -1,0 +1,150 @@
+{% comment %}
+  NALVIK — Contact Page Template Content (renders automatically for pages with handle 'contact')
+{% endcomment %}
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  .contact-info-page {
+    width: 100%;
+    background: #ffffff;
+    padding: 100px 80px 120px;
+    box-sizing: border-box;
+  }
+
+  .contact-info-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px 100px;
+  }
+
+  .contact-info-col-left {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+
+  .contact-info-col-right {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-info-block {
+    text-align: left;
+  }
+
+  .contact-info-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #000000;
+    margin-bottom: 24px;
+    line-height: 1.4;
+  }
+
+  .contact-info-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    line-height: 2;
+    margin-bottom: 32px;
+  }
+
+  .contact-info-btn {
+    display: inline-block;
+    padding: 16px 48px;
+    background: #000000;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-width: 200px;
+    box-sizing: border-box;
+  }
+
+  .contact-info-btn:hover {
+    background: #333333;
+  }
+
+  @media (max-width: 989px) {
+    .contact-info-page {
+      padding: 60px 40px 80px;
+    }
+    .contact-info-container {
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
+    .contact-info-col-left {
+      gap: 60px;
+    }
+    .contact-info-btn {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  @media (max-width: 749px) {
+    .contact-info-page {
+      padding: 48px 24px 60px;
+    }
+  }
+</style>
+
+<div class="contact-info-page">
+  <div class="contact-info-container">
+
+    <!-- Left Column (FAQ & Email) -->
+    <div class="contact-info-col-left">
+      
+      <!-- FAQ Block -->
+      <div class="contact-info-block">
+        <h2 class="contact-info-heading">FREQUENTLY ASKED QUESTIONS</h2>
+        <p class="contact-info-body">
+          YOU CAN ALSO USE THIS AREA TO CONSULT THE FAQ'S, FOLLOW YOUR ORDER AND TRACK YOUR RETURN.
+        </p>
+        <a href="/pages/faq" class="contact-info-btn">FAQ</a>
+      </div>
+
+      <!-- Email Block -->
+      <div class="contact-info-block">
+        <h2 class="contact-info-heading">EMAIL</h2>
+        <p class="contact-info-body">
+          WE STRIVE TO REPLY TO YOU WITHIN 48H DURING BUSINESS DAYS.
+        </p>
+        <a href="mailto:care@nalvik.com" class="contact-info-btn">EMAIL US</a>
+      </div>
+
+    </div>
+
+    <!-- Right Column (Call Us) -->
+    <div class="contact-info-col-right">
+      
+      <!-- Call Us Block -->
+      <div class="contact-info-block">
+        <h2 class="contact-info-heading">CALL US</h2>
+        <p class="contact-info-body">
+          SPEAK TO ONE OF OUR AMBASSADORS AT:<br>
+          +91 9955800734<br>
+          MON-SAT 9AM-7PM EST
+        </p>
+        <a href="tel:+919955800734" class="contact-info-btn">CALL US</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "nalvik-contact-information",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -2,6 +2,8 @@
 
 {% if page.handle == 'faq' %}
   {% render 'faq-template-content' %}
+{% elsif page.handle == 'contact' or page.handle == 'contact-us' or page.handle == 'contact-information' %}
+  {% render 'contact-template-content' %}
 {% else %}
   {%- style -%}
     .section-{{ section.id }}-padding {
