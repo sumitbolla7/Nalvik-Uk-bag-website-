@@ -1,0 +1,718 @@
+<link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<style>
+  header-drawer { justify-self: start; margin-left: -1.2rem; }
+  .list-menu { list-style: none; padding: 0; margin: 0; }
+  .list-menu--inline { display: inline-flex; flex-wrap: wrap; }
+  .list-menu__item { display: flex; align-items: center; }
+  .list-menu__item--link { text-decoration: none; padding: 0.5rem 0; }
+
+  .nalvik-header-wrapper {
+    width: 100%;
+    z-index: 100;
+    transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.3s ease;
+  }
+
+  /* === HOMEPAGE: fixed + transparent by default === */
+  .nalvik-header-wrapper.is-homepage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  /* === WHITE STATE: hover OR scrolled (homepage) === */
+  .nalvik-header-wrapper.is-homepage.scrolled,
+  .nalvik-header-wrapper.is-homepage:hover {
+    background: #ffffff !important;
+    {% comment %} box-shadow: 0 1px 12px rgba(0,0,0,0.08) !important; {% endcomment %}
+    color:#1a1a1a;
+  }
+
+  /* === Desktop logo + nav text goes dark on scroll/hover === */
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-logo span,
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-nav-link,
+  .nalvik-header-wrapper.is-homepage:hover .nalvik-logo span,
+  .nalvik-header-wrapper.is-homepage:hover .nalvik-nav-link {
+    color: #1a1a1a;
+  }
+
+  /* === Desktop hamburger lines go dark on scroll/hover === */
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-hamburger span,
+  .nalvik-header-wrapper.is-homepage:hover .nalvik-hamburger span {
+    background: #1a1a1a;
+  }
+
+  /* === Cart count badge goes dark on scroll/hover === */
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-cart-count,
+  .nalvik-header-wrapper.is-homepage:hover .nalvik-cart-count {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+
+  /* === Mobile logo text goes dark on scroll/hover === */
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-mobile-logo span,
+  .nalvik-header-wrapper.is-homepage:hover .nalvik-mobile-logo span {
+    color: #1a1a1a;
+  }
+
+  /* === Mobile cart link goes dark on scroll/hover === */
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-mobile-header .nalvik-nav-link,
+  .nalvik-header-wrapper.is-homepage:hover .nalvik-mobile-header .nalvik-nav-link {
+    color: #1a1a1a;
+  }
+
+  /* === Mobile hamburger lines go dark on scroll/hover === */
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-mobile-header .nalvik-hamburger span,
+  .nalvik-header-wrapper.is-homepage:hover .nalvik-mobile-header .nalvik-hamburger span {
+    background: #1a1a1a;
+  }
+
+  /* === NON-HOMEPAGE: always sticky white === */
+  .nalvik-header-wrapper:not(.is-homepage) {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+  }
+
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-logo span,
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-nav-link {
+    color: #1a1a1a;
+  }
+
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-logo span {
+    color: #1a1a1a;
+  }
+
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-hamburger span {
+    background: #1a1a1a;
+  }
+
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-cart-count {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+
+  .nalvik-header-wrapper.hide-header {
+    transform: translateY(-100%);
+  }
+
+  /* ===== FIX OVERLAY / BLUR ISSUE ===== */
+.section-header {
+position: sticky !important;
+top: 0;
+z-index: 9999;
+background:#ffffff;
+}
+
+/* ===== FORCE CLEAN BACKGROUND ===== */
+.nalvik-header-wrapper {
+position: sticky !important;
+top: 0;
+width: 100%;
+z-index: 9999;
+background: transparent !important;
+transition: all 0.3s ease;
+
+}
+
+/* ===== HOVER + SCROLL (CLEAN WHITE) ===== */
+.nalvik-header-wrapper.scrolled,
+.nalvik-header-wrapper:hover {
+background: #ffffff !important;
+backdrop-filter: none !important; /* 🔥 REMOVE BLUR EFFECT */
+}
+
+/* ===== TEXT FIX ===== */
+.nalvik-header-wrapper.scrolled .nalvik-logo span,
+.nalvik-header-wrapper.scrolled .nalvik-nav-link,
+.nalvik-header-wrapper:hover .nalvik-logo span,
+.nalvik-header-wrapper:hover .nalvik-nav-link {
+color: #000000 !important;
+
+}
+
+/* ===== DEFAULT WHITE TEXT ===== */
+.nalvik-header-wrapper .nalvik-logo span,
+.nalvik-header-wrapper .nalvik-nav-link {
+{% comment %} color: #ffffff !important; {% endcomment %}
+ 
+}
+
+
+  .nalvik-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 22px 48px;
+    
+  }
+
+  .nalvik-left-group {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+  }
+
+  .nalvik-logo {
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .nalvik-logo span {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.35em;
+    font-weight: 700;
+    font-style: normal;
+    color: #000000;
+    white-space: nowrap;
+    text-transform: uppercase;
+    transition: color 0.25s ease;
+  }
+
+  .nalvik-logo img { display: block; }
+
+  .nalvik-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+  }
+
+  .nalvik-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+  }
+
+  .nalvik-nav-link {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.25s ease, opacity 0.2s;
+    white-space: nowrap;
+  }
+
+  .nalvik-nav-link:hover { opacity: 0.6; }
+
+  .nalvik-cart { position: relative; }
+
+  .nalvik-cart-count {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background: #ffffff;
+    color: #1a1a1a;
+    font-size: 8px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+
+  .nalvik-mobile-header {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+  }
+
+  .nalvik-mobile-logo {
+    text-decoration: none;
+  }
+
+.nalvik-mobile-logo span {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.28em;
+    font-weight: 700;
+    color: #000000;
+    text-transform: uppercase;
+    transition: color 0.25s ease;
+  }
+
+  .nalvik-hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+  }
+
+ .nalvik-hamburger span {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: #000000 !important;
+    transition: background 0.25s ease, transform 0.3s;
+  }
+
+ .nalvik-drawer {
+    display: none;
+    flex-direction: column;
+    padding: 24px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    gap: 20px;
+    background: #000000 !important;
+  }
+  .nalvik-drawer.is-open { display: flex; }
+
+  /* Drawer nav links always white (dark bg drawer) */
+ .nalvik-drawer .nalvik-nav-link {
+    color: #ffffff !important;
+  }
+
+  /* ================= STICKY NAVBAR ================= */
+.nalvik-header-wrapper {
+position: sticky !important;
+top: 0;
+width: 100%;
+z-index: 9999;
+background: transparent;
+transition: all 0.3s ease;
+}
+
+/* ================= DEFAULT (TOP STATE) ================= */
+.nalvik-header-wrapper .nalvik-logo span,
+.nalvik-header-wrapper .nalvik-nav-link,
+.nalvik-header-wrapper .nalvik-mobile-logo span {
+color: #000000 !important;
+transition: color 0.25s ease;
+}
+
+/* ================= HOVER + SCROLL SAME ================= */
+.nalvik-header-wrapper.scrolled,
+.nalvik-header-wrapper:hover {
+background: #ffffff !important;
+box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+backdrop-filter: blur(8px);
+}
+
+/* TEXT → BLACK */
+.nalvik-header-wrapper.scrolled .nalvik-logo span,
+.nalvik-header-wrapper.scrolled .nalvik-nav-link,
+.nalvik-header-wrapper.scrolled .nalvik-mobile-logo span,
+.nalvik-header-wrapper:hover .nalvik-logo span,
+.nalvik-header-wrapper:hover .nalvik-nav-link,
+.nalvik-header-wrapper:hover .nalvik-mobile-logo span {
+color: #000000 !important;
+}
+
+/* ================= HAMBURGER ================= */
+.nalvik-header-wrapper .nalvik-hamburger span {
+background: #000000 !important;
+transition: background 0.25s ease;
+}
+
+.nalvik-header-wrapper.scrolled .nalvik-hamburger span,
+.nalvik-header-wrapper:hover .nalvik-hamburger span {
+background: #000000 !important;
+}
+/* ================= CART BADGE ================= */
+.nalvik-header-wrapper .nalvik-cart-count {
+background: #ffffff !important;
+color: #000000 !important;
+}
+
+.nalvik-header-wrapper.scrolled .nalvik-cart-count,
+.nalvik-header-wrapper:hover .nalvik-cart-count {
+background: #000000 !important;
+color: #ffffff !important;
+}
+
+/* ================= RESPONSIVE FIX ================= */
+@media (max-width: 989px) {
+
+.nalvik-mobile-header {
+display: flex !important;
+}
+
+.nalvik-header {
+display: none !important;
+}
+
+/* mobile text behavior */
+.nalvik-header-wrapper.scrolled .nalvik-mobile-logo span,
+.nalvik-header-wrapper:hover .nalvik-mobile-logo span {
+color: #000000 !important;
+}
+}
+
+/* ================= REMOVE CONFLICTS ================= */
+.nalvik-header-wrapper.is-homepage {
+background: transparent !important;
+}
+
+.nalvik-header-wrapper.is-homepage.scrolled,
+.nalvik-header-wrapper.is-homepage:hover {
+background: #ffffff !important;
+}
+
+  
+
+  @media screen and (max-width: 989px) {
+    .nalvik-header { display: none; }
+    .nalvik-mobile-header { display: flex; }
+  }
+
+  @media screen and (min-width: 990px) {
+    .nalvik-mobile-header { display: none; }
+    .nalvik-drawer { display: none !important; }
+  }
+  /* ================= FINAL CLEAN NAVBAR ================= */
+
+.nalvik-header-wrapper {
+position: sticky;
+top: 0;
+width: 100%;
+z-index: 9999;
+background: transparent;
+transition: all 0.3s ease;
+}
+
+/* DEFAULT */
+.nalvik-logo span,
+.nalvik-nav-link,
+.nalvik-mobile-logo span {
+color: #ffffff;
+transition: color 0.25s ease;
+}
+
+/* HOVER + SCROLL */
+.nalvik-header-wrapper,
+.nalvik-header-wrapper.scrolled {
+background: #ffffff;
+box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+
+/* TEXT BLACK */
+.nalvik-header-wrapper .nalvik-logo span,
+.nalvik-header-wrapper .nalvik-nav-link,
+.nalvik-header-wrapper.scrolled .nalvik-logo span,
+.nalvik-header-wrapper.scrolled .nalvik-nav-link {
+color: #000000;
+}
+
+/* HAMBURGER */
+.nalvik-hamburger span {
+background: #000000;
+}
+
+.nalvik-header-wrapper .nalvik-hamburger span,
+.nalvik-header-wrapper.scrolled .nalvik-hamburger span {
+background: #000000;
+}
+
+/* CART */
+.nalvik-cart-count {
+background: #ffffff;
+color: #000000;
+}
+
+.nalvik-header-wrapper .nalvik-cart-count,
+.nalvik-header-wrapper.scrolled .nalvik-cart-count {
+background: #000;
+color: #fff;
+}
+
+/* Mobile header always white bg on non-homepage */
+.nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-header {
+  background: #ffffff;
+}
+
+.nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-logo span {
+  color: #000000 !important;
+}
+
+.nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-header .nalvik-hamburger span {
+  background: #000000 !important;
+}
+
+.nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-header .nalvik-nav-link {
+  color: #000000 !important;
+}
+/* ===== DRAWER LINKS ALWAYS WHITE — MUST BE LAST ===== */
+#NalvikDrawer .nalvik-nav-link,
+#NalvikDrawer a {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+
+</style>
+
+{%- style -%}
+  .section-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+{%- endstyle -%}
+
+<script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
+
+{% liquid
+  assign header_tag = 'div'
+  if section.settings.sticky_header_type != 'none'
+    assign header_tag = 'sticky-header'
+  endif
+%}
+
+<{{ header_tag }}
+  {% if header_tag == 'sticky-header' %}data-sticky-type="{{ section.settings.sticky_header_type }}"{% endif %}
+  class="nalvik-header-wrapper{% if request.page_type == 'index' %} is-homepage{% endif %}"
+  id="NalvikHeader"
+>
+
+  <!-- DESKTOP HEADER -->
+  <div class="nalvik-header">
+
+    <div class="nalvik-left-group">
+      <a href="{{ routes.root_url }}" class="nalvik-logo">
+        {%- if settings.logo != blank -%}
+          {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+          {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+          {{
+            settings.logo
+            | image_url: width: 300
+            | image_tag:
+              class: 'header__heading-logo',
+              width: settings.logo_width,
+              height: logo_height,
+              alt: logo_alt,
+              preload: true
+          }}
+        {%- else -%}
+          <span>{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+      <nav class="nalvik-nav-left">
+        <a href="{{ routes.root_url }}collections/edition-1" class="nalvik-nav-link">Current Edition</a>
+        <a href="{{ routes.root_url }}collections/archive" class="nalvik-nav-link">Archive</a>
+        <a href="{{ routes.root_url }}pages/about" class="nalvik-nav-link">About</a>
+      </nav>
+    </div>
+
+    <nav class="nalvik-nav-right">
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="nalvik-nav-link" rel="nofollow">Access</a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="nalvik-nav-link nalvik-cart">
+        Cart
+        {%- if cart.item_count > 0 -%}
+          <span class="nalvik-cart-count">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- MOBILE HEADER -->
+  <div class="nalvik-mobile-header">
+    <a href="{{ routes.root_url }}" class="nalvik-mobile-logo">
+      {%- if settings.logo != blank -%}
+        {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+        {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+        {{
+          settings.logo
+          | image_url: width: 200
+          | image_tag:
+            width: settings.logo_width,
+            height: logo_height,
+            alt: logo_alt
+        }}
+      {%- else -%}
+        <span>{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+    <div style="display:flex;align-items:center;gap:18px;">
+      <a href="{{ routes.cart_url }}" class="nalvik-nav-link nalvik-cart">
+        Cart
+        {%- if cart.item_count > 0 -%}
+          <span class="nalvik-cart-count">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+      <button class="nalvik-hamburger" id="NalvikMenuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE DRAWER -->
+  <div class="nalvik-drawer" id="NalvikDrawer">
+    <a href="{{ routes.root_url }}collections/edition-1" class="nalvik-nav-link">Current Edition</a>
+    <a href="{{ routes.root_url }}collections/archive" class="nalvik-nav-link">Archive</a>
+    <a href="{{ routes.root_url }}pages/about" class="nalvik-nav-link">About</a>
+    {%- if shop.customer_accounts_enabled -%}
+      <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="nalvik-nav-link">Access</a>
+    {%- endif -%}
+  </div>
+
+</{{ header_tag }}>
+
+<script>
+  // Mobile menu toggle
+  var toggle = document.getElementById('NalvikMenuToggle');
+  var drawer = document.getElementById('NalvikDrawer');
+  if (toggle && drawer) {
+    toggle.addEventListener('click', function() {
+      drawer.classList.toggle('is-open');
+    });
+  }
+
+  // Scroll handler: adds/removes 'scrolled' class
+  var header = document.getElementById('NalvikHeader');
+  if (header) {
+    function nalvikCheckScroll() {
+      if (window.scrollY > 60) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+    // Run on scroll
+    window.addEventListener('scroll', nalvikCheckScroll, { passive: true });
+    // Run immediately on page load (handles refresh when already scrolled)
+    nalvikCheckScroll();
+  }
+</script>
+
+{%- if settings.cart_type == 'notification' -%}
+  {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: section.settings.menu_type_desktop -%}
+{%- endif -%}
+
+{% javascript %}
+  class StickyHeader extends HTMLElement {
+    constructor() { super(); }
+    connectedCallback() {
+      this.header = document.querySelector('.section-header');
+      this.headerIsAlwaysSticky = this.getAttribute('data-sticky-type') === 'always' || this.getAttribute('data-sticky-type') === 'reduce-logo-size';
+      this.headerBounds = {};
+      this.setHeaderHeight();
+      window.matchMedia('(max-width: 990px)').addEventListener('change', this.setHeaderHeight.bind(this));
+      if (this.headerIsAlwaysSticky) this.header.classList.add('shopify-section-header-sticky');
+      this.currentScrollTop = 0;
+      this.preventReveal = false;
+      this.onScrollHandler = this.onScroll.bind(this);
+      this.hideHeaderOnScrollUp = () => (this.preventReveal = true);
+      this.addEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
+      window.addEventListener('scroll', this.onScrollHandler, false);
+      this.createObserver();
+    }
+    setHeaderHeight() {
+      document.documentElement.style.setProperty('--header-height', `${this.offsetHeight}px`);
+    }
+    disconnectedCallback() {
+      this.removeEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
+      window.removeEventListener('scroll', this.onScrollHandler);
+    }
+    createObserver() {
+      let observer = new IntersectionObserver((entries, observer) => {
+        this.headerBounds = entries[0].intersectionRect;
+        observer.disconnect();
+      });
+      observer.observe(this.header || this);
+    }
+    onScroll() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > this.currentScrollTop && scrollTop > (this.headerBounds.bottom || 80)) {
+        requestAnimationFrame(this.hide.bind(this));
+      } else if (scrollTop < this.currentScrollTop && scrollTop > (this.headerBounds.bottom || 80)) {
+        if (!this.preventReveal) requestAnimationFrame(this.reveal.bind(this));
+      } else if (scrollTop <= (this.headerBounds.top || 0)) {
+        requestAnimationFrame(this.reset.bind(this));
+      }
+      this.currentScrollTop = scrollTop;
+    }
+    hide() {
+      if (this.headerIsAlwaysSticky) return;
+      this.classList.add('shopify-section-header-hidden', 'shopify-section-header-sticky');
+    }
+    reveal() {
+      if (this.headerIsAlwaysSticky) return;
+      this.classList.add('shopify-section-header-sticky', 'animate');
+      this.classList.remove('shopify-section-header-hidden');
+    }
+    reset() {
+      if (this.headerIsAlwaysSticky) return;
+      this.classList.remove('shopify-section-header-hidden', 'shopify-section-header-sticky', 'animate');
+    }
+  }
+  customElements.define('sticky-header', StickyHeader);
+{% endjavascript %}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    {% if settings.logo %}"logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},{% endif %}
+    "url": {{ request.origin | append: page.url | json }}
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "select",
+      "id": "sticky_header_type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "on-scroll-up", "label": "On scroll up" },
+        { "value": "always", "label": "Always" }
+      ],
+      "default": "on-scroll-up",
+      "label": "Sticky header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": false,
+      "label": "Show border"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "menu_color_scheme",
+      "label": "Menu color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [{ "type": "@app" }]
+}
+{% endschema %}

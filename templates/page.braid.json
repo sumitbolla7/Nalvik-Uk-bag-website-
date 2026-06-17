@@ -1,0 +1,32 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "braid-content": {
+      "type": "braid-page-section",
+      "settings": {
+        "video_url": "https://cdn.shopify.com/videos/c/o/v/c3ae39eb2f65445db336852ceddf835d.mp4",
+        "video_height": 560,
+        "title": "THE NALVIK BRAID",
+        "title_size": 18,
+        "description": "The Nalvik Braid is a hand-executed leather technique where two strands are cut, conditioned, and precisely interlaced to build structure within the material.\nEach braid takes six hours. Tension, alignment, and consistency define both strength and finish—making the process impossible to rush or mechanise.\nThis is not decoration. It is construction.The interlocking strands create a surface that is both reinforced and flexible, allowing the leather to hold form while retaining movement. No two braids are identical.\nThe Nalvik Braid is not added. It is built.And once complete, it cannot be undone.",
+        "text_width": 1000,
+        "image_url": "",
+        "image_max_width": 800,
+        "overlay_line1": "",
+        "overlay_line2": "",
+        "overlay_size": 28
+      }
+    }
+  },
+  "order": [
+    "braid-content"
+  ]
+}

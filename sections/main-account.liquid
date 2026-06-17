@@ -1,0 +1,149 @@
+{% layout 'theme' %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#fff;font-family:'Inter',sans-serif;color:#111;}
+
+.nv-acc-wrap{width:100%;min-height:80vh;background:#fff;padding:0 0 100px;}
+
+/* TOP BAR */
+.nv-topbar{display:flex;align-items:center;justify-content:space-between;padding:32px 48px;border-bottom:1px solid #ebebeb;}
+.nv-topbar-name{font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#111;}
+.nv-logout{font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#111;text-decoration:none;border:1px solid #111;padding:10px 20px;display:inline-block;transition:background 0.2s,color 0.2s;background:#fff;}
+.nv-logout:hover{background:#111;color:#fff;}
+
+/* MAIN */
+.nv-acc-main{max-width:900px;margin:0 auto;padding:64px 24px 0;}
+.nv-acc-title{font-size:11px;font-weight:700;letter-spacing:0.36em;text-transform:uppercase;color:#111;text-align:center;margin-bottom:64px;}
+
+/* SECTIONS GRID */
+.nv-sections{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid #ebebeb;}
+.nv-sec{padding:40px 0;border-bottom:1px solid #ebebeb;}
+.nv-sec:nth-child(odd){padding-right:48px;border-right:1px solid #ebebeb;}
+.nv-sec:nth-child(even){padding-left:48px;}
+.nv-sec-label{font-size:9px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#999;margin-bottom:20px;}
+.nv-sec-title{font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#111;margin-bottom:16px;}
+.nv-sec-body{font-size:11px;font-weight:400;letter-spacing:0.06em;line-height:1.8;color:#444;}
+.nv-sec-link{display:inline-block;margin-top:20px;font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#111;text-decoration:underline;text-underline-offset:4px;transition:opacity 0.2s;}
+.nv-sec-link:hover{opacity:0.5;}
+.nv-sec-empty{font-size:10px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:#bbb;margin-bottom:16px;}
+
+/* ORDER TABLE */
+.nv-orders{width:100%;border-collapse:collapse;}
+.nv-orders th{font-size:8px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#999;padding:0 0 14px;text-align:left;border-bottom:1px solid #ebebeb;}
+.nv-orders td{font-size:10px;font-weight:400;letter-spacing:0.06em;color:#111;padding:14px 0;border-bottom:1px solid #f5f5f5;vertical-align:top;}
+.nv-orders td a{color:#111;text-decoration:underline;text-underline-offset:3px;}
+.nv-order-status{font-size:8px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:4px 8px;background:#f5f5f5;color:#555;display:inline-block;}
+.nv-order-status.fulfilled{background:#111;color:#fff;}
+
+/* FULL WIDTH SECTION */
+.nv-sec-full{padding:40px 0;border-bottom:1px solid #ebebeb;grid-column:1/-1;}
+
+/* INFO GRID */
+.nv-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px 40px;}
+.nv-info-item{}
+.nv-info-lbl{font-size:8px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#999;margin-bottom:6px;}
+.nv-info-val{font-size:11px;font-weight:400;letter-spacing:0.06em;color:#111;}
+
+@media(max-width:720px){
+  .nv-topbar{padding:20px 20px;}
+  .nv-sections{grid-template-columns:1fr;}
+  .nv-sec:nth-child(odd){padding-right:0;border-right:none;}
+  .nv-sec:nth-child(even){padding-left:0;}
+  .nv-sec-full{grid-column:1;}
+  .nv-info-grid{grid-template-columns:1fr;}
+  .nv-acc-main{padding:48px 20px 0;}
+}
+</style>
+
+<div class="nv-acc-wrap">
+
+  <div class="nv-topbar">
+    <span class="nv-topbar-name">
+      {{ customer.first_name | upcase }} {{ customer.last_name | upcase }}
+    </span>
+    <a href="{{ routes.account_logout_url }}" class="nv-logout">LOG OUT</a>
+  </div>
+
+  <div class="nv-acc-main">
+    <p class="nv-acc-title">MY ACCOUNT</p>
+
+    <div class="nv-sections">
+
+      <!-- ORDER HISTORY — full width -->
+      <div class="nv-sec-full">
+        <p class="nv-sec-label">01</p>
+        <p class="nv-sec-title">ORDER HISTORY</p>
+        {% if customer.orders.size == 0 %}
+          <p class="nv-sec-empty">YOU HAVE NOT PLACED ANY ORDERS YET.</p>
+          <a href="/" class="nv-sec-link">EXPLORE THE COLLECTION →</a>
+        {% else %}
+          <table class="nv-orders">
+            <thead>
+              <tr>
+                <th>ORDER</th>
+                <th>DATE</th>
+                <th>STATUS</th>
+                <th>TOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in customer.orders %}
+                <tr>
+                  <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                  <td>{{ order.created_at | date: '%d %b %Y' | upcase }}</td>
+                  <td><span class="nv-order-status {% if order.fulfillment_status == 'fulfilled' %}fulfilled{% endif %}">{{ order.fulfillment_status | upcase | default: 'PROCESSING' }}</span></td>
+                  <td>{{ order.total_price | money }} GBP</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+      </div>
+
+      <!-- PERSONAL INFORMATION -->
+      <div class="nv-sec">
+        <p class="nv-sec-label">02</p>
+        <p class="nv-sec-title">PERSONAL INFORMATION</p>
+        <div class="nv-info-grid">
+          <div class="nv-info-item">
+            <p class="nv-info-lbl">FIRST NAME</p>
+            <p class="nv-info-val">{{ customer.first_name | default: '—' }}</p>
+          </div>
+          <div class="nv-info-item">
+            <p class="nv-info-lbl">LAST NAME</p>
+            <p class="nv-info-val">{{ customer.last_name | default: '—' }}</p>
+          </div>
+          <div class="nv-info-item">
+            <p class="nv-info-lbl">EMAIL</p>
+            <p class="nv-info-val">{{ customer.email | default: '—' }}</p>
+          </div>
+          <div class="nv-info-item">
+            <p class="nv-info-lbl">ORDERS PLACED</p>
+            <p class="nv-info-val">{{ customer.orders_count }}</p>
+          </div>
+        </div>
+        <a href="/account/edit" class="nv-sec-link">EDIT INFORMATION →</a>
+      </div>
+
+      <!-- ADDRESS BOOK -->
+      <div class="nv-sec">
+        <p class="nv-sec-label">03</p>
+        <p class="nv-sec-title">ADDRESS BOOK</p>
+        {% if customer.default_address %}
+          <div class="nv-sec-body">
+            {{ customer.default_address.name }}<br>
+            {{ customer.default_address.address1 }}<br>
+            {% if customer.default_address.address2 != blank %}{{ customer.default_address.address2 }}<br>{% endif %}
+            {{ customer.default_address.city }}, {{ customer.default_address.zip }}<br>
+            {{ customer.default_address.country }}
+          </div>
+        {% else %}
+          <p class="nv-sec-empty">NO ADDRESS SAVED YET.</p>
+        {% endif %}
+        <a href="/account/addresses" class="nv-sec-link">MANAGE ADDRESSES →</a>
+      </div>
+
+    </div>
+  </div>
+</div>

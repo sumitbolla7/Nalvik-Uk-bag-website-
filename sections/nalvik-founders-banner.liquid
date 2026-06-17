@@ -1,0 +1,83 @@
+<style>
+  .nfb-section {
+    position: relative;
+    width: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    height: {{ section.settings.section_height }}px;
+  }
+  .nfb-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_position }};
+    display: block;
+    {% if section.settings.grayscale %}filter: grayscale(100%);{% endif %}
+  }
+  .nfb-label {
+    position: absolute;
+    bottom: {{ section.settings.label_bottom }}px;
+    right: {{ section.settings.label_right }}px;
+    text-align: right;
+  }
+  .nfb-label a {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: {{ section.settings.label_size }}px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: {{ section.settings.label_color }};
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1px;
+    display: inline-block;
+    transition: opacity 0.3s ease;
+  }
+  .nfb-label a:hover { opacity: 0.5; }
+  @media (max-width: 768px) {
+    .nfb-section { height: {{ section.settings.section_height | times: 0.65 | round }}px; }
+    .nfb-label { bottom: 20px; right: 20px; }
+    .nfb-label a { font-size: 10px; }
+  }
+</style>
+
+<div class="nfb-section">
+  <div class="nfb-image">
+    {% if section.settings.image %}
+      <img src="{{ section.settings.image | image_url: width: 2000 }}" alt="{{ section.settings.label_text }}" width="2000" height="800" loading="lazy">
+    {% elsif section.settings.image_url != blank %}
+      <img src="{{ section.settings.image_url }}" alt="{{ section.settings.label_text }}" width="2000" height="800" loading="lazy">
+    {% endif %}
+  </div>
+  {% if section.settings.label_text != blank %}
+  <div class="nfb-label">
+    <a href="{{ section.settings.link }}">{{ section.settings.label_text }}</a>
+  </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Founders Banner",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Upload image" },
+    { "type": "text", "id": "image_url", "label": "Or paste image URL", "default": "https://cdn.shopify.com/s/files/1/0812/9626/1360/files/WhatsApp_Image_2026-03-16_at_3.23.13_PM.jpg?v=1773937719" },
+    { "type": "select", "id": "image_position", "label": "Image position", "options": [{"value":"center top","label":"Top"},{"value":"center center","label":"Center"},{"value":"center bottom","label":"Bottom"},{"value":"left center","label":"Left"},{"value":"right center","label":"Right"}], "default": "center top" },
+    { "type": "checkbox", "id": "grayscale", "label": "Black & white", "default": true },
+    { "type": "header", "content": "Size" },
+    { "type": "range", "id": "section_height", "min": 280, "max": 700, "step": 20, "unit": "px", "label": "Section height", "default": 420 },
+    { "type": "header", "content": "Label" },
+    { "type": "text", "id": "label_text", "label": "Label text", "default": "FOUNDER'S EDITION" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "color", "id": "label_color", "label": "Label colour", "default": "#1a1a1a" },
+    { "type": "range", "id": "label_size", "min": 9, "max": 20, "step": 1, "unit": "px", "label": "Font size", "default": 12 },
+    { "type": "range", "id": "label_bottom", "min": 10, "max": 200, "step": 5, "unit": "px", "label": "Distance from bottom", "default": 80 },
+    { "type": "range", "id": "label_right", "min": 10, "max": 250, "step": 5, "unit": "px", "label": "Distance from right", "default": 60 }
+  ],
+  "presets": [{ "name": "Founders Banner" }]
+}
+{% endschema %}

@@ -1,0 +1,200 @@
+{% comment %}
+  NALVIK — Homepage Hero (pc + phone mockup)
+{% endcomment %}
+
+{%- unless template.name == 'index' -%}
+{%- else -%}
+
+{%- liquid
+  assign default_hero_asset = 'nalvik-homepage-hero.png'
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  .nalvik-hero--{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    max-height: 1100px;
+    min-height: 520px;
+    overflow: hidden;
+    background: #e8e6e3;
+  }
+
+  .nalvik-hero--{{ section.id }} .nalvik-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .nalvik-hero--{{ section.id }} .nalvik-hero__media img,
+  .nalvik-hero--{{ section.id }} .nalvik-hero__media video {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: cover !important;
+    object-position: {{ section.settings.image_focal_point }};
+    display: block;
+  }
+
+  .nalvik-hero--{{ section.id }} .nalvik-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .nalvik-hero--{{ section.id }} .nalvik-hero__promo {
+    position: absolute;
+    right: 52px;
+    bottom: 48px;
+    pointer-events: auto;
+    text-align: right;
+  }
+
+  .nalvik-hero--{{ section.id }} .nalvik-hero__promo-lines {
+    margin: 0 0 10px;
+    text-align: right;
+  }
+
+  .nalvik-hero--{{ section.id }} .nalvik-hero__promo-line {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    color: #000000 !important;
+    margin: 0;
+    text-transform: uppercase;
+    display: block;
+    text-align: right;
+  }
+
+  .nalvik-hero--{{ section.id }} .nalvik-hero__promo-line--1 {
+    white-space: nowrap;
+  }
+
+  .nalvik-hero--{{ section.id }} .nalvik-hero__promo-link {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #000000 !important;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    display: inline-block;
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+  }
+
+  @media (max-width: 749px) {
+    .nalvik-hero--{{ section.id }} {
+      height: 100svh;
+      max-height: none;
+    }
+
+    .nalvik-hero--{{ section.id }} .nalvik-hero__promo {
+      right: 20px;
+      bottom: 28px;
+    }
+
+    .nalvik-hero--{{ section.id }} .nalvik-hero__promo-line {
+      font-size: 11px;
+      white-space: normal;
+    }
+
+    .nalvik-hero--{{ section.id }} .nalvik-hero__promo-line--1 {
+      white-space: nowrap;
+    }
+  }
+{%- endstyle -%}
+
+<section class="nalvik-hero nalvik-hero--{{ section.id }}" aria-label="Hero">
+  <div class="nalvik-hero__media">
+    {%- if section.settings.hero_image != blank -%}
+      <img
+        src="{{ section.settings.hero_image | image_url: width: 1920 }}"
+        srcset="
+          {{ section.settings.hero_image | image_url: width: 750 }} 750w,
+          {{ section.settings.hero_image | image_url: width: 1500 }} 1500w,
+          {{ section.settings.hero_image | image_url: width: 1920 }} 1920w
+        "
+        sizes="100vw"
+        alt="{{ section.settings.hero_image.alt | escape }}"
+        width="1920"
+        height="{{ 1920 | divided_by: section.settings.hero_image.aspect_ratio | round }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- else -%}
+      <img
+        src="{{ default_hero_asset | asset_url }}"
+        alt="NALVIK"
+        width="1920"
+        height="1080"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+  </div>
+
+  <div class="nalvik-hero__overlay">
+    <div class="nalvik-hero__promo">
+      <div class="nalvik-hero__promo-lines">
+        <span class="nalvik-hero__promo-line nalvik-hero__promo-line--1">NO RERUNS ONCE SOLD OUT, IT</span>
+        <span class="nalvik-hero__promo-line nalvik-hero__promo-line--2">CEASES TO EXIST</span>
+      </div>
+      <a href="{{ section.settings.cta_url | default: routes.collections_url }}" class="nalvik-hero__promo-link">
+        SHOP LIMITED DROP
+      </a>
+    </div>
+  </div>
+</section>
+
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "Nalvik Hero",
+  "tag": "section",
+  "class": "nalvik-hero-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image",
+      "info": "Leave empty for nalvik-homepage-hero.png"
+    },
+    {
+      "type": "select",
+      "id": "image_focal_point",
+      "label": "Image focus",
+      "options": [
+        { "value": "35% center", "label": "Left" },
+        { "value": "center center", "label": "Center" },
+        { "value": "65% center", "label": "Right" }
+      ],
+      "default": "35% center"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Shop Limited Drop link"
+    }
+  ],
+  "presets": [{ "name": "Nalvik Hero" }]
+}
+{% endschema %}

@@ -1,0 +1,86 @@
+/* Founder's Edition — mobile-only page */
+
+.nalvik-fe-mobile__desktop-note {
+  display: none;
+  text-align: center;
+  padding: 48px 24px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #666;
+}
+
+.nalvik-fe-mobile__content {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .nalvik-fe-mobile__desktop-note {
+    display: none !important;
+  }
+
+  .nalvik-fe-mobile__content {
+    display: block;
+  }
+
+  body:has(.nalvik-founders-mobile-section) #MainContent {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  body:has(.nalvik-founders-mobile-section) .nalvik-fe-mobile__title {
+    text-align: center;
+    padding: 28px 20px 24px;
+    margin: 0;
+    font-family: var(--font-heading-family), Georgia, serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #000;
+  }
+
+  body:has(.nalvik-founders-mobile-section) .nalvik-fe-mobile__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  body:has(.nalvik-founders-mobile-section) .nalvik-fe-mobile__item {
+    position: relative;
+    display: block;
+    width: 100%;
+    line-height: 0;
+    text-decoration: none;
+  }
+
+  body:has(.nalvik-founders-mobile-section) .nalvik-fe-mobile__item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  body:has(.nalvik-founders-mobile-section) .nalvik-fe-mobile__label {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    pointer-events: none;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  body:has(.nalvik-founders-mobile-section) .nalvik-fe-mobile__desktop-note {
+    display: block !important;
+  }
+
+  body:has(.nalvik-founders-mobile-section) .nalvik-fe-mobile__content {
+    display: none !important;
+  }
+
+}

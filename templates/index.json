@@ -1,0 +1,45 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "nalvik_hero_main": {
+      "type": "nalvik-hero",
+      "settings": {
+        "image_focal_point": "35% center",
+        "cta_url": "shopify://collections/edition-1"
+      }
+    },
+    "nalvik_info_bar_main": {
+      "type": "nalvik-info-bar",
+      "settings": {}
+    },
+    "nalvik_image_duo_main": {
+      "type": "nalvik-image-duo",
+      "settings": {
+        "left_image": "shopify://shop_images/1_fc2c529b-4d17-4f9d-9f9a-c7cbf129edaa.png",
+        "right_image": "shopify://shop_images/2_b9257e9b-43d9-4d83-8159-98a8f1284dfa.png"
+      }
+    },
+    "nalvik_craft_video_main": {
+      "type": "nalvik-craft-video",
+      "settings": {
+        "video": "shopify://files/videos/IMG_0341.MP4",
+        "video_url": "",
+        "logo_text": "NALVIK"
+      }
+    }
+  },
+  "order": [
+    "nalvik_hero_main",
+    "nalvik_info_bar_main",
+    "nalvik_image_duo_main",
+    "nalvik_craft_video_main"
+  ]
+}

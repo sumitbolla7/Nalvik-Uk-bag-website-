@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>THE FOUNDER'S EDITION — NALVIK</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #fff;
+      color: #000;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .fe-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .fe-header__logo {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 18px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: #000;
+      text-decoration: none;
+    }
+
+    .fe-header__nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .fe-header__nav a {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #000;
+      text-decoration: none;
+    }
+
+    .fe-header__menu {
+      width: 22px;
+      height: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .fe-header__menu span {
+      display: block;
+      height: 1px;
+      background: #000;
+      width: 100%;
+    }
+
+    .fe-title {
+      text-align: center;
+      padding: 36px 20px 32px;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #000;
+    }
+
+    .fe-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .fe-item {
+      position: relative;
+      width: 100%;
+      line-height: 0;
+    }
+
+    .fe-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      vertical-align: top;
+    }
+
+    .fe-item__label {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 2;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      pointer-events: none;
+    }
+
+    .fe-footer {
+      padding: 28px 20px 40px;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    .fe-footer__label {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .fe-footer__select {
+      width: 100%;
+      max-width: 280px;
+      padding: 10px 12px;
+      font-size: 13px;
+      border: 1px solid #ccc;
+      background: #fff;
+      margin-bottom: 28px;
+    }
+
+    .fe-footer__links {
+      font-size: 10px;
+      color: #888;
+      line-height: 1.8;
+      letter-spacing: 0.02em;
+    }
+
+    .fe-footer__links a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    @media (min-width: 750px) {
+      body {
+        max-width: 430px;
+        margin: 0 auto;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="fe-header">
+    <a href="#" class="fe-header__logo">NALVIK</a>
+    <div class="fe-header__nav">
+      <a href="#">ACCESS</a>
+      <a href="#">CART</a>
+      <button type="button" class="fe-header__menu" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <h1 class="fe-title">THE FOUNDER'S EDITION</h1>
+
+  <div class="fe-stack">
+    <a class="fe-item" href="#">
+      <span class="fe-item__label">THE CRESCENT</span>
+      <img
+        src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/crescent_bag_image_mobile_1.png?v=1779820365"
+        alt="The Crescent bag"
+        width="750"
+        height="500"
+        loading="eager"
+      >
+    </a>
+    <a class="fe-item" href="#">
+      <span class="fe-item__label">THE OBSIDIAN</span>
+      <img
+        src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/obsidian_mobile_pic_1.png?v=1779820366"
+        alt="The Obsidian bag"
+        width="750"
+        height="500"
+        loading="lazy"
+      >
+    </a>
+    <a class="fe-item" href="#">
+      <span class="fe-item__label">THE DUFFLE</span>
+      <img
+        src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/duffle_bag_pic.png?v=1779820365"
+        alt="The Duffle bag"
+        width="750"
+        height="500"
+        loading="lazy"
+      >
+    </a>
+  </div>
+
+  <footer class="fe-footer">
+    <p class="fe-footer__label">Country/region</p>
+    <select class="fe-footer__select" aria-label="Country/region">
+      <option>India | GBP £</option>
+    </select>
+    <p class="fe-footer__links">
+      © 2024, NALVIK
+      <a href="#">Privacy policy</a>
+      <a href="#">Contact information</a>
+      <a href="#">Refund policy</a>
+      <a href="#">Shipping policy</a>
+      <a href="#">Terms of service</a>
+    </p>
+  </footer>
+
+</body>
+</html>

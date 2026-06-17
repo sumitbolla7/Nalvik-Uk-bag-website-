@@ -1,0 +1,53 @@
+{% doc %}
+  @prompt
+    Add custom CSS to fix the mobile navigation menu so that the text and links in the hamburger menu are always white by default and not just on hover. The header section ID is sections--22488054300912__header. The background is black but the text is showing as black making it unreadable. Target the mobile menu navigation links and set their color to white overriding any existing styles.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  #sections--22488054300912__header .menu-drawer__navigation a,
+  #sections--22488054300912__header .menu-drawer__navigation .list-menu__item,
+  #sections--22488054300912__header .menu-drawer__menu-item,
+  #sections--22488054300912__header .menu-drawer .list-menu__item > a,
+  #sections--22488054300912__header .menu-drawer .list-menu__item > span,
+  #sections--22488054300912__header .menu-drawer__navigation .list-menu__item > a,
+  #sections--22488054300912__header .menu-drawer__navigation .list-menu__item > span,
+  #sections--22488054300912__header .menu-drawer__navigation-item,
+  #sections--22488054300912__header .menu-drawer__navigation-item a,
+  #sections--22488054300912__header .menu-drawer__navigation-item span,
+  #sections--22488054300912__header .menu-drawer .list-menu a,
+  #sections--22488054300912__header .menu-drawer .list-menu span {
+    color: #ffffff !important;
+  }
+
+  #sections--22488054300912__header .menu-drawer__navigation a:hover,
+  #sections--22488054300912__header .menu-drawer__navigation .list-menu__item:hover,
+  #sections--22488054300912__header .menu-drawer__menu-item:hover,
+  #sections--22488054300912__header .menu-drawer .list-menu__item > a:hover,
+  #sections--22488054300912__header .menu-drawer .list-menu__item > span:hover {
+    color: #ffffff !important;
+  }
+
+  .ai-mobile-menu-fix-{{ ai_gen_id }} {
+    display: none;
+  }
+{% endstyle %}
+
+<div class="ai-mobile-menu-fix-{{ ai_gen_id }}" {{ block.shopify_attributes }}></div>
+
+{% schema %}
+{
+  "name": "Mobile menu text fix",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "This block fixes the mobile navigation menu text color to white for better readability on dark backgrounds."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mobile menu text fix"
+    }
+  ]
+}
+{% endschema %}

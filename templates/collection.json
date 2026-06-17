@@ -1,0 +1,45 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "blocks_6qfTGm": {
+      "type": "_blocks",
+      "name": "Bold text",
+      "settings": {}
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "disabled": true,
+      "settings": {}
+    },
+    "nalvik_archive_dqzmwT": {
+      "type": "nalvik-archive",
+      "name": "Nalvik Archive",
+      "settings": {
+        "archive_statement": "<p>NALVIK EDITIONS ARE PRODUCED ONCE IN SMALL NUMBERS.<br/>WHEN A PIECE LEAVES PRODUCTION, IT ENTERS THE ARCHIVE AND IS NOT REPEATED.</p>"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "blocks_6qfTGm",
+    "product-grid",
+    "nalvik_archive_dqzmwT"
+  ]
+}

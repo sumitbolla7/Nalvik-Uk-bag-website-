@@ -1,0 +1,74 @@
+{% comment %}
+  NALVIK — Homepage info strip (pc + phone mockup)
+{% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .nalvik-info-bar--{{ section.id }} {
+    background: #ffffff;
+    width: 100%;
+  }
+
+  .nalvik-info-bar--{{ section.id }} .nalvik-info-bar__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 36px 64px;
+    gap: 0;
+  }
+
+  .nalvik-info-bar--{{ section.id }} .nalvik-info-bar__col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nalvik-info-bar--{{ section.id }} .nalvik-info-bar__col--left,
+  .nalvik-info-bar--{{ section.id }} .nalvik-info-bar__col--right {
+    align-items: center;
+    text-align: center;
+  }
+
+  .nalvik-info-bar--{{ section.id }} .nalvik-info-bar__line {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    line-height: 1.55;
+    text-transform: uppercase;
+    color: #000000 !important;
+    display: block;
+    margin: 0;
+  }
+
+  /* Mobile: two columns left/right — see assets/nalvik-mobile.css */
+{%- endstyle -%}
+
+<section class="nalvik-info-bar nalvik-info-bar--{{ section.id }}" aria-label="Brand information">
+  <div class="nalvik-info-bar__grid">
+    <div class="nalvik-info-bar__col nalvik-info-bar__col--left">
+      <span class="nalvik-info-bar__line">LIMITED EDITIONS</span>
+      <span class="nalvik-info-bar__line">PRODUCED ONCE, NEVER REPEATED</span>
+    </div>
+    <div class="nalvik-info-bar__col nalvik-info-bar__col--right">
+      <span class="nalvik-info-bar__line">INDIVIDUALLY NUMBERED</span>
+      <span class="nalvik-info-bar__line">EACH PIECE MARKED __ / 40.</span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Nalvik Info Bar",
+  "tag": "section",
+  "class": "nalvik-info-bar-section",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [],
+  "presets": [{ "name": "Nalvik Info Bar" }]
+}
+{% endschema %}

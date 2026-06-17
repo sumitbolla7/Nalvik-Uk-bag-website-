@@ -1,0 +1,303 @@
+{% comment %}
+  NALVIK — About page (mobile staggered grid mockup)
+{% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .nalvik-about-page--{{ section.id }} {
+    background: #ffffff;
+    width: 100%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__hero {
+    width: 100%;
+    line-height: 0;
+    background: #eceae6;
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__hero img,
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__hero-placeholder {
+    width: 100%;
+    height: auto;
+    display: block;
+    min-height: 200px;
+    object-fit: cover;
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__hero-placeholder {
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, #e8e4df 0%, #d4cfc8 100%);
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    padding: 0;
+    align-items: start;
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__col {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__col--right {
+    margin-top: 72px;
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__media {
+    width: 100%;
+    line-height: 0;
+    background: #eceae6;
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__media img,
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__media-placeholder {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__media-placeholder {
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(160deg, #ebe7e2 0%, #d8d3cc 100%);
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__media--tall .nalvik-about-page__media-placeholder,
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__media--tall img {
+    aspect-ratio: 3 / 4;
+    min-height: 220px;
+    object-fit: cover;
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__block {
+    padding: 20px 10px 28px;
+    text-align: left;
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__heading {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #000000;
+    margin: 0 0 14px;
+    line-height: 1.3;
+  }
+
+  .nalvik-about-page--{{ section.id }} .nalvik-about-page__body {
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    line-height: 1.65;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .nalvik-about-page--{{ section.id }} .nalvik-about-page__grid {
+      max-width: 900px;
+      margin: 0 auto;
+      column-gap: 24px;
+      padding: 0 40px 60px;
+    }
+
+    .nalvik-about-page--{{ section.id }} .nalvik-about-page__col--right {
+      margin-top: 120px;
+    }
+
+    .nalvik-about-page--{{ section.id }} .nalvik-about-page__block {
+      padding: 28px 16px 40px;
+    }
+
+    .nalvik-about-page--{{ section.id }} .nalvik-about-page__heading {
+      font-size: 12px;
+    }
+
+    .nalvik-about-page--{{ section.id }} .nalvik-about-page__body {
+      font-size: 10px;
+      line-height: 1.75;
+    }
+
+    .nalvik-about-page--{{ section.id }} .nalvik-about-page__hero {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+  }
+{%- endstyle -%}
+
+<section class="nalvik-about-page nalvik-about-page--{{ section.id }}" aria-label="About NALVIK">
+  <div class="nalvik-about-page__hero">
+    {%- if section.settings.hero_image != blank -%}
+      <img
+        src="{{ section.settings.hero_image | image_url: width: 1600 }}"
+        alt="{{ section.settings.hero_image.alt | default: 'NALVIK craftsmanship' | escape }}"
+        width="1600"
+        height="{{ 1600 | divided_by: section.settings.hero_image.aspect_ratio | round }}"
+        loading="eager"
+      >
+    {%- else -%}
+      <div class="nalvik-about-page__hero-placeholder" role="img" aria-label="Hero image placeholder"></div>
+    {%- endif -%}
+  </div>
+
+  <div class="nalvik-about-page__grid">
+    <div class="nalvik-about-page__col nalvik-about-page__col--left">
+      <div class="nalvik-about-page__media">
+        {%- if section.settings.image_mission != blank -%}
+          <img src="{{ section.settings.image_mission | image_url: width: 800 }}" alt="" width="800" height="800" loading="lazy">
+        {%- else -%}
+          <div class="nalvik-about-page__media-placeholder"></div>
+        {%- endif -%}
+      </div>
+
+      <div class="nalvik-about-page__block">
+        <h2 class="nalvik-about-page__heading">{{ section.settings.mission_heading | default: 'OUR MISSION' }}</h2>
+        <p class="nalvik-about-page__body">{{ section.settings.mission_text }}</p>
+      </div>
+
+      <div class="nalvik-about-page__media">
+        {%- if section.settings.image_pricing != blank -%}
+          <img src="{{ section.settings.image_pricing | image_url: width: 800 }}" alt="" width="800" height="800" loading="lazy">
+        {%- else -%}
+          <div class="nalvik-about-page__media-placeholder"></div>
+        {%- endif -%}
+      </div>
+
+      <div class="nalvik-about-page__block">
+        <h2 class="nalvik-about-page__heading">{{ section.settings.pricing_heading | default: 'WHY WE PRICE THIS WAY' }}</h2>
+        <p class="nalvik-about-page__body">{{ section.settings.pricing_text }}</p>
+      </div>
+    </div>
+
+    <div class="nalvik-about-page__col nalvik-about-page__col--right">
+      <div class="nalvik-about-page__media nalvik-about-page__media--tall">
+        {%- if section.settings.image_create != blank -%}
+          <img src="{{ section.settings.image_create | image_url: width: 800 }}" alt="" width="800" height="1067" loading="lazy">
+        {%- else -%}
+          <div class="nalvik-about-page__media-placeholder"></div>
+        {%- endif -%}
+      </div>
+
+      <div class="nalvik-about-page__block">
+        <h2 class="nalvik-about-page__heading">{{ section.settings.create_heading | default: 'HOW WE CREATE' }}</h2>
+        <p class="nalvik-about-page__body">{{ section.settings.create_text }}</p>
+      </div>
+
+      <div class="nalvik-about-page__media nalvik-about-page__media--tall">
+        {%- if section.settings.image_who != blank -%}
+          <img src="{{ section.settings.image_who | image_url: width: 800 }}" alt="" width="800" height="1067" loading="lazy">
+        {%- else -%}
+          <div class="nalvik-about-page__media-placeholder"></div>
+        {%- endif -%}
+      </div>
+
+      <div class="nalvik-about-page__block">
+        <h2 class="nalvik-about-page__heading">{{ section.settings.who_heading | default: 'WHO THIS IS FOR' }}</h2>
+        <p class="nalvik-about-page__body">{{ section.settings.who_text }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Nalvik About Page",
+  "tag": "section",
+  "class": "nalvik-about-page-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image (top)"
+    },
+    {
+      "type": "header",
+      "content": "Left column"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mission",
+      "label": "Image above Our Mission"
+    },
+    {
+      "type": "text",
+      "id": "mission_heading",
+      "label": "Mission heading",
+      "default": "OUR MISSION"
+    },
+    {
+      "type": "textarea",
+      "id": "mission_text",
+      "label": "Mission text",
+      "default": "NALVIK WAS NOT CREATED TO CHASE SEASONS, ALGORITHMS, OR VOLUME. IT BEGAN WITH A SIMPLE IDEA: FEWER THINGS, MADE WITH INTENTION, CARRY MORE MEANING. IN A WORLD OF EXCESS AND SPEED, WE CHOSE RESTRAINT."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_pricing",
+      "label": "Image above Why We Price"
+    },
+    {
+      "type": "text",
+      "id": "pricing_heading",
+      "label": "Pricing heading",
+      "default": "WHY WE PRICE THIS WAY"
+    },
+    {
+      "type": "textarea",
+      "id": "pricing_text",
+      "label": "Pricing text",
+      "default": "OUR PRICING REFLECTS INTENTION, NOT COMPARISON. IT ALLOWS US TO WORK WITHOUT COMPROMISE, REMAIN INDEPENDENT, AND PROTECT THE INTEGRITY OF WHAT WE MAKE. WE DO NOT DISCOUNT. WE DO NOT OVERPRODUCE."
+    },
+    {
+      "type": "header",
+      "content": "Right column"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_create",
+      "label": "Image above How We Create"
+    },
+    {
+      "type": "text",
+      "id": "create_heading",
+      "label": "Create heading",
+      "default": "HOW WE CREATE"
+    },
+    {
+      "type": "textarea",
+      "id": "create_text",
+      "label": "Create text",
+      "default": "NALVIK PIECES ARE PRODUCED IN LIMITED NUMBERS, IN OUR OWN ATELIER. EVERY DECISION — FROM MATERIAL SELECTION TO FINISHING — IS DELIBERATE. WE WORK IN SMALL BATCHES, NOT BECAUSE WE CANNOT MAKE MORE, BUT BECAUSE MAKING MORE WOULD DILUTE WHAT MATTERS. EACH DESIGN IS RELEASED ONCE. NO RE-RUNS. NO EXCESS."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_who",
+      "label": "Image above Who This Is For"
+    },
+    {
+      "type": "text",
+      "id": "who_heading",
+      "label": "Who heading",
+      "default": "WHO THIS IS FOR"
+    },
+    {
+      "type": "textarea",
+      "id": "who_text",
+      "label": "Who text",
+      "default": "NALVIK IS FOR THOSE WHO VALUE DISCRETION OVER DISPLAY. FOR THOSE WHO NOTICE FORM BEFORE BRANDING. FOR THOSE WHO PREFER FEWER OBJECTS, CHOSEN WELL."
+    }
+  ],
+  "presets": [{ "name": "Nalvik About Page" }]
+}
+{% endschema %}

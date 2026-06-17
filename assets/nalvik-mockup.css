@@ -1,0 +1,88 @@
+/* NALVIK homepage — mockup typography (sans UI + serif logo only) */
+:root {
+  --nalvik-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --nalvik-serif: var(--font-heading-family), Georgia, 'Times New Roman', serif;
+}
+
+/* Header — black sans nav, serif logo (pc mockup) */
+body.template-index .shopify-section-group-header-group a,
+body.template-index .shopify-section-group-header-group span,
+body.template-index .shopify-section-group-header-group button,
+body.template-index .shopify-section-group-header-group .header__menu-item,
+body.template-index .shopify-section-group-header-group .header__menu-item span,
+body.template-index .shopify-section-group-header-group nav a,
+body.template-index .shopify-section-group-header-group .list-menu__item--link {
+  font-family: var(--nalvik-sans) !important;
+  color: #000000 !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+body.template-index .shopify-section-group-header-group .header__heading-link,
+body.template-index .shopify-section-group-header-group .header__heading-link .h2 {
+  font-family: var(--nalvik-serif) !important;
+  color: #000000 !important;
+  text-shadow: none !important;
+}
+
+body.template-index .shopify-section-group-header-group .header__menu-item span,
+body.template-index .shopify-section-group-header-group nav a {
+  font-size: 12px !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+}
+
+body.template-index .shopify-section-group-header-group .header__heading-link .h2 {
+  font-size: 20px !important;
+  letter-spacing: 0.25em !important;
+  font-weight: 400 !important;
+}
+
+/* Hero promo — sans, bottom-right, underlined CTA (not a button) */
+body.template-index .nalvik-hero__promo-line,
+body.template-index .nalvik-hero__promo-link {
+  font-family: var(--nalvik-sans) !important;
+  color: #000000 !important;
+}
+
+body.template-index .nalvik-hero__promo-line {
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.1em !important;
+  line-height: 1.5 !important;
+  text-transform: uppercase !important;
+}
+
+body.template-index .nalvik-hero__promo-link {
+  font-size: 11px !important;
+  letter-spacing: 0.2em !important;
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Info bar — light sans, centered columns on desktop */
+body.template-index .nalvik-info-bar__line {
+  font-family: var(--nalvik-sans) !important;
+  font-weight: 300 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.16em !important;
+  line-height: 1.55 !important;
+  color: #000000 !important;
+}
+
+body.template-index .nalvik-info-bar__col--left,
+body.template-index .nalvik-info-bar__col--right {
+  align-items: center !important;
+  text-align: center !important;
+}
+
+/* Mobile homepage rules: assets/nalvik-mobile.css */
+
+/* Craft video logo — white serif overlay */
+body.template-index .nalvik-craft__logo {
+  font-family: var(--nalvik-serif) !important;
+}

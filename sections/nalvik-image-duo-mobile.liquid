@@ -1,0 +1,100 @@
+{% comment %}
+  NALVIK — Mobile image duo (side by side, square crop)
+{% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .nalvik-idm--{{ section.id }} {
+    display: none;
+  }
+
+  @media (max-width: 749px) {
+    .nalvik-idm--{{ section.id }} {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      width: 100%;
+      background: #fff;
+    }
+
+    .nalvik-idm--{{ section.id }} .nalvik-idm__item {
+      width: 100%;
+      height: 50vw;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .nalvik-idm--{{ section.id }} .nalvik-idm__item img {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      display: block !important;
+    }
+  }
+{%- endstyle -%}
+
+<section class="nalvik-idm nalvik-idm--{{ section.id }}" aria-label="Product details">
+  {%- if section.settings.left_image != blank -%}
+    <div class="nalvik-idm__item">
+      <img
+        src="{{ section.settings.left_image | image_url: width: 800 }}"
+        srcset="
+          {{ section.settings.left_image | image_url: width: 400 }} 400w,
+          {{ section.settings.left_image | image_url: width: 800 }} 800w
+        "
+        sizes="50vw"
+        alt="{{ section.settings.left_image.alt | default: 'NALVIK detail' | escape }}"
+        width="800"
+        height="800"
+        loading="lazy"
+      >
+    </div>
+  {%- endif -%}
+  {%- if section.settings.right_image != blank -%}
+    <div class="nalvik-idm__item">
+      <img
+        src="{{ section.settings.right_image | image_url: width: 800 }}"
+        srcset="
+          {{ section.settings.right_image | image_url: width: 400 }} 400w,
+          {{ section.settings.right_image | image_url: width: 800 }} 800w
+        "
+        sizes="50vw"
+        alt="{{ section.settings.right_image.alt | default: 'NALVIK leather detail' | escape }}"
+        width="800"
+        height="800"
+        loading="lazy"
+      >
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Nalvik Image Duo Mobile",
+  "tag": "section",
+  "class": "nalvik-image-duo-mobile-section",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Left image (mobile)"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right image (mobile)"
+    }
+  ],
+  "presets": [{ "name": "Nalvik Image Duo Mobile" }]
+}
+{% endschema %}

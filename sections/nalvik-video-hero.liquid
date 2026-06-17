@@ -1,0 +1,272 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap');
+
+  .nvh-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #f5f3ef;
+  }
+
+  /* ── VIDEO HERO (top) ── */
+  .nvh-video-wrap {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+  }
+  .nvh-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+  .nvh-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.42) 100%);
+    z-index: 1;
+  }
+  .nvh-content {
+    position: absolute;
+    bottom: 72px;
+    left: 64px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nvh-label {
+    font-family: Jost, sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 14px;
+  }
+  .nvh-heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(32px, 4.5vw, 58px);
+    font-weight: 300;
+    font-style: italic;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    margin: 0 0 28px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    line-height: 1.1;
+  }
+  .nvh-btn {
+    display: inline-block;
+    padding: 13px 40px;
+    border: 1px solid rgba(255,255,255,0.75);
+    color: #ffffff;
+    font-family: Jost, sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .nvh-btn:hover {
+    background: #ffffff;
+    color: #1a1a18;
+    border-color: #ffffff;
+  }
+
+  /* ── EDITORIAL STRIP (below video) ── */
+  .nvh-editorial {
+    display: flex;
+    width: 100%;
+    min-height: 60vh;
+    background: #ffffff;
+  }
+  .nvh-editorial__image {
+    flex: 0 0 55%;
+    overflow: hidden;
+  }
+  .nvh-editorial__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    filter: grayscale(100%);
+    transition: filter 0.5s ease;
+  }
+  .nvh-editorial__image img:hover {
+    filter: grayscale(60%);
+  }
+  .nvh-editorial__text {
+    flex: 0 0 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 60px 64px 60px 40px;
+  }
+  .nvh-editorial__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(18px, 2vw, 26px);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin: 0 0 20px;
+    text-align: right;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
+  }
+  .nvh-editorial__link {
+    font-family: Jost, sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 1px solid #1a1a1a;
+    padding-bottom: 2px;
+    transition: opacity 0.2s;
+  }
+  .nvh-editorial__link:hover { opacity: 0.5; }
+
+  @media (max-width: 749px) {
+    .nvh-content { left: 24px; bottom: 48px; }
+    .nvh-video-wrap { height: 90vh; }
+    .nvh-editorial { flex-direction: column; }
+    .nvh-editorial__image { flex: 0 0 auto; height: 60vw; }
+    .nvh-editorial__text { flex: 0 0 auto; align-items: flex-start; padding: 32px 24px; }
+    .nvh-editorial__title { text-align: left; }
+  }
+</style>
+
+<div class="nvh-section">
+
+  <!-- VIDEO HERO -->
+  <div class="nvh-video-wrap">
+    <video class="nvh-video" autoplay muted loop playsinline preload="auto">
+      <source src="{{ section.settings.video_url }}" type="video/mp4">
+    </video>
+    <div class="nvh-overlay"></div>
+    <div class="nvh-content">
+      {%- if section.settings.label != blank -%}
+        <p class="nvh-label">{{ section.settings.label }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="nvh-heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <a href="{{ section.settings.button_link }}" class="nvh-btn">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- EDITORIAL IMAGE STRIP -->
+  {%- if section.settings.editorial_image != blank or section.settings.editorial_image_url != blank -%}
+  <div class="nvh-editorial">
+    <div class="nvh-editorial__image">
+      {%- if section.settings.editorial_image != blank -%}
+        <img src="{{ section.settings.editorial_image | image_url: width: 1400 }}"
+             alt="{{ section.settings.editorial_image.alt | escape }}"
+             width="1400" height="900" loading="lazy">
+      {%- elsif section.settings.editorial_image_url != blank -%}
+        <img src="{{ section.settings.editorial_image_url }}"
+             alt="{{ section.settings.editorial_title }}"
+             width="1400" height="900" loading="lazy">
+      {%- endif -%}
+    </div>
+    <div class="nvh-editorial__text">
+      {%- if section.settings.editorial_title != blank -%}
+        <p class="nvh-editorial__title">{{ section.settings.editorial_title }}</p>
+      {%- endif -%}
+      {%- if section.settings.editorial_link_label != blank and section.settings.editorial_link != blank -%}
+        <a href="{{ section.settings.editorial_link }}" class="nvh-editorial__link">{{ section.settings.editorial_link_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "NALVIK Video Hero",
+  "tag": "section",
+  "class": "nalvik-video-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video Hero"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL (MP4)",
+      "default": "https://cdn.shopify.com/videos/c/o/v/43dac3f880dc46daa36a6852a4b8e8a3.mp4"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Small label above heading",
+      "default": "Each piece individually numbered"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Limited by choice, defined by restraint."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "View Edition"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Editorial Image Strip"
+    },
+    {
+      "type": "image_picker",
+      "id": "editorial_image",
+      "label": "Editorial image (upload)"
+    },
+    {
+      "type": "text",
+      "id": "editorial_image_url",
+      "label": "OR paste image URL",
+      "default": "https://cdn.shopify.com/s/files/1/0812/9626/1360/files/WhatsApp_Image_2026-03-16_at_3.23.13_PM.jpg?v=1773655579"
+    },
+    {
+      "type": "text",
+      "id": "editorial_title",
+      "label": "Title (right side)",
+      "default": "Founder's Edition"
+    },
+    {
+      "type": "text",
+      "id": "editorial_link_label",
+      "label": "Link text",
+      "default": "Discover the Collection"
+    },
+    {
+      "type": "url",
+      "id": "editorial_link",
+      "label": "Link URL"
+    }
+  ],
+  "presets": [{ "name": "NALVIK Video Hero" }]
+}
+{% endschema %}

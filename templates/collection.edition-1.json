@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "founders_main": {
+      "type": "founders-edition",
+      "settings": {
+        "title": "The Founder's Edition",
+        "mobile_title": "THE FOUNDER'S EDITION",
+        "mobile_1_name": "THE CRESCENT",
+        "mobile_2_name": "THE OBSIDIAN",
+        "mobile_3_name": "THE DUFFLE"
+      }
+    }
+  },
+  "order": ["founders_main"]
+}

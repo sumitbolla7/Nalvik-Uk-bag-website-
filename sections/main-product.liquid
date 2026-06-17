@@ -1,0 +1,761 @@
+<product-info
+  id="MainProduct-{{ section.id }}"
+  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-update-url="true"
+  data-url="{{ product.url }}"
+>
+  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {{ 'component-price.css' | asset_url | stylesheet_tag }}
+  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+  {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+  <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  {%- if request.design_mode -%}
+    <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .nv-page {
+      display: grid;
+      grid-template-columns: 55% 45%;
+      min-height: 100vh;
+      background: #faf9f7;
+      font-family: 'Times New Roman', 'Playfair Display', Georgia, serif;
+    }
+    @media screen and (max-width: 749px) {
+      .nv-page { grid-template-columns: 1fr; }
+    }
+
+    /* ════ LEFT — Gallery ════ */
+    .nv-gallery {
+      position: relative;
+      background: #f5f3ef;
+      overflow: hidden;
+    }
+    .nv-gallery__track {
+      display: flex;
+      flex-wrap: nowrap;
+      height: 100%;
+      min-height: 100vh;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+      cursor: grab;
+      user-select: none;
+    }
+    .nv-gallery__track:active { cursor: grabbing; }
+    .nv-gallery__slide {
+      min-width: 100%;
+      width: 100%;
+      flex-shrink: 0;
+      position: relative;
+      cursor: zoom-in;
+    }
+    .nv-gallery__slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+    @media screen and (max-width: 749px) {
+      .nv-gallery__track { min-height: 80vw; }
+    }
+    .nv-gallery__counter {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Times New Roman', serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: rgba(0,0,0,0.38);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .nv-gallery__btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      width: 44px; height: 44px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 5;
+      opacity: 0.28;
+      transition: opacity 0.2s;
+    }
+    .nv-gallery__btn:hover { opacity: 0.75; }
+    .nv-gallery__btn--prev { left: 10px; }
+    .nv-gallery__btn--next { right: 10px; }
+    .nv-gallery__btn svg { width: 22px; height: 22px; stroke: #1a1a1a; fill: none; stroke-width: 1.2; }
+
+    .nv-thumbs {
+      display: flex;
+      gap: 5px;
+      padding: 10px 0 12px;
+      background: #f5f3ef;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+    }
+    .nv-thumbs::-webkit-scrollbar { display: none; }
+    .nv-thumb {
+      flex-shrink: 0;
+      width: 56px; height: 56px;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 0.35;
+      transition: opacity 0.2s;
+      background: #ede9e3;
+    }
+    .nv-thumb.is-active { opacity: 1; }
+    .nv-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ════ RIGHT — Info ════ */
+    .nv-info {
+      padding: 60px 52px 60px 56px;
+      display: flex;
+      flex-direction: column;
+      background: #faf9f7;
+      box-sizing: border-box;
+    }
+    @media screen and (max-width: 749px) {
+      .nv-info { padding: 36px 24px 48px; }
+    }
+
+    .nv-title {
+      font-family: 'Times New Roman', 'Playfair Display', Georgia, serif;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #111;
+      margin: 0 0 10px;
+      line-height: 1.3;
+    }
+    .nv-price {
+      font-family: 'Times New Roman', Georgia, serif;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: #111;
+      margin: 0 0 22px;
+    }
+
+    .nv-qty-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #111;
+      margin: 0 0 8px;
+      display: block;
+    }
+    .nv-qty {
+      display: flex;
+      align-items: center;
+      border: 1px solid #c8c4bc;
+      width: fit-content;
+      margin-bottom: 22px;
+    }
+    .nv-qty__btn {
+      width: 32px; height: 32px;
+      background: none; border: none;
+      cursor: pointer; font-size: 16px; color: #111;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .nv-qty__btn:hover { background: #f0ede8; }
+    .nv-qty__input {
+      width: 38px; height: 32px;
+      border: none;
+      border-left: 1px solid #c8c4bc;
+      border-right: 1px solid #c8c4bc;
+      background: none;
+      text-align: center;
+      font-size: 13px;
+      font-family: inherit;
+      color: #111;
+    }
+
+    .nv-reserved { margin: 0 0 22px; }
+    .nv-reserved__sub {
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #777;
+      margin: 0 0 3px;
+    }
+    .nv-reserved__count {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      color: #111;
+      margin: 0;
+    }
+
+    .nv-desc {
+      margin: 0 0 4px;
+      padding: 0;
+      list-style: none;
+    }
+    .nv-desc li {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #111;
+      line-height: 1.95;
+      padding-left: 14px;
+      position: relative;
+    }
+    .nv-desc li::before {
+      content: 'x';
+      position: absolute;
+      left: 0;
+      color: #111;
+    }
+    .nv-desc-rte {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #111;
+      line-height: 1.95;
+      margin-bottom: 4px;
+    }
+    .nv-desc-rte ul, .nv-desc-rte ol { padding-left: 14px; margin: 0; }
+    .nv-desc-rte li {
+      list-style: disc;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.95;
+    }
+    .nv-desc-rte p { margin: 0 0 4px; }
+
+    .nv-accordion { margin-bottom: 26px; }
+    .nv-accordion__trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      border-top: 1px solid rgba(0,0,0,0.14);
+      padding: 13px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .nv-accordion__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #111;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .nv-accordion__icon {
+      width: 14px; height: 14px;
+      position: relative; flex-shrink: 0;
+    }
+    .nv-accordion__icon::before,
+    .nv-accordion__icon::after {
+      content: '';
+      position: absolute;
+      background: #111;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nv-accordion__icon::before { width: 10px; height: 1px; top: 50%; left: 2px; transform: translateY(-50%); }
+    .nv-accordion__icon::after  { width: 1px; height: 10px; top: 2px; left: 50%; transform: translateX(-50%); }
+    .nv-accordion__trigger[aria-expanded="true"] .nv-accordion__icon::after {
+      transform: translateX(-50%) rotate(90deg);
+      opacity: 0;
+    }
+    .nv-accordion__body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+    }
+    .nv-accordion__body.is-open { max-height: 800px; padding-bottom: 14px; }
+    .nv-accordion__body ul { margin: 6px 0 0; padding: 0; list-style: none; }
+    .nv-accordion__body li,
+    .nv-accordion__body p {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #111;
+      line-height: 1.9;
+    }
+    .nv-accordion__body strong {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      display: block;
+      margin: 10px 0 2px;
+      color: #111;
+    }
+
+    .nv-btn {
+      display: block;
+      width: 100%;
+      padding: 14px 16px;
+      font-family: 'Times New Roman', Georgia, serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid #111;
+      background: transparent;
+      color: #111;
+      transition: background 0.2s, color 0.2s;
+      margin-bottom: 8px;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+    .nv-btn:hover { background: #111; color: #faf9f7; }
+    .nv-btn:disabled { opacity: 0.42; cursor: not-allowed; }
+    .nv-btn:disabled:hover { background: transparent; color: #111; }
+
+    .nv-monogram {
+      display: none;
+      border: 1px solid #c8c4bc;
+      padding: 18px 16px;
+      margin-bottom: 8px;
+      background: #faf9f7;
+    }
+    .nv-monogram.is-open { display: block; }
+    .nv-monogram__label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #777;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .nv-monogram__input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #c8c4bc;
+      background: none;
+      font-family: inherit;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: #111;
+      padding: 8px 0;
+      margin-bottom: 18px;
+      outline: none;
+      box-sizing: border-box;
+      text-transform: uppercase;
+    }
+    .nv-monogram__select {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #c8c4bc;
+      background: none;
+      font-family: inherit;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: #111;
+      padding: 8px 0;
+      outline: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    product-recommendations,
+    .product-recommendations,
+    .complementary-products { display: none !important; }
+
+    .nv-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.92);
+      align-items: center;
+      justify-content: center;
+    }
+    .nv-lightbox.is-open { display: flex; animation: nvFadeIn 0.22s ease; }
+    @keyframes nvFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .nv-lightbox__img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      display: block;
+      position: static !important;
+      width: auto !important;
+      height: auto !important;
+    }
+    .nv-lightbox__close {
+      position: fixed; top: 16px; right: 20px;
+      background: none; border: none;
+      color: rgba(255,255,255,0.6); font-size: 32px; line-height: 1;
+      cursor: pointer; z-index: 10000; padding: 8px; transition: color 0.2s;
+    }
+    .nv-lightbox__close:hover { color: #fff; }
+    .nv-lightbox__nav {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.08); border: none; color: rgba(255,255,255,0.7);
+      width: 44px; height: 44px; cursor: pointer;
+      display: none; align-items: center; justify-content: center;
+      z-index: 10000; transition: background 0.2s;
+    }
+    .nv-lightbox.is-open .nv-lightbox__nav { display: flex; }
+    .nv-lightbox__nav:hover { background: rgba(255,255,255,0.2); }
+    .nv-lightbox__nav--prev { left: 14px; }
+    .nv-lightbox__nav--next { right: 14px; }
+    .nv-lightbox__nav svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .nv-lightbox__counter {
+      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.3); font-size: 11px; letter-spacing: 0.18em;
+      pointer-events: none; white-space: nowrap;
+    }
+
+    /* Mobile fixes */
+    html, body { overflow-x: hidden; }
+    img { max-width: 100%; height: auto; }
+  {%- endstyle -%}
+
+  <div class="nv-page">
+
+    <!-- LEFT: Gallery -->
+    <div>
+      <div class="nv-gallery" id="NvGallery-{{ section.id }}">
+        <div class="nv-gallery__track" id="NvTrack-{{ section.id }}">
+          {%- assign img_count = 0 -%}
+          {%- for media in product.media -%}
+            {%- if media.media_type == 'image' -%}
+              <div class="nv-gallery__slide"
+                data-lb-src="{{ media.preview_image | image_url: width: 1800 }}"
+                data-lb-alt="{{ media.alt | escape }}">
+                <img
+                  src="{{ media.preview_image | image_url: width: 1400 }}"
+                  alt="{{ media.alt | escape }}"
+                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                  width="1400" height="1400">
+              </div>
+              {%- assign img_count = img_count | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if img_count > 1 -%}
+          <button class="nv-gallery__btn nv-gallery__btn--prev" id="NvPrev-{{ section.id }}" aria-label="Previous">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="nv-gallery__btn nv-gallery__btn--next" id="NvNext-{{ section.id }}" aria-label="Next">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        {%- endif -%}
+
+        <p class="nv-gallery__counter" id="NvCounter-{{ section.id }}">1 / {{ img_count }}</p>
+      </div>
+
+      {%- if img_count > 1 -%}
+        <div class="nv-thumbs" id="NvThumbs-{{ section.id }}">
+          {%- assign ti = 0 -%}
+          {%- for media in product.media -%}
+            {%- if media.media_type == 'image' -%}
+              <div class="nv-thumb{% if ti == 0 %} is-active{% endif %}" data-index="{{ ti }}">
+                <img src="{{ media.preview_image | image_url: width: 120 }}" alt="{{ media.alt | escape }}" width="120" height="120">
+              </div>
+              {%- assign ti = ti | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- RIGHT: Info -->
+    <div class="nv-info">
+
+      <h1 class="nv-title">{{ product.title }}</h1>
+      <p class="nv-price">{{ product.selected_or_first_available_variant.price | money_with_currency }}</p>
+
+      <span class="nv-qty-label">Quantity</span>
+      <div class="nv-qty">
+        <button class="nv-qty__btn" id="NvMinus-{{ section.id }}">&#8722;</button>
+        <input class="nv-qty__input" type="number" id="NvQtyInput-{{ section.id }}" value="1" min="1" max="99" readonly>
+        <button class="nv-qty__btn" id="NvPlus-{{ section.id }}">+</button>
+      </div>
+
+      {%- assign total_pieces = product.metafields.custom.total_pieces | default: 40 -%}
+      {%- assign inventory_qty = product.selected_or_first_available_variant.inventory_quantity | default: 0 -%}
+      {%- assign sold = total_pieces | minus: inventory_qty -%}
+      <div class="nv-reserved">
+        <p class="nv-reserved__sub">Individually reserved from Nalvik's finite edition.</p>
+        <p class="nv-reserved__count">{{ sold }}/{{ total_pieces }} reserved</p>
+      </div>
+
+      {%- assign features = product.metafields.custom.features.value -%}
+      {%- if features != blank -%}
+        <ul class="nv-desc">
+          {%- for feature in features -%}
+            {%- if feature != blank -%}
+              <li>{{ feature }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- elsif product.description != blank -%}
+        <div class="nv-desc-rte">{{ product.description | split: '<h2>Details</h2>' | first }}</div>
+      {%- endif -%}
+
+      <!-- Details accordion -->
+      <div class="nv-accordion">
+        <button class="nv-accordion__trigger" aria-expanded="false" id="NvAccBtn-{{ section.id }}" aria-controls="NvDetails-{{ section.id }}">
+          <span class="nv-accordion__label">Details</span>
+          <span class="nv-accordion__icon" aria-hidden="true"></span>
+        </button>
+        <div class="nv-accordion__body" id="NvDetails-{{ section.id }}">
+          <ul>
+            {%- if product.metafields.custom.weight != blank -%}
+              <li><strong>Weight</strong> {{ product.metafields.custom.weight }}</li>
+            {%- endif -%}
+            {%- if product.metafields.custom.dimensions != blank -%}
+              <li><strong>Dimensions LxWxH</strong> {{ product.metafields.custom.dimensions }}</li>
+            {%- endif -%}
+            {%- if product.metafields.custom.materials != blank -%}
+              <li><strong>Materials</strong> {{ product.metafields.custom.materials }}</li>
+            {%- endif -%}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Add to cart form -->
+      {%- assign form_id = 'NvForm-' | append: section.id -%}
+      {%- form 'product', product, id: form_id, novalidate: 'novalidate' -%}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" id="NvQtyHidden-{{ section.id }}" value="1">
+
+        <div class="nv-monogram" id="NvMonogram-{{ section.id }}">
+          <label class="nv-monogram__label">Complimentary Initial Monogram (max 4 characters)</label>
+          <input class="nv-monogram__input" type="text" maxlength="4"
+                 name="properties[Monogram]" placeholder="E.G. J.L.V">
+          <label class="nv-monogram__label" style="margin-top:4px;">Monogram Color</label>
+          <select class="nv-monogram__select" name="properties[Monogram Color]">
+            <option value="Blind">BLIND</option>
+            <option value="Gold">GOLD</option>
+            <option value="Silver">SILVER</option>
+          </select>
+        </div>
+
+        <button type="submit" class="nv-btn"
+          {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
+          {% if product.selected_or_first_available_variant.available %}ACQUIRE{% else %}SOLD OUT{% endif %}
+        </button>
+      {%- endform -%}
+
+      <button class="nv-btn" id="NvMonogramBtn-{{ section.id }}">CUSTOM MONOGRAM</button>
+
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="nv-lightbox" id="NvLightbox-{{ section.id }}" role="dialog" aria-modal="true" aria-label="Product image">
+    <button class="nv-lightbox__close" id="NvLbClose-{{ section.id }}" aria-label="Close">&times;</button>
+    <button class="nv-lightbox__nav nv-lightbox__nav--prev" id="NvLbPrev-{{ section.id }}" aria-label="Previous">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <img class="nv-lightbox__img" id="NvLbImg-{{ section.id }}" src="" alt="">
+    <button class="nv-lightbox__nav nv-lightbox__nav--next" id="NvLbNext-{{ section.id }}" aria-label="Next">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <p class="nv-lightbox__counter" id="NvLbCtr-{{ section.id }}"></p>
+  </div>
+
+  <script>
+  (function() {
+    var sid = '{{ section.id }}';
+
+    // ── QUANTITY ──
+    var qtyInput  = document.getElementById('NvQtyInput-' + sid);
+    var qtyHidden = document.getElementById('NvQtyHidden-' + sid);
+    var minusBtn  = document.getElementById('NvMinus-' + sid);
+    var plusBtn   = document.getElementById('NvPlus-' + sid);
+
+    function setQty(val) {
+      val = Math.max(1, Math.min(99, val));
+      if (qtyInput)  qtyInput.value  = val;
+      if (qtyHidden) qtyHidden.value = val;
+    }
+
+    if (minusBtn) minusBtn.addEventListener('click', function() { setQty(parseInt(qtyInput.value) - 1); });
+    if (plusBtn)  plusBtn.addEventListener('click',  function() { setQty(parseInt(qtyInput.value) + 1); });
+
+    // ── MONOGRAM TOGGLE ──
+    var monogramBtn = document.getElementById('NvMonogramBtn-' + sid);
+    var monogramEl  = document.getElementById('NvMonogram-' + sid);
+    if (monogramBtn && monogramEl) {
+      monogramBtn.addEventListener('click', function() {
+        monogramEl.classList.toggle('is-open');
+      });
+    }
+
+    // ── ACCORDION ──
+    var accBtn  = document.getElementById('NvAccBtn-' + sid);
+    var accBody = document.getElementById('NvDetails-' + sid);
+    if (accBtn && accBody) {
+      accBtn.addEventListener('click', function() {
+        var isOpen = accBody.classList.contains('is-open');
+        accBody.classList.toggle('is-open', !isOpen);
+        accBtn.setAttribute('aria-expanded', String(!isOpen));
+      });
+    }
+
+    // ── GALLERY ──
+    var track    = document.getElementById('NvTrack-' + sid);
+    var prevBtn  = document.getElementById('NvPrev-' + sid);
+    var nextBtn  = document.getElementById('NvNext-' + sid);
+    var counter  = document.getElementById('NvCounter-' + sid);
+    var thumbs   = document.getElementById('NvThumbs-' + sid);
+    var slides   = track ? track.querySelectorAll('.nv-gallery__slide') : [];
+    var total    = slides.length;
+    var current  = 0;
+
+    function goTo(idx) {
+      if (!track || total === 0) return;
+      if (idx < 0) idx = total - 1;
+      if (idx >= total) idx = 0;
+      current = idx;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      if (counter) counter.textContent = (current + 1) + ' / ' + total;
+      if (thumbs) {
+        thumbs.querySelectorAll('.nv-thumb').forEach(function(t, i) {
+          t.classList.toggle('is-active', i === current);
+        });
+      }
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+    if (thumbs) {
+      thumbs.querySelectorAll('.nv-thumb').forEach(function(t) {
+        t.addEventListener('click', function() { goTo(parseInt(this.dataset.index)); });
+      });
+    }
+
+    // Touch swipe on gallery
+    if (track) {
+      var startX = 0;
+      track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', function(e) {
+        var diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+      });
+    }
+
+    // ── LIGHTBOX ──
+    var lightbox = document.getElementById('NvLightbox-' + sid);
+    var lbImg    = document.getElementById('NvLbImg-' + sid);
+    var lbCtr    = document.getElementById('NvLbCtr-' + sid);
+    var lbClose  = document.getElementById('NvLbClose-' + sid);
+    var lbPrev   = document.getElementById('NvLbPrev-' + sid);
+    var lbNext   = document.getElementById('NvLbNext-' + sid);
+    var lbIdx    = 0;
+
+    // Collect lightbox images from slides
+    var lbImages = [];
+    slides.forEach(function(slide) {
+      lbImages.push({ src: slide.dataset.lbSrc || '', alt: slide.dataset.lbAlt || '' });
+    });
+
+    function lbOpen(idx) {
+      if (!lightbox || lbImages.length === 0) return;
+      lbIdx = idx;
+      lbShow();
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function lbShow() {
+      if (lbIdx < 0) lbIdx = lbImages.length - 1;
+      if (lbIdx >= lbImages.length) lbIdx = 0;
+      if (lbImg) { lbImg.src = lbImages[lbIdx].src; lbImg.alt = lbImages[lbIdx].alt; }
+      if (lbCtr) lbCtr.textContent = (lbIdx + 1) + ' / ' + lbImages.length;
+    }
+
+    function lbClose() {
+      if (!lightbox) return;
+      lightbox.classList.remove('is-open');
+      document.body.style.overflow = '';
+      setTimeout(function() { if (lbImg) lbImg.src = ''; }, 300);
+    }
+
+    slides.forEach(function(slide, i) {
+      slide.addEventListener('click', function() { lbOpen(i); });
+    });
+
+    if (lbClose)  lbClose.addEventListener('click', lbClose);
+    if (lbPrev)   lbPrev.addEventListener('click',  function() { lbIdx--; lbShow(); });
+    if (lbNext)   lbNext.addEventListener('click',  function() { lbIdx++; lbShow(); });
+
+    if (lightbox) {
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) lbClose();
+      });
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (!lightbox || !lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape')     lbClose();
+      if (e.key === 'ArrowLeft')  { lbIdx--; lbShow(); }
+      if (e.key === 'ArrowRight') { lbIdx++; lbShow(); }
+    });
+
+  })();
+  </script>
+
+</product-info>
+
+{% schema %}
+{
+  "name": "Product information",
+  "tag": "section",
+  "class": "section",
+  "blocks": [],
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    }
+  ]
+}
+{% endschema %}

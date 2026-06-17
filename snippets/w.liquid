@@ -1,0 +1,230 @@
+<style>
+  #nlv-waitlist-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99998;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  #nlv-waitlist-overlay.nlv-visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .nlv-wl__card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 380px;
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transform: translateY(16px);
+    transition: transform 0.4s ease;
+  }
+  #nlv-waitlist-overlay.nlv-visible .nlv-wl__card {
+    transform: translateY(0);
+  }
+  .nlv-wl__close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 200;
+    color: #999999;
+    line-height: 1;
+    padding: 4px 8px;
+    transition: color 0.2s;
+  }
+  .nlv-wl__close:hover { color: #1a1a18; }
+  .nlv-wl__eyebrow {
+    font-family: Jost, sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #999999;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .nlv-wl__title {
+    font-family: Cormorant Garamond, Georgia, serif;
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #1a1a18;
+    margin: 0 0 12px;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .nlv-wl__subtitle {
+    font-family: Jost, sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: #666666;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .nlv-wl__label {
+    font-family: Jost, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1a1a18;
+    align-self: flex-start;
+    margin-bottom: 6px;
+  }
+  .nlv-wl__input {
+    width: 100%;
+    padding: 0 0 10px 0;
+    border: none;
+    border-bottom: 1px solid #1a1a18;
+    background: transparent;
+    font-family: Jost, sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: #1a1a18;
+    outline: none;
+    margin-bottom: 24px;
+  }
+  .nlv-wl__input::placeholder {
+    color: #bbbbbb;
+  }
+  .nlv-wl__input.nlv-error {
+    border-bottom-color: #c0392b;
+  }
+  .nlv-wl__btn {
+    width: 100%;
+    padding: 16px;
+    background: #1a1a18;
+    border: none;
+    font-family: Jost, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.25s;
+    margin-bottom: 16px;
+  }
+  .nlv-wl__btn:hover { background: #333333; }
+  .nlv-wl__note {
+    font-family: Jost, sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: #999999;
+    text-align: center;
+  }
+  .nlv-wl__success {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    padding: 20px 0;
+  }
+  .nlv-wl__success h3 {
+    font-family: Cormorant Garamond, Georgia, serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: #1a1a18;
+    margin: 0;
+  }
+  .nlv-wl__success p {
+    font-family: Jost, sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: #666666;
+    margin: 0;
+  }
+  @media (max-width: 480px) {
+    .nlv-wl__card { margin: 16px; padding: 40px 24px; }
+  }
+</style>
+
+<div id="nlv-waitlist-overlay">
+  <div class="nlv-wl__card">
+    <button class="nlv-wl__close" id="nlv-wl-close">x</button>
+    <div id="nlv-wl-form">
+      <p class="nlv-wl__eyebrow">Early Access</p>
+      <h2 class="nlv-wl__title">Founders Edition</h2>
+      <p class="nlv-wl__subtitle">Be among the first few to access it.</p>
+      <p class="nlv-wl__label">EMAIL *</p>
+      <input type="email" id="nlv-wl-email" class="nlv-wl__input" placeholder="Email" autocomplete="email">
+      <button class="nlv-wl__btn" id="nlv-wl-submit">JOIN THE WAITLIST</button>
+      <p class="nlv-wl__note">Access will be granted selectively.</p>
+    </div>
+    <div class="nlv-wl__success" id="nlv-wl-success">
+      <h3>You are on the list</h3>
+      <p>We will be in touch when access opens.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var overlay = document.getElementById('nlv-waitlist-overlay');
+  var closeBtn = document.getElementById('nlv-wl-close');
+  var submitBtn = document.getElementById('nlv-wl-submit');
+  var formWrap = document.getElementById('nlv-wl-form');
+  var successEl = document.getElementById('nlv-wl-success');
+  var emailInput = document.getElementById('nlv-wl-email');
+
+  function closeOverlay(){
+    overlay.classList.remove('nlv-visible');
+    localStorage.setItem('nlv_waitlist', 'true');
+  }
+
+  closeBtn.addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', function(e){
+    if (e.target === overlay) closeOverlay();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeOverlay();
+  });
+
+  submitBtn.addEventListener('click', function(){
+    var email = emailInput.value.trim();
+    if (!email || email.indexOf('@') === -1) {
+      emailInput.classList.add('nlv-error');
+      return;
+    }
+    emailInput.classList.remove('nlv-error');
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/contact', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(
+      'form_type=contact'
+      + '&utf8=on'
+      + '&contact[email]=' + encodeURIComponent(email)
+      + '&contact[body]=Waitlist+signup+Founders+Edition'
+      + '&contact[subject]=Waitlist+Signup'
+    );
+    formWrap.style.display = 'none';
+    successEl.style.display = 'flex';
+    localStorage.setItem('nlv_waitlist', 'true');
+    setTimeout(closeOverlay, 2800);
+  });
+
+  if (localStorage.getItem('nlv_cookies') && !localStorage.getItem('nlv_waitlist')) {
+    setTimeout(function(){
+      overlay.classList.add('nlv-visible');
+    }, 1000);
+  }
+})();
+</script>

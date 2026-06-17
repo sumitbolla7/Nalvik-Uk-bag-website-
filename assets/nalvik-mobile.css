@@ -1,0 +1,95 @@
+/**
+ * NALVIK — Homepage mobile only (phone mockup)
+ * Loaded on index template. Desktop styles live in section files + nalvik-mockup.css
+ */
+
+@media screen and (max-width: 749px) {
+
+  /* ── Info bar: two columns, left col left / right col right ── */
+  body.template-index .nalvik-info-bar__grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+    padding: 22px 16px !important;
+    align-items: start !important;
+  }
+
+  body.template-index .nalvik-info-bar__col {
+    gap: 3px !important;
+    min-width: 0 !important;
+  }
+
+  body.template-index .nalvik-info-bar__col--left {
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  body.template-index .nalvik-info-bar__col--right {
+    align-items: flex-end !important;
+    text-align: right !important;
+  }
+
+  body.template-index .nalvik-info-bar__line {
+    font-size: 9px !important;
+    letter-spacing: 0.12em !important;
+    line-height: 1.45 !important;
+    word-break: break-word;
+  }
+
+  body.template-index .nalvik-info-bar__col .nalvik-info-bar__line:first-child {
+    font-weight: 500 !important;
+  }
+
+  /* ── Image duo: always left + right (never stack) ── */
+  body.template-index .nalvik-image-duo {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0 !important;
+    width: 100% !important;
+  }
+
+  body.template-index .nalvik-image-duo__item {
+    aspect-ratio: 1 / 1 !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+  }
+
+  body.template-index .nalvik-image-duo__item img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* ── Hero promo (phone mockup) ── */
+  body.template-index .nalvik-hero__promo {
+    right: 16px !important;
+    bottom: 24px !important;
+  }
+
+  body.template-index .nalvik-hero__promo-line {
+    font-size: 10px !important;
+    letter-spacing: 0.08em !important;
+    line-height: 1.4 !important;
+  }
+
+  body.template-index .nalvik-hero__promo-line--1 {
+    white-space: nowrap !important;
+  }
+
+  body.template-index .nalvik-hero__promo-link {
+    font-size: 10px !important;
+    letter-spacing: 0.16em !important;
+  }
+
+  /* ── Craft video ── */
+  body.template-index .nalvik-craft {
+    min-height: 280px !important;
+    height: 42vh !important;
+  }
+
+  body.template-index .nalvik-craft__logo {
+    font-size: clamp(2rem, 12vw, 3.5rem) !important;
+    letter-spacing: 0.28em !important;
+    text-indent: 0.28em !important;
+  }
+}

@@ -1,0 +1,90 @@
+<style>
+  .nb-section {
+    width: 100%;
+    background: #ffffff;
+    font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
+    position: relative;
+  }
+  .nb-image-wrap {
+    width: 100%;
+    height: {{ section.settings.image_height }}px;
+    overflow: hidden;
+    position: relative;
+  }
+  .nb-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+  }
+  .nb-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 60px;
+    background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 100%);
+  }
+  .nb-overlay-title {
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 8px;
+    font-style: normal;
+    display: block;
+  }
+  .nb-overlay-link {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-style: normal;
+  }
+  .nb-overlay-link:hover { color: #ffffff; }
+  @media (max-width: 768px) {
+    .nb-image-wrap { height: {{ section.settings.image_height | times: 0.6 | round }}px; }
+    .nb-overlay { padding: 28px 24px; }
+  }
+</style>
+
+<div class="nb-section">
+  <div class="nb-image-wrap">
+    {% if section.settings.image %}
+      <img src="{{ section.settings.image | image_url: width: 2000 }}" alt="{{ section.settings.title }}" width="2000" height="800" loading="lazy">
+    {% elsif section.settings.image_url != blank %}
+      <img src="{{ section.settings.image_url }}" alt="{{ section.settings.title }}" width="2000" height="800" loading="lazy">
+    {% endif %}
+    <div class="nb-overlay">
+      {% if section.settings.title != blank %}
+        <span class="nb-overlay-title">{{ section.settings.title }}</span>
+      {% endif %}
+      {% if section.settings.link_text != blank %}
+        <a href="{{ section.settings.link }}" class="nb-overlay-link">{{ section.settings.link_text }}</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Nalvik Braid",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Upload image" },
+    { "type": "text", "id": "image_url", "label": "Or paste image URL", "default": "https://cdn.shopify.com/s/files/1/0812/9626/1360/files/briding_know_more_website_jpg.jpg?v=1773940412" },
+    { "type": "range", "id": "image_height", "min": 300, "max": 800, "step": 20, "unit": "px", "label": "Image height", "default": 560 },
+    { "type": "header", "content": "Text" },
+    { "type": "text", "id": "title", "label": "Title", "default": "THE NALVIK BRAID" },
+    { "type": "text", "id": "link_text", "label": "Link text", "default": "KNOW MORE" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "range", "id": "title_size", "min": 12, "max": 32, "step": 2, "unit": "px", "label": "Title size", "default": 18 }
+  ],
+  "presets": [{ "name": "Nalvik Braid" }]
+}
+{% endschema %}

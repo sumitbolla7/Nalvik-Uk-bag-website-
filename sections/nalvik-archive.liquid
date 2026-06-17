@@ -1,0 +1,152 @@
+{% comment %}
+  NALVIK Archive Page Section
+{% endcomment %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .nalvik-archive-section,
+  .nalvik-archive-section > .section,
+  .nalvik-archive-section .page-width,
+  .nalvik-archive-section .container {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  #nalvik-archive * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  #nalvik-archive {
+    background: #ffffff;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* =============================================
+     HERO IMAGE
+  ============================================= */
+  .nalvik-archive__hero {
+    width: 100%;
+    position: relative;
+    line-height: 0;
+    background: #f5f4f2;
+  }
+
+  .nalvik-archive__hero img {
+    width: 100%;
+    height: 75vh;
+    min-height: 480px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* =============================================
+     STATEMENT TEXT BLOCK
+  ============================================= */
+  .nalvik-archive__statement {
+    width: 100%;
+    background: #ffffff;
+    padding: 64px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .nalvik-archive__statement p {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #111111;
+    line-height: 2;
+    max-width: 760px;
+    white-space: pre-line;
+  }
+
+  /* =============================================
+     MOBILE
+  ============================================= */
+  @media (max-width: 768px) {
+    .nalvik-archive__hero img {
+      height: 60vw;
+      min-height: 260px;
+    }
+
+    .nalvik-archive__statement {
+      padding: 48px 24px;
+    }
+
+    .nalvik-archive__statement p {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+    }
+  }
+</style>
+
+<div id="nalvik-archive">
+
+  <!-- HERO IMAGE -->
+  <div class="nalvik-archive__hero">
+    {% if section.settings.archive_hero_image != blank %}
+      <img
+        src="{{ section.settings.archive_hero_image | image_url: width: 2000 }}"
+        alt="{{ section.settings.archive_hero_image.alt | default: 'NALVIK Archive' | escape }}"
+        width="2000"
+        height="1200"
+      >
+    {% else %}
+      <img
+        src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/new_website_mock__jpg.jpg?v=1779132361"
+        alt="NALVIK Archive"
+        width="2000"
+        height="1200"
+      >
+    {% endif %}
+  </div>
+
+  <!-- STATEMENT TEXT -->
+  <div class="nalvik-archive__statement">
+    <p>
+      NALVIK EDITIONS ARE PRODUCED ONCE IN SMALL NUMBERS.
+WHEN A PIECE LEAVES PRODUCTION, IT ENTERS THE ARCHIVE AND IS NOT REPEATED.
+    </p>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Nalvik Archive",
+  "tag": "section",
+  "class": "nalvik-archive-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "archive_hero_image",
+      "label": "Archive Hero Image"
+    },
+    {
+      "type": "richtext",
+      "id": "archive_statement",
+      "label": "Statement Text",
+      "default": "<p>NALVIK EDITIONS ARE PRODUCED ONCE IN SMALL NUMBERS.<br>WHEN A PIECE LEAVES PRODUCTION, IT ENTERS THE ARCHIVE AND IS NOT REPEATED.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nalvik Archive"
+    }
+  ]
+}
+{% endschema %}

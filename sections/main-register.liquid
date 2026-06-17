@@ -1,0 +1,154 @@
+{% layout 'theme' %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#fff;font-family:'Inter',sans-serif;color:#111;}
+.nv-wrap{width:100%;min-height:80vh;display:flex;flex-direction:column;align-items:center;padding:80px 24px 120px;background:#fff;}
+.nv-con{width:100%;max-width:620px;}
+.nv-page-title{font-size:11px;font-weight:700;letter-spacing:0.36em;text-align:center;color:#111;text-transform:uppercase;margin-bottom:16px;}
+.nv-page-desc{font-size:10px;font-weight:500;letter-spacing:0.14em;line-height:1.9;color:#666;text-transform:uppercase;margin-bottom:48px;}
+.nv-fh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.nv-fl{font-size:9px;font-weight:700;letter-spacing:0.22em;color:#111;text-transform:uppercase;}
+.nv-fr{font-size:9px;font-weight:500;letter-spacing:0.18em;color:#999;text-transform:uppercase;}
+.nv-iw{position:relative;margin-bottom:32px;}
+.nv-i{width:100%;border:none!important;border-bottom:1px solid #ccc!important;background:transparent!important;padding:12px 44px 12px 0!important;font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:400!important;color:#111!important;outline:none!important;border-radius:0!important;box-shadow:none!important;appearance:none;-webkit-appearance:none;}
+.nv-i::placeholder{color:#bbb;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.nv-i:focus{border-bottom-color:#111!important;box-shadow:none!important;}
+.nv-ib{width:100%;border:none!important;border-bottom:1px solid #ccc!important;background:transparent!important;padding:12px 0!important;font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:400!important;color:#111!important;outline:none!important;border-radius:0!important;box-shadow:none!important;appearance:none;-webkit-appearance:none;margin-bottom:32px;}
+.nv-ib::placeholder{color:#bbb;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.nv-ib:focus{border-bottom-color:#111!important;box-shadow:none!important;}
+.nv-sel{width:100%;border:none!important;border-bottom:1px solid #ccc!important;background:transparent!important;padding:12px 0!important;font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:400!important;color:#111!important;outline:none!important;border-radius:0!important;box-shadow:none!important;appearance:none;-webkit-appearance:none;cursor:pointer;margin-bottom:32px;}
+.nv-sel:focus{border-bottom-color:#111!important;}
+.nv-pw{position:absolute;right:0;top:50%;transform:translateY(-50%);background:none!important;border:none!important;cursor:pointer;font-size:9px;font-weight:700;letter-spacing:0.2em;color:#111;text-transform:uppercase;padding:0;font-family:'Inter',sans-serif;box-shadow:none!important;transition:opacity 0.2s;}
+.nv-pw:hover{opacity:0.5;}
+.nv-pbox{border:1px solid #e0e0e0;padding:20px;max-height:136px;overflow-y:auto;margin-bottom:28px;}
+.nv-ptxt{font-size:9px;font-weight:400;letter-spacing:0.09em;line-height:1.85;color:#555;text-transform:uppercase;}
+.nv-rc{position:absolute;opacity:0;width:0;height:0;pointer-events:none;}
+.nv-ar{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;cursor:pointer;user-select:none;}
+.nv-box{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;min-width:18px;border:1.5px solid #111;background:#fff;cursor:pointer;position:relative;flex-shrink:0;margin-top:1px;}
+.nv-box svg{display:none;width:10px;height:10px;}
+.nv-box.ck{background:#111!important;border-color:#111!important;}
+.nv-box.ck svg{display:block;}
+.nv-at{font-size:9px;font-weight:500;letter-spacing:0.12em;line-height:1.8;color:#111;text-transform:uppercase;}
+.nv-at a{color:#111;text-decoration:underline;text-underline-offset:3px;}
+.nv-btn{width:100%;background:#111!important;color:#fff!important;border:none!important;padding:18px;font-family:'Inter',sans-serif!important;font-size:10px!important;font-weight:700!important;letter-spacing:0.36em;text-transform:uppercase;cursor:pointer;border-radius:0!important;transition:background 0.2s;display:block;text-align:center;text-decoration:none;margin-top:8px;box-shadow:none!important;}
+.nv-btn:hover{background:#2a2a2a!important;color:#fff!important;}
+.nv-already{text-align:center;margin-top:28px;font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#777;}
+.nv-already a{color:#111;text-decoration:underline;text-underline-offset:3px;}
+.nv-err{margin-bottom:20px;list-style:none;}
+.nv-err li{font-size:9px;font-weight:600;letter-spacing:0.14em;color:#c00;text-transform:uppercase;margin-bottom:4px;}
+.nv-dup{background:#fff;border:1px solid #e0e0e0;padding:28px 32px;margin-bottom:32px;display:none;}
+.nv-dup.vis{display:block;}
+.nv-dt{font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#111;margin-bottom:16px;}
+.nv-dp{font-size:10px;font-weight:400;letter-spacing:0.12em;line-height:1.9;color:#444;text-transform:uppercase;margin-bottom:10px;}
+.nv-dl{list-style:none;margin:0 0 14px;padding:0;}
+.nv-dl li{font-size:9px;font-weight:500;letter-spacing:0.12em;line-height:2;color:#444;text-transform:uppercase;padding-left:14px;position:relative;}
+.nv-dl li::before{content:'·';position:absolute;left:0;}
+.nv-dk{color:#111;text-decoration:underline;text-underline-offset:3px;}
+.nv-df{font-size:9px;font-weight:400;letter-spacing:0.12em;line-height:1.9;color:#666;text-transform:uppercase;}
+@media(max-width:600px){.nv-wrap{padding:56px 20px 80px;}}
+</style>
+
+<div class="nv-wrap">
+  <div class="nv-con">
+    <p class="nv-page-title">CREATE AN ACCOUNT</p>
+    <p class="nv-page-desc">ENJOY A FASTER CHECKOUT EXPERIENCE AND MANAGE ALL YOUR PERSONAL INFORMATION IN YOUR DEDICATED ACCOUNT.</p>
+
+    <div class="nv-dup" id="nv-dup">
+      <p class="nv-dt">DEAR NALVIK CLIENT,</p>
+      <p class="nv-dp">THANK YOU FOR YOUR INTEREST IN NALVIK.</p>
+      <p class="nv-dp">AN ACCOUNT WITH THIS EMAIL ADDRESS ALREADY EXISTS ON NALVIK.COM. PLEASE <a href="/account/login" class="nv-dk">CLICK HERE TO LOG IN</a> OR CONTACT OUR <a href="/pages/contact" class="nv-dk">CLIENT SERVICE</a> FOR ASSISTANCE.</p>
+      <p class="nv-dp">YOUR NALVIK ACCOUNT GIVES YOU ACCESS TO:</p>
+      <ul class="nv-dl">
+        <li>CONSULT YOUR ORDER DETAILS</li>
+        <li>ACCESS YOUR ORDER HISTORY AND REQUEST AN ONLINE RETURN</li>
+        <li>UPDATE YOUR PERSONAL DATA</li>
+        <li>MANAGE YOUR ADDRESS BOOK AND CARD WALLET</li>
+        <li>CREATE AND UPDATE DELIVERY ADDRESSES AND PAYMENT METHODS</li>
+        <li>NEWSLETTER SUBSCRIPTION</li>
+      </ul>
+      <p class="nv-df">SHOULD YOU NEED FURTHER ASSISTANCE, PLEASE VISIT <a href="/" class="nv-dk">NALVIK.COM</a>. KIND REGARDS, NALVIK CLIENT SERVICE.</p>
+    </div>
+
+    {% form 'create_customer' %}
+      {% if form.errors %}
+        <ul class="nv-err">{% for e in form.errors %}<li>{{ e | capitalize }}: {{ form.errors.messages[e] }}</li>{% endfor %}</ul>
+      {% endif %}
+
+      <div class="nv-fh"><label for="REmail" class="nv-fl">EMAIL *</label><span class="nv-fr">*REQUIRED FIELDS</span></div>
+      <input type="email" name="customer[email]" id="REmail" class="nv-ib" autocomplete="email" autocorrect="off" autocapitalize="off" placeholder="Email" value="{{ form.email }}" required />
+
+      <div class="nv-fh"><label for="RPH" class="nv-fl">PHONE NUMBER</label></div>
+      <input type="tel" name="customer[phone]" id="RPH" class="nv-ib" autocomplete="tel" autocorrect="off" autocapitalize="off" placeholder="Phone number" inputmode="numeric" />
+
+      <div class="nv-fh"><label for="RPass" class="nv-fl">PASSWORD *</label></div>
+      <div class="nv-iw">
+        <input type="password" name="customer[password]" id="RPass" class="nv-i" autocomplete="new-password" placeholder="Password" required />
+        <button type="button" class="nv-pw" data-t="RPass" data-s="VIEW" data-h="HIDE">VIEW</button>
+      </div>
+
+      <div class="nv-fh"><label for="RFN" class="nv-fl">FIRST NAME *</label></div>
+      <input type="text" name="customer[first_name]" id="RFN" class="nv-ib" autocorrect="off" autocapitalize="off" placeholder="First name" required />
+
+      <div class="nv-fh"><label for="RLN" class="nv-fl">LAST NAME *</label></div>
+      <input type="text" name="customer[last_name]" id="RLN" class="nv-ib" autocorrect="off" autocapitalize="off" placeholder="Last name" required />
+
+      <div class="nv-fh"><label for="RBD" class="nv-fl">BIRTHDATE</label></div>
+      <input type="text" name="customer[note][birthdate]" id="RBD" class="nv-ib" placeholder="DD/MM/YYYY" maxlength="10" />
+
+      <div class="nv-fh"><label for="RCO" class="nv-fl">COUNTRY / REGION *</label></div>
+      <select name="customer[note][country]" id="RCO" class="nv-sel" required>
+        <option value="" disabled selected></option>
+        <option>UNITED KINGDOM</option><option>UNITED STATES</option><option>INDIA</option>
+        <option>FRANCE</option><option>GERMANY</option><option>ITALY</option>
+        <option>UNITED ARAB EMIRATES</option><option>AUSTRALIA</option><option>CANADA</option>
+        <option>JAPAN</option><option>SINGAPORE</option><option>HONG KONG</option>
+        <option>SAUDI ARABIA</option><option>KUWAIT</option><option>QATAR</option>
+      </select>
+
+      <div class="nv-pbox">
+        <p class="nv-ptxt">YOU ARE INVITED TO READ OUR PRIVACY POLICY IN FULL. IN ANY EVENT, HERE ARE SOME KEY POINTS WE WOULD LIKE TO SHARE WITH YOU:<br><br>YOU ARE ABOUT TO CREATE YOUR NALVIK PROFILE. THIS WILL ALLOW NALVIK TO OFFER YOU A PERSONALIZED AND TAILORED EXPERIENCE, PROVIDE YOU WITH PRODUCTS, SERVICES AND INFORMATION YOU REQUEST FROM NALVIK AND COMMUNICATE WITH YOU. ALL YOUR PERSONAL INFORMATION WILL BE KEPT, USED AND LINKED TO YOUR NALVIK PROFILE. YOUR PROFILE MAY INCLUDE INFORMATION OBTAINED DIRECTLY FROM YOU AS WELL AS FROM OUR RETAILERS AND COMMERCIAL PARTNERS.<br><br>AS WE OPERATE GLOBALLY, WE MAY SECURELY SHARE YOUR PERSONAL INFORMATION WITH COMPANIES WITHIN OUR GROUP AND OUR APPROVED PARTNERS LOCATED AROUND THE WORLD. WE WILL IMPLEMENT SAFEGUARDS TO PROTECT YOUR PERSONAL INFORMATION. WE MAY USE ANY CONTACT INFORMATION YOU SHARE WITH US TO CONTACT YOU.<br><br>PRIVACY LAWS MAY GRANT YOU CERTAIN RIGHTS SUCH AS THE RIGHT TO ACCESS, DELETE, MODIFY AND RECTIFY YOUR DATA, OR TO RESTRICT OR OBJECT TO PROCESSING, AS WELL AS THE RIGHT TO DATA PORTABILITY. YOU MAY ALSO LODGE A COMPLAINT WITH YOUR COMPETENT REGULATOR. YOU CAN WITHDRAW YOUR CONSENT OR DELETE YOUR PROFILE AT ANY TIME. FOR FURTHER INFORMATION, PLEASE CONTACT US AT PRIVACY@NALVIK.COM.</p>
+      </div>
+
+      <input type="checkbox" id="nv-rp" class="nv-rc" />
+      <input type="checkbox" id="nv-ru" name="customer[accepts_marketing]" class="nv-rc" />
+
+      <div class="nv-ar" data-for="nv-rp">
+        <span class="nv-box" data-box="nv-rp"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="nv-at">I HAVE READ AND UNDERSTOOD THE <a href="/pages/privacy-policy">PRIVACY POLICY</a> AND I AGREE TO THE <a href="/pages/terms-of-service">TERMS OF USE</a>.*</span>
+      </div>
+
+      <div class="nv-ar" data-for="nv-ru" style="margin-bottom:36px;">
+        <span class="nv-box" data-box="nv-ru"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="nv-at">I WOULD LIKE TO RECEIVE UPDATES ABOUT NALVIK NEW ACTIVITIES, EXCLUSIVE PRODUCTS, TAILORED SERVICES AND TO HAVE A PERSONALISED CLIENT EXPERIENCE BASED ON MY INTERESTS.</span>
+      </div>
+
+      <button type="submit" class="nv-btn" id="nv-sub">CREATE MY PROFILE</button>
+    {% endform %}
+
+    <p class="nv-already">ALREADY HAVE A PROFILE? <a href="/account/login">LOGIN INSTEAD</a></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('[data-box]').forEach(function(box){
+    var real=document.getElementById(box.getAttribute('data-box'));
+    if(!real)return;
+    function sy(){box.classList.toggle('ck',real.checked);}sy();
+    var row=box.closest('[data-for]')||box.parentElement;
+    row.addEventListener('click',function(e){if(e.target.tagName==='A')return;real.checked=!real.checked;sy();});
+    real.addEventListener('change',sy);
+  });
+  document.querySelectorAll('.nv-pw').forEach(function(btn){
+    btn.addEventListener('click',function(){var inp=document.getElementById(btn.getAttribute('data-t'));if(!inp)return;var t=inp.type==='text';inp.type=t?'password':'text';btn.textContent=t?btn.getAttribute('data-s'):btn.getAttribute('data-h');});
+  });
+  var bd=document.getElementById('RBD');
+  if(bd){bd.addEventListener('input',function(){var v=this.value.replace(/\D/g,'');if(v.length>2&&v.length<=4)v=v.slice(0,2)+'/'+v.slice(2);else if(v.length>4)v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4,8);this.value=v;});}
+  var ph=document.getElementById('RPH');
+  if(ph){ph.addEventListener('input',function(){this.value=this.value.replace(/[^0-9+\-\s]/g,'');});}
+  {% if form.errors contains 'email' %}var d=document.getElementById('nv-dup');if(d)d.classList.add('vis');{% endif %}
+  var sub=document.getElementById('nv-sub');
+  if(sub){sub.closest('form').addEventListener('submit',function(e){var p=document.getElementById('nv-rp');if(!p.checked){e.preventDefault();document.querySelector('[data-box="nv-rp"]').style.borderColor='#c00';}});}
+})();
+</script>

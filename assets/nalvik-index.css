@@ -1,0 +1,46 @@
+/* Homepage — only the four Nalvik sections */
+body.template-index #MainContent > .shopify-section:not(.nalvik-hero-section):not(.nalvik-info-bar-section):not(.nalvik-image-duo-section):not(.nalvik-craft-section) {
+  display: none !important;
+}
+
+body.template-index #MainContent .shopify-section.nalvik-hero-section ~ .shopify-section.nalvik-hero-section {
+  display: none !important;
+}
+
+body.template-index #MainContent .shopify-section:has(slideshow-component),
+body.template-index #MainContent [id*="slideshow"],
+body.template-index #MainContent .shopify-section:has(#nalvik-homepage),
+body.template-index #MainContent .shopify-section:has(.ai_gen_block) {
+  display: none !important;
+}
+
+/* Hero image fill */
+body.template-index #MainContent .nalvik-hero__media {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+body.template-index #MainContent .nalvik-hero__media img,
+body.template-index #MainContent .nalvik-hero__media video {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+}
+
+body.template-index #MainContent .shopify-section.nalvik-hero-section {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+body.template-index #MainContent .nalvik-hero__promo,
+body.template-index #MainContent .nalvik-hero__promo-lines,
+body.template-index #MainContent .nalvik-hero__promo-line,
+body.template-index #MainContent .nalvik-hero__promo-link {
+  text-align: right !important;
+}
