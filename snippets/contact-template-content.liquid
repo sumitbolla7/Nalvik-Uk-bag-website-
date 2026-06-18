@@ -8,31 +8,27 @@
   .contact-info-page {
     width: 100%;
     background: #ffffff;
-    padding: 100px 80px 120px;
+    padding: 80px 24px 100px;
     box-sizing: border-box;
   }
 
   .contact-info-container {
-    max-width: 1200px;
+    max-width: 600px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px 100px;
-  }
-
-  .contact-info-col-left {
     display: flex;
     flex-direction: column;
-    gap: 80px;
-  }
-
-  .contact-info-col-right {
-    display: flex;
-    flex-direction: column;
+    gap: 70px;
   }
 
   .contact-info-block {
     text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 50px;
+  }
+  
+  .contact-info-block:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
   .contact-info-heading {
@@ -42,7 +38,7 @@
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: #000000;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     line-height: 1.4;
   }
 
@@ -54,7 +50,7 @@
     text-transform: uppercase;
     color: #1a1a1a;
     line-height: 2;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
   }
 
   .contact-info-btn {
@@ -80,26 +76,10 @@
     background: #333333;
   }
 
-  @media (max-width: 989px) {
-    .contact-info-page {
-      padding: 60px 40px 80px;
-    }
-    .contact-info-container {
-      grid-template-columns: 1fr;
-      gap: 60px;
-    }
-    .contact-info-col-left {
-      gap: 60px;
-    }
+  @media (max-width: 749px) {
     .contact-info-btn {
       width: 100%;
       display: block;
-    }
-  }
-
-  @media (max-width: 749px) {
-    .contact-info-page {
-      padding: 48px 24px 60px;
     }
   }
 </style>
@@ -107,43 +87,33 @@
 <div class="contact-info-page">
   <div class="contact-info-container">
 
-    <!-- Left Column (FAQ & Email) -->
-    <div class="contact-info-col-left">
-      
-      <!-- FAQ Block -->
-      <div class="contact-info-block">
-        <h2 class="contact-info-heading">FREQUENTLY ASKED QUESTIONS</h2>
-        <p class="contact-info-body">
-          YOU CAN ALSO USE THIS AREA TO CONSULT THE FAQ'S, FOLLOW YOUR ORDER AND TRACK YOUR RETURN.
-        </p>
-        <a href="/pages/faq" class="contact-info-btn">FAQ</a>
-      </div>
-
-      <!-- Email Block -->
-      <div class="contact-info-block">
-        <h2 class="contact-info-heading">EMAIL</h2>
-        <p class="contact-info-body">
-          WE STRIVE TO REPLY TO YOU WITHIN 48H DURING BUSINESS DAYS.
-        </p>
-        <a href="mailto:care@nalvik.com" class="contact-info-btn">EMAIL US</a>
-      </div>
-
+    <!-- FAQ Block -->
+    <div class="contact-info-block">
+      <h2 class="contact-info-heading">FREQUENTLY ASKED QUESTIONS</h2>
+      <p class="contact-info-body">
+        YOU CAN ALSO USE THIS AREA TO CONSULT THE FAQ'S, FOLLOW YOUR ORDER AND TRACK YOUR RETURN.
+      </p>
+      <a href="/pages/faq" class="contact-info-btn">FAQ</a>
     </div>
 
-    <!-- Right Column (Call Us) -->
-    <div class="contact-info-col-right">
-      
-      <!-- Call Us Block -->
-      <div class="contact-info-block">
-        <h2 class="contact-info-heading">CALL US</h2>
-        <p class="contact-info-body">
-          SPEAK TO ONE OF OUR AMBASSADORS AT:<br>
-          +91 9955800734<br>
-          MON-SAT 9AM-7PM EST
-        </p>
-        <a href="tel:+919955800734" class="contact-info-btn">CALL US</a>
-      </div>
+    <!-- Call Us Block -->
+    <div class="contact-info-block">
+      <h2 class="contact-info-heading">CALL US</h2>
+      <p class="contact-info-body">
+        SPEAK TO ONE OF OUR AMBASSADORS AT:<br>
+        +91 9955800734<br>
+        MON-SAT 9AM-7PM EST
+      </p>
+      <a href="tel:+919955800734" class="contact-info-btn">CALL US</a>
+    </div>
 
+    <!-- Email Block -->
+    <div class="contact-info-block">
+      <h2 class="contact-info-heading">EMAIL</h2>
+      <p class="contact-info-body">
+        WE STRIVE TO REPLY TO YOU WITHIN 48H DURING BUSINESS DAYS.
+      </p>
+      <a href="mailto:care@nalvik.com" class="contact-info-btn">EMAIL US</a>
     </div>
 
   </div>

@@ -53,13 +53,7 @@
         <span class="nv-reserved">{{ section.settings.reservation_count | default: '37/40 RESERVED' }}</span>
 
         <p class="nv-mat-head">FULL-GRAIN TEXTURED LEATHER</p>
-        <ul class="nv-list">
-          <li>STRUCTURED CRESCENT SILHOUETTE</li>
-          <li>BRAIDED LEATHER SEAM DETAIL</li>
-          <li>TOP ZIP CLOSURE</li>
-          <li>ADJUSTABLE SHOULDER STRAP</li>
-          <li>MINIMAL SILVER HARDWARE</li>
-        </ul>
+        <p class="nv-mat-sub">BRAIDED SEAM DETAIL</p>
 
         <div class="nv-details-trigger" id="nv-details-trigger">
           <span class="nv-details-label">DETAILS</span>
@@ -97,6 +91,10 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="nv-description-block">
+          {{ product.description }}
         </div>
 
       </div>
@@ -146,18 +144,17 @@
 </div>
 <div class="nv-lb-overlay" id="nv-lb-overlay"></div>
 
-<!-- DESCRIPTION -->
-<section class="nv-desc-section">
-  <div class="nv-desc-inner">
-    {{ product.description }}
-  </div>
-</section>
-
 <!-- VIDEO -->
+{%- assign current_video = 'https://cdn.shopify.com/videos/c/o/v/c3bfccf134ac45f3bcfdf356f0838a00.mp4' -%}
+{%- if product.handle contains 'traverse' or product.handle == 'duffle' -%}
+  {%- assign current_video = 'https://cdn.shopify.com/videos/c/o/v/43dac3f83199464082260662df9a1b1b.mp4' -%}
+{%- elsif product.handle contains 'obsidian' or product.handle == 'ddef' -%}
+  {%- assign current_video = 'https://cdn.shopify.com/videos/c/o/v/517ab404df4545c0ae83bac074147b2c.mp4' -%}
+{%- endif -%}
 <section class="nv-video-section" style="padding-top:{{ section.settings.video_padding_top | default: 0 }}px; padding-bottom:{{ section.settings.video_padding_bottom | default: 0 }}px;">
   <video
     class="nv-video"
-    src="{{ section.settings.video_url | default: 'https://cdn.shopify.com/videos/c/o/v/c3bfccf134ac45f3bcfdf356f0838a00.mp4' }}"
+    src="{{ current_video }}"
     autoplay muted loop playsinline
   ></video>
 </section>
@@ -359,28 +356,36 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   color: #111;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 
-.nv-list { list-style: none; margin-bottom: 0; }
-
-.nv-list li {
+.nv-mat-sub {
   font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  color: #555;
-  padding: 4px 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #111;
+  text-transform: uppercase;
+  margin-bottom: 24px;
 }
 
-.nv-list li::before {
-  content: '•';
-  color: #ccc;
-  font-size: 10px;
-  flex-shrink: 0;
+.nv-description-block {
+  margin-top: 32px;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+  color: #111;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.nv-description-block p {
+  margin-bottom: 16px;
+  line-height: 1.9;
+}
+
+.nv-description-block p:last-child {
+  margin-bottom: 0;
 }
 
 .nv-details-trigger {
