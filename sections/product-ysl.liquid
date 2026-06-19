@@ -93,8 +93,18 @@
           </div>
         </div>
 
+        {%- assign handle = product.handle -%}
+        {%- assign current_desc = '' -%}
+        {%- if handle contains 'traverse' or handle == 'duffle' -%}
+          {%- assign current_desc = 'A REFINED TRAVERSE DUFFLE BAG CRAFTED IN TEXTURED BLACK LEATHER, DEFINED BY ITS SPACIOUS SILHOUETTE AND SIGNATURE BRAIDED DETAILING. BLENDING EVERYDAY FUNCTIONALITY WITH TIMELESS CRAFTSMANSHIP, THE DESIGN OFFERS A CLEAN, UNDERSTATED LOOK MADE FOR EFFORTLESS DAILY WEAR AND TRAVEL.' -%}
+        {%- elsif handle contains 'obsidian' or handle == 'ddef' -%}
+          {%- assign current_desc = 'A REFINED HANDBAG CRAFTED IN TEXTURED BLACK LEATHER, DEFINED BY ITS STRUCTURED SILHOUETTE AND SIGNATURE BRAIDED DETAILING. BLENDING EVERYDAY FUNCTIONALITY WITH TIMELESS CRAFTSMANSHIP, THE DESIGN OFFERS A CLEAN, UNDERSTATED LOOK MADE FOR EFFORTLESS TRANSITIONS FROM DAY TO EVENING.' -%}
+        {%- else -%}
+          {%- assign current_desc = 'A REFINED CRESCENT SHOULDER BAG CRAFTED IN TEXTURED BLACK LEATHER, DEFINED BY ITS FLUID SILHOUETTE AND SIGNATURE BRAIDED DETAILING. SOFT YET STRUCTURED, THE DESIGN BLENDS UNDERSTATED LUXURY WITH ARTISANAL CRAFTSMANSHIP, CREATING A TIMELESS PIECE MADE FOR EFFORTLESS EVERYDAY WEAR.' -%}
+        {%- endif -%}
+
         <div class="nv-description-block">
-          {{ product.description }}
+          {{ current_desc }}
         </div>
 
       </div>
@@ -110,19 +120,23 @@
       <button class="nv-panel-close" id="nv-panel-close">✕</button>
     </div>
     <div class="nv-panel-body">
-      {% for block in section.blocks %}
-        {% if block.type == 'detail' %}
-          <div class="nv-panel-row" {{ block.shopify_attributes }}>
-            <p class="nv-panel-lbl">{{ block.settings.heading | upcase }}</p>
-            <p class="nv-panel-txt">{{ block.settings.content }}</p>
-          </div>
-        {% endif %}
-      {% endfor %}
-      {% if section.blocks.size == 0 %}
-        <div class="nv-panel-row"><p class="nv-panel-lbl">MATERIAL</p><p class="nv-panel-txt">Full-grain cow leather with polyester twill lining</p></div>
-        <div class="nv-panel-row"><p class="nv-panel-lbl">WEIGHT</p><p class="nv-panel-txt">Approx. 650–900 g</p></div>
-        <div class="nv-panel-row"><p class="nv-panel-lbl">DIMENSIONS</p><p class="nv-panel-txt">L: XX cm · H: XX cm · W: XX cm</p></div>
-      {% endif %}
+      {%- assign handle = product.handle -%}
+      {%- if handle contains 'traverse' or handle == 'duffle' -%}
+        <div class="nv-detail-item">• DIMENSIONS: 30.5 × 19.5 × 7.5 CM</div>
+        <div class="nv-detail-item">• WEIGHT: 625 G</div>
+        <div class="nv-detail-item">• MAGNETIC CLOSURE</div>
+        <div class="nv-detail-item">• CARRIED BY HAND OR WORN ON THE ELBOW OR SHOULDER</div>
+      {%- elsif handle contains 'obsidian' or handle == 'ddef' -%}
+        <div class="nv-detail-item">• DIMENSIONS: 29.5 × 22.5 × 9 CM</div>
+        <div class="nv-detail-item">• WEIGHT: 625 G</div>
+        <div class="nv-detail-item">• FRONT FLAP WITH CLOSURE</div>
+        <div class="nv-detail-item">• CARRIED BY HAND OR WORN ON THE ELBOW OR SHOULDER</div>
+      {%- else -%}
+        <div class="nv-detail-item">• DIMENSIONS: 39CM × 32.5CM × 14CM</div>
+        <div class="nv-detail-item">• WEIGHT: 625 G</div>
+        <div class="nv-detail-item">• TOP ZIPPER</div>
+        <div class="nv-detail-item">• CARRIED BY HAND OR WORN ON THE ELBOW OR SHOULDER</div>
+      {%- endif -%}
     </div>
   </div>
 </div>
@@ -591,10 +605,24 @@
 }
 
 .nv-panel-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.24em;
   color: #111;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1.5px;
+}
+
+.nv-detail-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #111;
+  text-transform: uppercase;
+  line-height: 1.8;
+  margin-bottom: 16px;
 }
 
 .nv-panel-close {
@@ -775,6 +803,7 @@
   background: #000;
   overflow: hidden;
   line-height: 0;
+  padding-bottom: 120px !important;
 }
 
 .nv-video {
