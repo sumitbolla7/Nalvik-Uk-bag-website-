@@ -2,6 +2,16 @@
 {% assign images = product.images %}
 {% assign image_count = images | size %}
 
+{%- assign handle = product.handle -%}
+{%- assign current_desc = '' -%}
+{%- if handle contains 'traverse' or handle == 'duffle' -%}
+  {%- assign current_desc = 'A REFINED TRAVERSE DUFFLE BAG CRAFTED IN TEXTURED BLACK LEATHER, DEFINED BY ITS SPACIOUS SILHOUETTE AND SIGNATURE BRAIDED DETAILING. BLENDING EVERYDAY FUNCTIONALITY WITH TIMELESS CRAFTSMANSHIP, THE DESIGN OFFERS A CLEAN, UNDERSTATED LOOK MADE FOR EFFORTLESS DAILY WEAR AND TRAVEL.' -%}
+{%- elsif handle contains 'obsidian' or handle == 'ddef' -%}
+  {%- assign current_desc = 'A REFINED HANDBAG CRAFTED IN TEXTURED BLACK LEATHER, DEFINED BY ITS STRUCTURED SILHOUETTE AND SIGNATURE BRAIDED DETAILING. BLENDING EVERYDAY FUNCTIONALITY WITH TIMELESS CRAFTSMANSHIP, THE DESIGN OFFERS A CLEAN, UNDERSTATED LOOK MADE FOR EFFORTLESS TRANSITIONS FROM DAY TO EVENING.' -%}
+{%- else -%}
+  {%- assign current_desc = 'A REFINED CRESCENT SHOULDER BAG CRAFTED IN TEXTURED BLACK LEATHER, DEFINED BY ITS FLUID SILHOUETTE AND SIGNATURE BRAIDED DETAILING. SOFT YET STRUCTURED, THE DESIGN BLENDS UNDERSTATED LUXURY WITH ARTISANAL CRAFTSMANSHIP, CREATING A TIMELESS PIECE MADE FOR EFFORTLESS EVERYDAY WEAR.' -%}
+{%- endif -%}
+
 <div class="nv-wrap">
   <div class="nv-grid">
 
@@ -93,20 +103,6 @@
           </div>
         </div>
 
-        {%- assign handle = product.handle -%}
-        {%- assign current_desc = '' -%}
-        {%- if handle contains 'traverse' or handle == 'duffle' -%}
-          {%- assign current_desc = 'A REFINED TRAVERSE DUFFLE BAG CRAFTED IN TEXTURED BLACK LEATHER, DEFINED BY ITS SPACIOUS SILHOUETTE AND SIGNATURE BRAIDED DETAILING. BLENDING EVERYDAY FUNCTIONALITY WITH TIMELESS CRAFTSMANSHIP, THE DESIGN OFFERS A CLEAN, UNDERSTATED LOOK MADE FOR EFFORTLESS DAILY WEAR AND TRAVEL.' -%}
-        {%- elsif handle contains 'obsidian' or handle == 'ddef' -%}
-          {%- assign current_desc = 'A REFINED HANDBAG CRAFTED IN TEXTURED BLACK LEATHER, DEFINED BY ITS STRUCTURED SILHOUETTE AND SIGNATURE BRAIDED DETAILING. BLENDING EVERYDAY FUNCTIONALITY WITH TIMELESS CRAFTSMANSHIP, THE DESIGN OFFERS A CLEAN, UNDERSTATED LOOK MADE FOR EFFORTLESS TRANSITIONS FROM DAY TO EVENING.' -%}
-        {%- else -%}
-          {%- assign current_desc = 'A REFINED CRESCENT SHOULDER BAG CRAFTED IN TEXTURED BLACK LEATHER, DEFINED BY ITS FLUID SILHOUETTE AND SIGNATURE BRAIDED DETAILING. SOFT YET STRUCTURED, THE DESIGN BLENDS UNDERSTATED LUXURY WITH ARTISANAL CRAFTSMANSHIP, CREATING A TIMELESS PIECE MADE FOR EFFORTLESS EVERYDAY WEAR.' -%}
-        {%- endif -%}
-
-        <div class="nv-description-block">
-          {{ current_desc }}
-        </div>
-
       </div>
     </div>
   </div>
@@ -157,6 +153,13 @@
   <div class="nv-lb-counter" id="nv-lb-counter">1 / {{ image_count }}</div>
 </div>
 <div class="nv-lb-overlay" id="nv-lb-overlay"></div>
+
+<!-- DESCRIPTION -->
+<section class="nv-desc-section">
+  <div class="nv-desc-inner">
+    <p>{{ current_desc }}</p>
+  </div>
+</section>
 
 <!-- VIDEO -->
 {%- assign current_video = 'https://cdn.shopify.com/videos/c/o/v/c3bfccf134ac45f3bcfdf356f0838a00.mp4' -%}
@@ -776,26 +779,45 @@
 /* DESCRIPTION */
 .nv-desc-section {
   background: #fff;
-  padding: 100px 24px;
+  padding: 80px 48px 48px;
 }
 
 .nv-desc-inner {
-  max-width: 860px;
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
+  text-align: left;
 }
 
 .nv-desc-inner p {
   font-family: 'Inter', sans-serif;
-  font-size: 17px;
+  font-size: 11px;
   font-weight: 400;
-  line-height: 2.1;
-  color: #444;
-  letter-spacing: 0.03em;
-  margin-bottom: 26px;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+  color: #111;
+  text-transform: uppercase;
+  margin: 0;
 }
 
-.nv-desc-inner p:last-child { margin-bottom: 0; }
+.nv-description-block {
+  margin-top: 32px;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+  color: #111;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.nv-description-block p {
+  margin-bottom: 16px;
+  line-height: 1.9;
+}
+
+.nv-description-block p:last-child {
+  margin-bottom: 0;
+}
 
 /* VIDEO */
 .nv-video-section {
@@ -803,7 +825,13 @@
   background: #000;
   overflow: hidden;
   line-height: 0;
-  padding-bottom: 120px !important;
+  margin-bottom: 120px;
+}
+
+@media (max-width: 768px) {
+  .nv-desc-section {
+    padding: 40px 20px 24px;
+  }
 }
 
 .nv-video {
