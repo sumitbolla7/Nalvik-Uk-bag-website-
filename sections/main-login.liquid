@@ -1,88 +1,458 @@
 {% layout 'theme' %}
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{background:#fff;font-family:'Inter',sans-serif;color:#111;}
-.nv-wrap{width:100%;min-height:80vh;display:flex;flex-direction:column;align-items:center;padding:80px 24px 120px;background:#fff;}
-.nv-con{width:100%;max-width:620px;}
-.nv-page-title{font-size:11px;font-weight:700;letter-spacing:0.36em;text-align:center;color:#111;text-transform:uppercase;margin-bottom:52px;}
-.nv-section-title{font-size:11px;font-weight:700;letter-spacing:0.36em;text-align:center;color:#111;text-transform:uppercase;margin-bottom:18px;}
-.nv-fh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.nv-fl{font-size:9px;font-weight:700;letter-spacing:0.22em;color:#111;text-transform:uppercase;}
-.nv-fr{font-size:9px;font-weight:500;letter-spacing:0.18em;color:#999;text-transform:uppercase;}
-.nv-iw{position:relative;margin-bottom:32px;}
-.nv-i{width:100%;border:none!important;border-bottom:1px solid #ccc!important;background:transparent!important;padding:12px 44px 12px 0!important;font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:400!important;color:#111!important;outline:none!important;border-radius:0!important;box-shadow:none!important;appearance:none;-webkit-appearance:none;}
-.nv-i::placeholder{color:#bbb;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
-.nv-i:focus{border-bottom-color:#111!important;box-shadow:none!important;}
-.nv-ib{width:100%;border:none!important;border-bottom:1px solid #ccc!important;background:transparent!important;padding:12px 0!important;font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:400!important;color:#111!important;outline:none!important;border-radius:0!important;box-shadow:none!important;appearance:none;-webkit-appearance:none;margin-bottom:32px;}
-.nv-ib::placeholder{color:#bbb;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
-.nv-ib:focus{border-bottom-color:#111!important;box-shadow:none!important;}
-.nv-pw{position:absolute;right:0;top:50%;transform:translateY(-50%);background:none!important;border:none!important;cursor:pointer;font-size:9px;font-weight:700;letter-spacing:0.2em;color:#111;text-transform:uppercase;padding:0;font-family:'Inter',sans-serif;box-shadow:none!important;transition:opacity 0.2s;}
-.nv-pw:hover{opacity:0.5;}
-.nv-or{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:40px;}
-.nv-cr{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;}
-.nv-rc{position:absolute;opacity:0;width:0;height:0;pointer-events:none;}
-.nv-box{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;min-width:18px;border:1.5px solid #111;background:#fff;cursor:pointer;position:relative;flex-shrink:0;}
-.nv-box svg{display:none;width:10px;height:10px;}
-.nv-box.ck{background:#111!important;border-color:#111!important;}
-.nv-box.ck svg{display:block;}
-.nv-cl{font-size:9px;font-weight:600;letter-spacing:0.2em;color:#111;text-transform:uppercase;}
-.nv-al{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
-.nv-tl{font-size:9px;font-weight:600;letter-spacing:0.18em;color:#111;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px;cursor:pointer;background:none!important;border:none!important;font-family:'Inter',sans-serif;padding:0;box-shadow:none!important;transition:opacity 0.2s;}
-.nv-tl:hover{opacity:0.5;}
-.nv-btn{width:100%;background:#111!important;color:#fff!important;border:none!important;padding:18px;font-family:'Inter',sans-serif!important;font-size:10px!important;font-weight:700!important;letter-spacing:0.36em;text-transform:uppercase;cursor:pointer;border-radius:0!important;transition:background 0.2s;display:block;text-align:center;text-decoration:none;box-shadow:none!important;}
-.nv-btn:hover{background:#2a2a2a!important;color:#fff!important;}
-.nv-bto{width:100%;background:#fff!important;color:#111!important;border:1px solid #111!important;padding:17px;font-family:'Inter',sans-serif!important;font-size:10px!important;font-weight:700!important;letter-spacing:0.36em;text-transform:uppercase;cursor:pointer;border-radius:0!important;transition:all 0.2s;display:block;text-align:center;box-shadow:none!important;}
-.nv-bto:hover{background:#111!important;color:#fff!important;}
-.nv-cb{margin-top:96px;text-align:center;}
-.nv-cd{font-size:10px;font-weight:500;letter-spacing:0.14em;line-height:1.9;color:#666;text-transform:uppercase;margin-bottom:36px;}
-.nv-err{margin-bottom:20px;list-style:none;}
-.nv-err li{font-size:9px;font-weight:600;letter-spacing:0.14em;color:#c00;text-transform:uppercase;margin-bottom:4px;}
-.nv-ok{font-size:9px;font-weight:600;letter-spacing:0.14em;color:#2a7a4b;text-transform:uppercase;margin-bottom:20px;}
-.nv-mbg{position:fixed;inset:0;background:rgba(0,0,0,0.42);z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.3s;}
-.nv-mbg.op{opacity:1;pointer-events:all;}
-.nv-m{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%) scale(0.97);z-index:9001;background:#fff;width:90%;max-width:720px;max-height:92vh;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity 0.3s,transform 0.3s;}
-.nv-m.op{opacity:1;pointer-events:all;transform:translate(-50%,-50%) scale(1);}
-.nv-mi{padding:48px 52px 52px;}
-.nv-mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-.nv-mt{font-size:11px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#111;}
-.nv-mx{background:none!important;border:none!important;cursor:pointer;font-size:16px;color:#111;padding:0;box-shadow:none!important;transition:opacity 0.2s;}
-.nv-mx:hover{opacity:0.5;}
-.nv-md{font-size:10px;font-weight:500;letter-spacing:0.13em;line-height:1.9;color:#666;text-transform:uppercase;margin-bottom:32px;}
-.nv-mb{display:grid;grid-template-columns:1fr 1fr;gap:0;}
-@media(max-width:600px){.nv-wrap{padding:56px 20px 80px;}.nv-or{flex-direction:column;gap:18px;}.nv-al{align-items:flex-start;}.nv-mi{padding:32px 24px 36px;}.nv-mb{grid-template-columns:1fr;gap:10px;}.nv-cb{margin-top:72px;}}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #ffffff;
+  font-family: 'Inter', sans-serif;
+  color: #111111;
+}
+
+.nv-wrap {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 24px 120px;
+  background: #ffffff;
+}
+
+.nv-con {
+  width: 100%;
+  max-width: 620px;
+}
+
+.nv-page-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.36em;
+  text-align: center;
+  color: #111111;
+  text-transform: uppercase;
+  margin-bottom: 52px;
+}
+
+.nv-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.36em;
+  text-align: center;
+  color: #111111;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.nv-fh {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.nv-fl {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #111111;
+  text-transform: uppercase;
+}
+
+.nv-fr {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #999999;
+  text-transform: uppercase;
+}
+
+.nv-iw {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.nv-ib {
+  width: 100%;
+  border: none !important;
+  border-bottom: 1.5px solid #000000 !important;
+  background: transparent !important;
+  padding: 12px 0 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 400;
+  color: #111111 !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  appearance: none;
+  -webkit-appearance: none;
+  margin-bottom: 32px;
+}
+
+.nv-ib::placeholder {
+  color: #bbbbbb;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nv-ib:focus {
+  border-bottom-color: #111111 !important;
+}
+
+.nv-pass-container {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.nv-pass-container.is-active {
+  display: block;
+  opacity: 1;
+}
+
+.nv-pw {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none !important;
+  border: none !important;
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #111111;
+  text-transform: uppercase;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  box-shadow: none !important;
+}
+
+.nv-or {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.nv-cr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nv-rc {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.nv-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: 1.5px solid #111111;
+  background: #ffffff;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.nv-box svg {
+  display: none;
+  width: 10px;
+  height: 10px;
+}
+
+.nv-box.ck {
+  background: #111111 !important;
+  border-color: #111111 !important;
+}
+
+.nv-box.ck svg {
+  display: block;
+}
+
+.nv-cl {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #111111;
+  text-transform: uppercase;
+}
+
+.nv-tl {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #111111;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  background: none !important;
+  border: none !important;
+  font-family: 'Inter', sans-serif;
+  padding: 0;
+  box-shadow: none !important;
+}
+
+.nv-btn {
+  width: 100%;
+  background: #111111 !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 18px;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 0 !important;
+  transition: background 0.2s;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: none !important;
+}
+
+.nv-btn:hover {
+  background: #2a2a2a !important;
+}
+
+.nv-cb {
+  margin-top: 56px;
+  text-align: center;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 56px;
+}
+
+.nv-cd {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.9;
+  color: #111111;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+  text-align: left;
+}
+
+.nv-err {
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+.nv-err li {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #cc0000;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.nv-ok {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #2a7a4b;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.nv-mbg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.42);
+  z-index: 9000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.nv-mbg.op {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.nv-m {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-48%) scale(0.97);
+  z-index: 9001;
+  background: #ffffff;
+  width: 90%;
+  max-width: 720px;
+  max-height: 92vh;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.nv-m.op {
+  opacity: 1;
+  pointer-events: all;
+  transform: translate(-50%,-50%) scale(1);
+}
+
+.nv-mi {
+  padding: 48px 52px 52px;
+}
+
+.nv-mh {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.nv-mt {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #111111;
+}
+
+.nv-mx {
+  background: none !important;
+  border: none !important;
+  cursor: pointer;
+  font-size: 16px;
+  color: #111111;
+  padding: 0;
+  box-shadow: none !important;
+}
+
+.nv-md {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  line-height: 1.9;
+  color: #666666;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.nv-mb {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+@media(max-width: 600px) {
+  .nv-wrap {
+    padding: 56px 20px 80px;
+  }
+  .nv-con {
+    max-width: 100%;
+  }
+  .nv-mi {
+    padding: 32px 24px 36px;
+  }
+  .nv-mb {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .nv-cb {
+    margin-top: 40px;
+    padding-top: 40px;
+  }
+}
 </style>
 
 <div class="nv-wrap">
   <div class="nv-con">
-    <p class="nv-page-title">ACCESS</p>
+    <h1 class="nv-page-title">ACCESS</h1>
     {% form 'customer_login' %}
       {% if form.errors %}
-        <ul class="nv-err">{% for e in form.errors %}<li>{{ e | capitalize }}: {{ form.errors.messages[e] }}</li>{% endfor %}</ul>
+        <ul class="nv-err">
+          {% for e in form.errors %}
+            <li>{{ e | capitalize }}: {{ form.errors.messages[e] }}</li>
+          {% endfor %}
+        </ul>
       {% endif %}
-      <div class="nv-fh"><label for="CEmail" class="nv-fl">EMAIL *</label><span class="nv-fr">*REQUIRED FIELDS</span></div>
-      <input type="email" name="customer[email]" id="CEmail" class="nv-ib" autocomplete="email" autocorrect="off" autocapitalize="off" placeholder="Email" value="{{ form.email }}" />
-      <div class="nv-fh"><label for="CPass" class="nv-fl">PASSWORD *</label></div>
-      <div class="nv-iw">
-        <input type="password" name="customer[password]" id="CPass" class="nv-i" autocomplete="current-password" placeholder="Password" />
-        <button type="button" class="nv-pw" data-t="CPass" data-s="VIEW" data-h="HIDE">VIEW</button>
+
+      <!-- Email Block -->
+      <div class="nv-fh">
+        <label for="CEmail" class="nv-fl">EMAIL *</label>
+        <span class="nv-fr">*REQUIRED FIELDS</span>
       </div>
+      <input
+        type="email"
+        name="customer[email]"
+        id="CEmail"
+        class="nv-ib"
+        autocomplete="email"
+        autocorrect="off"
+        autocapitalize="off"
+        placeholder="EMAIL"
+        value="{{ form.email }}"
+        required
+      />
+
+      <!-- Password Block (Hidden initially for 2-step flow) -->
+      <div class="nv-pass-container" id="nvPassContainer">
+        <div class="nv-fh">
+          <label for="CPass" class="nv-fl">PASSWORD *</label>
+        </div>
+        <div class="nv-iw">
+          <input
+            type="password"
+            name="customer[password]"
+            id="CPass"
+            class="nv-ib"
+            style="margin-bottom:0;"
+            autocomplete="current-password"
+            placeholder="PASSWORD"
+          />
+          <button type="button" class="nv-pw" data-t="CPass" data-s="VIEW" data-h="HIDE">VIEW</button>
+        </div>
+      </div>
+
+      <!-- Remember Me & Forgot Password -->
       <div class="nv-or">
         <label class="nv-cr" id="nv-rl">
           <input type="checkbox" name="remember_me" id="RemMe" class="nv-rc" />
-          <span class="nv-box" id="nv-rb"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="nv-box" id="nv-rb">
+            <svg viewBox="0 0 10 10" fill="none">
+              <polyline points="1.5,5 4,7.5 8.5,2" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
           <span class="nv-cl">REMEMBER ME</span>
         </label>
         <div class="nv-al">
           <button type="button" class="nv-tl" id="nv-fb">FORGOT PASSWORD?</button>
         </div>
       </div>
-      <button type="submit" class="nv-btn">NEXT</button>
+
+      <!-- Action Buttons -->
+      <button type="button" class="nv-btn" id="nextBtn">NEXT</button>
+      <button type="submit" class="nv-btn" id="submitBtn" style="display:none;">LOGIN</button>
     {% endform %}
+
+    <!-- Create Account Block -->
     <div class="nv-cb">
-      <p class="nv-section-title">CREATE AN ACCOUNT</p>
+      <a href="/account/register" class="nv-btn" style="margin-bottom:32px;">CREATE AN ACCOUNT</a>
       <p class="nv-cd">ENJOY A FASTER CHECKOUT EXPERIENCE AND MANAGE ALL YOUR PERSONAL INFORMATION IN YOUR DEDICATED ACCOUNT.</p>
-      <a href="/account/register" class="nv-btn">CREATE AN ACCOUNT</a>
     </div>
   </div>
 </div>
@@ -90,15 +460,38 @@ body{background:#fff;font-family:'Inter',sans-serif;color:#111;}
 <div class="nv-mbg" id="nv-bg-f"></div>
 <div class="nv-m" id="nv-m-f">
   <div class="nv-mi">
-    <div class="nv-mh"><span class="nv-mt">RESET PASSWORD</span><button class="nv-mx" data-c="nv-m-f">✕</button></div>
+    <div class="nv-mh">
+      <span class="nv-mt">RESET PASSWORD</span>
+      <button class="nv-mx" data-c="nv-m-f">✕</button>
+    </div>
     <p class="nv-md">PLEASE, PROVIDE YOUR ACCOUNT EMAIL ADDRESS. WE WILL SEND YOU AN EMAIL WITH A RESET LINK.</p>
     {% form 'recover_customer_password' %}
-      {% if form.errors %}<ul class="nv-err">{% for e in form.errors %}<li>{{ e | capitalize }}: {{ form.errors.messages[e] }}</li>{% endfor %}</ul>{% endif %}
-      {% if form.posted_successfully? %}<p class="nv-ok">RESET LINK SENT. PLEASE CHECK YOUR EMAIL.</p>{% endif %}
-      <div class="nv-fh"><label for="REmail" class="nv-fl">EMAIL *</label></div>
-      <input type="email" name="email" id="REmail" class="nv-ib" autocomplete="email" autocorrect="off" autocapitalize="off" placeholder="Email" />
+      {% if form.errors %}
+        <ul class="nv-err">
+          {% for e in form.errors %}
+            <li>{{ e | capitalize }}: {{ form.errors.messages[e] }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if form.posted_successfully? %}
+        <p class="nv-ok">RESET LINK SENT. PLEASE CHECK YOUR EMAIL.</p>
+      {% endif %}
+      <div class="nv-fh">
+        <label for="REmail" class="nv-fl">EMAIL *</label>
+      </div>
+      <input
+        type="email"
+        name="email"
+        id="REmail"
+        class="nv-ib"
+        autocomplete="email"
+        autocorrect="off"
+        autocapitalize="off"
+        placeholder="EMAIL"
+        required
+      />
       <div class="nv-mb">
-        <button type="button" class="nv-bto" data-c="nv-m-f">CANCEL</button>
+        <button type="button" class="nv-btn" data-c="nv-m-f" style="background:#fff!important; color:#111!important; border:1px solid #111!important; margin-right:12px;">CANCEL</button>
         <button type="submit" class="nv-btn">SEND</button>
       </div>
     {% endform %}
@@ -106,23 +499,100 @@ body{background:#fff;font-family:'Inter',sans-serif;color:#111;}
 </div>
 
 <script>
-(function(){
-  function om(id,bg){var m=document.getElementById(id),b=document.getElementById(bg);if(m)m.classList.add('op');if(b)b.classList.add('op');document.body.style.overflow='hidden';}
-  function cm(id){var m=document.getElementById(id);if(!m)return;m.classList.remove('op');var b=document.getElementById(id.replace('nv-m-','nv-bg-'));if(b)b.classList.remove('op');document.body.style.overflow='';}
-  var fb=document.getElementById('nv-fb');fb&&fb.addEventListener('click',function(){om('nv-m-f','nv-bg-f');});
-  document.querySelectorAll('[data-c]').forEach(function(el){el.addEventListener('click',function(){cm(el.getAttribute('data-c'));});});
-  ['nv-bg-f'].forEach(function(bg){var b=document.getElementById(bg);if(b)b.addEventListener('click',function(){cm(bg.replace('nv-bg-','nv-m-'));});});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'){['nv-m-f'].forEach(cm);}});
-  document.querySelectorAll('.nv-pw').forEach(function(btn){
-    btn.addEventListener('click',function(){var inp=document.getElementById(btn.getAttribute('data-t'));if(!inp)return;var t=inp.type==='text';inp.type=t?'password':'text';btn.textContent=t?btn.getAttribute('data-s'):btn.getAttribute('data-h');});
+document.addEventListener('DOMContentLoaded', function() {
+  var nextBtn = document.getElementById('nextBtn');
+  var submitBtn = document.getElementById('submitBtn');
+  var emailInput = document.getElementById('CEmail');
+  var passContainer = document.getElementById('nvPassContainer');
+  var passwordInput = document.getElementById('CPass');
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+      // Validate email format and presence
+      if (!emailInput.value || !emailInput.checkValidity()) {
+        emailInput.reportValidity();
+        return;
+      }
+
+      // Smoothly display password container
+      passContainer.classList.add('is-active');
+      passwordInput.setAttribute('required', 'required');
+      nextBtn.style.display = 'none';
+      submitBtn.style.display = 'block';
+    });
+  }
+
+  // View/Hide password logic
+  document.querySelectorAll('.nv-pw').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var inp = document.getElementById(btn.getAttribute('data-t'));
+      if (!inp) return;
+      var isText = inp.type === 'text';
+      inp.type = isText ? 'password' : 'text';
+      btn.textContent = isText ? btn.getAttribute('data-s') : btn.getAttribute('data-h');
+    });
   });
-  (function(){
-    var box=document.getElementById('nv-rb'),real=document.getElementById('RemMe');
-    if(!box||!real)return;
-    function sy(){box.classList.toggle('ck',real.checked);}sy();
-    document.getElementById('nv-rl').addEventListener('click',function(e){e.preventDefault();real.checked=!real.checked;sy();});
-    real.addEventListener('change',sy);
-  })();
-  {% if form.posted_successfully? %}om('nv-m-f','nv-bg-f');{% endif %}
-})();
+
+  // Modal handlers
+  function om(id, bg) {
+    var m = document.getElementById(id), b = document.getElementById(bg);
+    if (m) m.classList.add('op');
+    if (b) b.classList.add('op');
+    document.body.style.overflow = 'hidden';
+  }
+  function cm(id) {
+    var m = document.getElementById(id);
+    if (!m) return;
+    m.classList.remove('op');
+    var b = document.getElementById(id.replace('nv-m-', 'nv-bg-'));
+    if (b) b.classList.remove('op');
+    document.body.style.overflow = '';
+  }
+
+  var fb = document.getElementById('nv-fb');
+  if (fb) {
+    fb.addEventListener('click', function() {
+      om('nv-m-f', 'nv-bg-f');
+    });
+  }
+
+  document.querySelectorAll('[data-c]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      cm(el.getAttribute('data-c'));
+    });
+  });
+
+  var bgF = document.getElementById('nv-bg-f');
+  if (bgF) {
+    bgF.addEventListener('click', function() {
+      cm('nv-m-f');
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      cm('nv-m-f');
+    }
+  });
+
+  // Remember me visual sync
+  var box = document.getElementById('nv-rb');
+  var real = document.getElementById('RemMe');
+  if (box && real) {
+    function sy() {
+      box.classList.toggle('ck', real.checked);
+    }
+    sy();
+    document.getElementById('nv-rl').addEventListener('click', function(e) {
+      e.preventDefault();
+      real.checked = !real.checked;
+      sy();
+    });
+    real.addEventListener('change', sy);
+  }
+
+  {% if form.posted_successfully? %}
+    om('nv-m-f', 'nv-bg-f');
+  {% endif %}
+});
 </script>
