@@ -144,15 +144,22 @@
         "type": "founders-edition",
         "settings": {
           "title": "The Founder's Edition",
+          "desktop_1_name": "The Crescent",
+          "desktop_1_link": "shopify://products/dder",
+          "desktop_2_name": "The Obsidian",
+          "desktop_2_link": "shopify://products/ddef",
+          "desktop_3_name": "The Traverse",
+          "desktop_3_link": "shopify://products/duffle",
+          "mobile_title": "THE FOUNDER'S EDITION",
+          "mobile_1_name": "THE CRESCENT",
+          "mobile_1_link": "",
+          "mobile_2_name": "THE OBSIDIAN",
+          "mobile_2_link": "",
+          "mobile_3_name": "THE DUFFLE",
+          "mobile_3_link": "",
           "product_1_image": "shopify://shop_images/001_1b326fe4-dd36-443e-bf43-7542f388b098.jpg",
-          "product_1_name": "The Crescent",
-          "product_1_link": "shopify://products/dder",
           "product_2_image": "shopify://shop_images/obsidian_1__page-0001.jpg",
-          "product_2_name": "The Obsidian",
-          "product_2_link": "shopify://products/ddef",
-          "product_3_image": "shopify://shop_images/001_f0a73840-9664-4539-939f-52315c0223d3.jpg",
-          "product_3_name": "TRAVERSE",
-          "product_3_link": "shopify://products/duffle"
+          "product_3_image": "shopify://shop_images/001_f0a73840-9664-4539-939f-52315c0223d3.jpg"
         }
       }
     },
@@ -412,9 +419,7 @@
       "sections": {
         "main-password-header": {
           "type": "main-password-header",
-          "settings": {
-            "color_scheme": "scheme-1"
-          }
+          "settings": {}
         },
         "main-password-footer": {
           "type": "main-password-footer",
