@@ -161,6 +161,24 @@
           "product_2_image": "shopify://shop_images/obsidian_1__page-0001.jpg",
           "product_3_image": "shopify://shop_images/001_f0a73840-9664-4539-939f-52315c0223d3.jpg"
         }
+      },
+      "nalvik-about-page": {
+        "type": "nalvik-about-page",
+        "settings": {
+          "hero_image": "shopify://shop_images/first_image.png",
+          "image_mission": "shopify://shop_images/Our_mission_image_2nd.png",
+          "mission_heading": "OUR MISSION",
+          "mission_text": "NALVIK WAS NOT CREATED TO CHASE SEASONS, ALGORITHMS, OR VOLUME. IT BEGAN WITH A SIMPLE IDEA: FEWER THINGS, MADE WITH INTENTION, CARRY MORE MEANING. IN A WORLD OF EXCESS AND SPEED, WE CHOSE RESTRAINT.",
+          "image_pricing": "shopify://shop_images/why_price_this_waty_4th_iamge.png",
+          "pricing_heading": "WHY WE PRICE THIS WAY",
+          "pricing_text": "OUR PRICING REFLECTS INTENTION, NOT COMPARISON. IT ALLOWS US TO WORK WITHOUT COMPROMISE, REMAIN INDEPENDENT, AND PROTECT THE INTEGRITY OF WHAT WE MAKE. WE DO NOT DISCOUNT. WE DO NOT OVERPRODUCE.",
+          "image_create": "shopify://shop_images/how_we_create_3rd_image.png",
+          "create_heading": "HOW WE CREATE",
+          "create_text": "NALVIK PIECES ARE PRODUCED IN LIMITED NUMBERS, IN OUR OWN ATELIER. EVERY DECISION — FROM MATERIAL SELECTION TO FINISHING — IS DELIBERATE. WE WORK IN SMALL BATCHES, NOT BECAUSE WE CANNOT MAKE MORE, BUT BECAUSE MAKING MORE WOULD DILUTE WHAT MATTERS. EACH DESIGN IS RELEASED ONCE. NO RE-RUNS. NO EXCESS.",
+          "image_who": "shopify://shop_images/whos_this_for.png",
+          "who_heading": "WHO THIS IS FOR",
+          "who_text": "NALVIK IS FOR THOSE WHO VALUE DISCRETION OVER DISPLAY. FOR THOSE WHO NOTICE FORM BEFORE BRANDING. FOR THOSE WHO PREFER FEWER OBJECTS, CHOSEN WELL."
+        }
       }
     },
     "content_for_index": [],
