@@ -103,18 +103,26 @@
     flex-shrink: 0;
   }
 
-  .nalvik-logo span {
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 20px;
-    letter-spacing: 0.35em;
-    font-weight: 700;
-    font-style: normal;
-    white-space: nowrap;
-    text-transform: uppercase;
-    transition: color 0.25s ease;
+  .nalvik-logo-img {
+    height: 18px;
+    width: auto;
+    display: block;
+    transition: filter 0.25s ease;
   }
 
-  .nalvik-logo img { display: block; }
+  .nalvik-header-wrapper.is-homepage .nalvik-logo-img {
+    filter: none !important;
+  }
+
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-logo-img {
+    filter: invert(1) brightness(0) !important;
+  }
+
+  @media (max-width: 768px) {
+    .nalvik-logo-img {
+      height: 15px;
+    }
+  }
 
   .nalvik-nav-left {
     display: flex;
@@ -333,22 +341,7 @@
 
     <div class="nalvik-left-group">
       <a href="{{ routes.root_url }}" class="nalvik-logo">
-        {%- if settings.logo != blank -%}
-          {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-          {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-          {{
-            settings.logo
-            | image_url: width: 300
-            | image_tag:
-              class: 'header__heading-logo',
-              width: settings.logo_width,
-              height: logo_height,
-              alt: logo_alt,
-              preload: true
-          }}
-        {%- else -%}
-          <span>{{ shop.name }}</span>
-        {%- endif -%}
+        <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/white_nalvik_logo.jpg?v=1782126867" class="nalvik-logo-img" alt="{{ shop.name }}">
       </a>
       <nav class="nalvik-nav-left">
         <a href="{{ routes.root_url }}collections/edition-1" class="nalvik-nav-link">Current Edition</a>
@@ -374,20 +367,7 @@
   <!-- MOBILE HEADER -->
   <div class="nalvik-mobile-header">
     <a href="{{ routes.root_url }}" class="nalvik-mobile-logo">
-      {%- if settings.logo != blank -%}
-        {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-        {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-        {{
-          settings.logo
-          | image_url: width: 200
-          | image_tag:
-            width: settings.logo_width,
-            height: logo_height,
-            alt: logo_alt
-        }}
-      {%- else -%}
-        <span>{{ shop.name }}</span>
-      {%- endif -%}
+      <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/white_nalvik_logo.jpg?v=1782126867" class="nalvik-logo-img" alt="{{ shop.name }}">
     </a>
     <div style="display:flex;align-items:center;gap:18px;">
       <a href="{{ routes.cart_url }}" class="nalvik-nav-link nalvik-cart">
