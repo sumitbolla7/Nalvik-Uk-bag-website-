@@ -6,6 +6,8 @@
   {% render 'contact-template-content' %}
 {% elsif page.handle == 'access' or page.handle == 'login' %}
   {% render 'access-template-content' %}
+{% elsif page.handle == 'refund-policy' or page.handle == 'refunds' %}
+  {% render 'refund-policy-template-content' %}
 {% else %}
   {%- style -%}
     .section-{{ section.id }}-padding {

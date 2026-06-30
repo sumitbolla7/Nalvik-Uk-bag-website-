@@ -18,3 +18,32 @@
 body:not(.template-index) #MainContent .shopify-section.nalvik-hero-section {
   display: none !important;
 }
+
+/* Uppercase return/shipping policies and footer links in mobile view */
+@media screen and (max-width: 749px) {
+  .nalvik-footer__link {
+    text-transform: uppercase !important;
+  }
+  
+  body.template-policy,
+  body.template-policy-page,
+  body.page-refund-policy,
+  body.page-shipping-policy,
+  body.page-refunds,
+  body.page-shipping,
+  body.page-refund-policy-template-content,
+  body.page-shipping-policy-template-content {
+    text-transform: uppercase !important;
+  }
+
+  body.template-policy *,
+  body.template-policy-page *,
+  body.page-refund-policy *,
+  body.page-shipping-policy *,
+  body.page-refunds *,
+  body.page-shipping *,
+  body.page-refund-policy-template-content *,
+  body.page-shipping-policy-template-content * {
+    text-transform: uppercase !important;
+  }
+}

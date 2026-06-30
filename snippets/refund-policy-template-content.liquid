@@ -1,0 +1,184 @@
+{% comment %}
+  NALVIK — Refund Policy Page Template Content (renders automatically for pages with handle 'refund-policy' or 'refunds')
+{% endcomment %}
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+.refund-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  background-color: #ffffff;
+}
+
+.refund-title-main {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 12px;
+  font-weight: 600;
+  font-style: normal !important;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #000000 !important;
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.refund-sections-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.refund-section-group {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 30px;
+}
+
+.refund-accordion-item {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.refund-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.refund-question-text {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 11px;
+  font-weight: 500;
+  font-style: normal !important;
+  letter-spacing: 0.12em;
+  color: #000000 !important;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.refund-question-text::before {
+  content: "+ ";
+  margin-right: 12px;
+  font-weight: 300;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.refund-accordion-item.is-open .refund-question-text::before {
+  content: "− ";
+}
+
+.refund-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+}
+
+.refund-accordion-item.is-open .refund-accordion-content {
+  max-height: 1000px;
+  transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
+}
+
+.refund-answer-inner {
+  padding: 0 0 20px 22px;
+}
+
+.refund-answer-inner p {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 11px;
+  font-weight: 400;
+  font-style: normal !important;
+  line-height: 1.8;
+  letter-spacing: 0.06em;
+  color: #555555 !important;
+  margin: 0;
+  text-transform: none;
+  text-align: left;
+}
+
+@media (max-width: 749px) {
+  .refund-container {
+    padding: 48px 20px;
+  }
+  .refund-title-main {
+    margin-bottom: 40px;
+  }
+}
+</style>
+
+<div class="refund-page" style="margin-top: 40px;">
+  <div class="refund-container">
+    <div class="refund-title-main">NALVIK — REFUND POLICY</div>
+
+    <div class="refund-sections-grid">
+      <div class="refund-section-group">
+        <div class="refund-accordions">
+          
+          <!-- Returns -->
+          <div class="refund-accordion-item">
+            <div class="refund-accordion-header">
+              <span class="refund-question-text">Returns</span>
+            </div>
+            <div class="refund-accordion-content">
+              <div class="refund-answer-inner">
+                <p>We accept returns on unused, non-personalised items within 4 days of delivery, in line with UK consumer regulations. Items must be returned in original condition, with all packaging intact.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Personalised items -->
+          <div class="refund-accordion-item">
+            <div class="refund-accordion-header">
+              <span class="refund-question-text">Personalised items</span>
+            </div>
+            <div class="refund-accordion-content">
+              <div class="refund-answer-inner">
+                <p>Items with initial monogramming are made specifically for you and are final sale.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Limited editions -->
+          <div class="refund-accordion-item">
+            <div class="refund-accordion-header">
+              <span class="refund-question-text">Limited editions</span>
+            </div>
+            <div class="refund-accordion-content">
+              <div class="refund-answer-inner">
+                <p>Each NALVIK design is produced once, in a fixed edition. Exchanges are subject to availability and cannot be guaranteed once an edition sells out.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- To request a return -->
+          <div class="refund-accordion-item">
+            <div class="refund-accordion-header">
+              <span class="refund-question-text">To request a return</span>
+            </div>
+            <div class="refund-accordion-content">
+              <div class="refund-answer-inner">
+                <p>Please contact us at <a href="mailto:care@nalvik.com" style="color: #000; text-decoration: underline;">care@nalvik.com</a> with your order number. We will guide you through the process. Return shipping costs are the responsibility of the customer unless the item is faulty.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.refund-accordion-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const item = header.parentElement;
+      item.classList.toggle('is-open');
+    });
+  });
+</script>

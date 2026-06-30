@@ -335,7 +335,7 @@
     
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}{% if request.page_type == 'index' %} template-index{% endif %}">
+  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}{% if request.page_type == 'index' %} template-index{% endif %} template-{{ template.name | handle }} page-{{ page.handle }}">
 
     {%- if settings.cart_type == 'drawer' -%}
       {%- render 'cart-drawer' -%}

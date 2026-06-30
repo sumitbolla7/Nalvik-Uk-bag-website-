@@ -24,23 +24,28 @@
     backdrop-filter: none !important;
   }
 
-  .nalvik-header-wrapper.is-homepage .nalvik-logo span,
-  .nalvik-header-wrapper.is-homepage .nalvik-nav-link,
-  .nalvik-header-wrapper.is-homepage .nalvik-mobile-logo span {
+  .nalvik-header-wrapper.is-homepage.scrolled {
+    background: #ffffff !important;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.06) !important;
+  }
+
+  .nalvik-header-wrapper.is-homepage:not(.scrolled) .nalvik-logo span,
+  .nalvik-header-wrapper.is-homepage:not(.scrolled) .nalvik-nav-link,
+  .nalvik-header-wrapper.is-homepage:not(.scrolled) .nalvik-mobile-logo span {
     color: #ffffff !important;
   }
 
-  .nalvik-header-wrapper.is-homepage .nalvik-hamburger span {
+  .nalvik-header-wrapper.is-homepage:not(.scrolled) .nalvik-hamburger span {
     background: #ffffff !important;
   }
 
   /* Force Cart and Cart Count badge to stay white on Homepage */
-  .nalvik-header-wrapper.is-homepage .nalvik-cart,
-  .nalvik-header-wrapper.is-homepage .nalvik-cart * {
+  .nalvik-header-wrapper.is-homepage:not(.scrolled) .nalvik-cart,
+  .nalvik-header-wrapper.is-homepage:not(.scrolled) .nalvik-cart * {
     color: #ffffff !important;
   }
 
-  .nalvik-header-wrapper.is-homepage .nalvik-cart-count {
+  .nalvik-header-wrapper.is-homepage:not(.scrolled) .nalvik-cart-count {
     background: #ffffff !important;
     color: #000000 !important;
   }
@@ -55,20 +60,27 @@
 
   .nalvik-header-wrapper:not(.is-homepage) .nalvik-logo span,
   .nalvik-header-wrapper:not(.is-homepage) .nalvik-nav-link,
-  .nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-logo span {
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-mobile-logo span,
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-logo span,
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-nav-link,
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-mobile-logo span {
     color: #000000 !important;
   }
 
-  .nalvik-header-wrapper:not(.is-homepage) .nalvik-hamburger span {
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-hamburger span,
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-hamburger span {
     background: #000000 !important;
   }
 
   .nalvik-header-wrapper:not(.is-homepage) .nalvik-cart,
-  .nalvik-header-wrapper:not(.is-homepage) .nalvik-cart * {
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-cart *,
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-cart,
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-cart * {
     color: #000000 !important;
   }
 
-  .nalvik-header-wrapper:not(.is-homepage) .nalvik-cart-count {
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-cart-count,
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-cart-count {
     background: #000000 !important;
     color: #ffffff !important;
   }
@@ -110,12 +122,15 @@
     transition: filter 0.25s ease;
   }
 
-  .nalvik-header-wrapper.is-homepage .nalvik-logo-img {
+  .nalvik-header-wrapper.is-homepage:not(.scrolled) .nalvik-logo-img {
     filter: none !important;
+    mix-blend-mode: screen !important;
   }
 
-  .nalvik-header-wrapper:not(.is-homepage) .nalvik-logo-img {
-    filter: invert(1) brightness(0) !important;
+  .nalvik-header-wrapper:not(.is-homepage) .nalvik-logo-img,
+  .nalvik-header-wrapper.is-homepage.scrolled .nalvik-logo-img {
+    filter: invert(1) !important;
+    mix-blend-mode: multiply !important;
   }
 
   @media (max-width: 768px) {
