@@ -124,13 +124,11 @@
 
   .nalvik-header-wrapper.is-homepage:not(.scrolled) .nalvik-logo-img {
     filter: none !important;
-    mix-blend-mode: screen !important;
   }
 
   .nalvik-header-wrapper:not(.is-homepage) .nalvik-logo-img,
   .nalvik-header-wrapper.is-homepage.scrolled .nalvik-logo-img {
     filter: invert(1) !important;
-    mix-blend-mode: multiply !important;
   }
 
   @media (max-width: 768px) {
@@ -186,10 +184,17 @@
     align-items: center;
     justify-content: space-between;
     padding: 18px 24px;
+    position: relative;
   }
 
   .nalvik-mobile-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
     text-decoration: none;
+    z-index: 2;
   }
 
   .nalvik-mobile-logo span {
@@ -356,7 +361,7 @@
 
     <div class="nalvik-left-group">
       <a href="{{ routes.root_url }}" class="nalvik-logo">
-        <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/white_nalvik_logo.jpg?v=1782126867" class="nalvik-logo-img" alt="{{ shop.name }}">
+        <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/nalvik_logo.png?v=1783075647" class="nalvik-logo-img" alt="{{ shop.name }}">
       </a>
       <nav class="nalvik-nav-left">
         <a href="{{ routes.root_url }}collections/edition-1" class="nalvik-nav-link">Current Edition</a>
@@ -381,20 +386,18 @@
 
   <!-- MOBILE HEADER -->
   <div class="nalvik-mobile-header">
+    <button class="nalvik-hamburger" id="NalvikMenuToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
     <a href="{{ routes.root_url }}" class="nalvik-mobile-logo">
-      <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/white_nalvik_logo.jpg?v=1782126867" class="nalvik-logo-img" alt="{{ shop.name }}">
+      <img src="https://cdn.shopify.com/s/files/1/0812/9626/1360/files/nalvik_logo.png?v=1783075647" class="nalvik-logo-img" alt="{{ shop.name }}">
     </a>
-    <div style="display:flex;align-items:center;gap:18px;">
-      <a href="{{ routes.cart_url }}" class="nalvik-nav-link nalvik-cart">
-        Cart
-        {%- if cart.item_count > 0 -%}
-          <span class="nalvik-cart-count">{{ cart.item_count }}</span>
-        {%- endif -%}
-      </a>
-      <button class="nalvik-hamburger" id="NalvikMenuToggle" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <a href="{{ routes.cart_url }}" class="nalvik-nav-link nalvik-cart">
+      Cart
+      {%- if cart.item_count > 0 -%}
+        <span class="nalvik-cart-count">{{ cart.item_count }}</span>
+      {%- endif -%}
+    </a>
   </div>
 
   <!-- MOBILE DRAWER -->
