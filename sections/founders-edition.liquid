@@ -1,31 +1,102 @@
 {% comment %}
-  NALVIK — Founder's Edition (Stacked Responsive Layout)
+  NALVIK — Founder's Edition
+  Desktop: 3-column product grid (side-by-side)
+  Mobile: full-bleed stacked images with top-left labels
 {% endcomment %}
 
 <style>
-  .fe-stacked-wrap * {
+  .fe-wrap * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
 
-  .fe-stacked {
-    display: block;
+  .fe-wrap {
     background: #ffffff;
   }
 
-  .fe-stacked__header {
+  /* ── DESKTOP (750px+) ── */
+  .fe-desktop {
+    display: none;
+    font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
+  }
+
+  .fe-desktop__title {
+    text-align: center;
+    padding: 40px 40px 60px;
+  }
+
+  .fe-desktop__title h2 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    font-family: inherit;
+  }
+
+  .fe-desktop__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px 80px;
+  }
+
+  .fe-desktop__card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 0 20px;
+  }
+
+  .fe-desktop__card-img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: #ffffff;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .fe-desktop__card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    transition: transform 0.7s ease;
+  }
+
+  .fe-desktop__card:hover .fe-desktop__card-img img {
+    transform: scale(1.04);
+  }
+
+  .fe-desktop__card-name {
+    text-align: center;
+    padding: 18px 0 0;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    font-family: inherit;
+  }
+
+  /* ── MOBILE (max 749px) ── */
+  .fe-mobile {
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #ffffff;
+  }
+
+  .fe-mobile__header {
     text-align: center;
     padding: 36px 20px 28px;
   }
 
-  @media screen and (min-width: 750px) {
-    .fe-stacked__header {
-      padding: 60px 40px 40px;
-    }
-  }
-
-  .fe-stacked__title {
+  .fe-mobile__title {
     font-family: var(--font-heading-family), Georgia, 'Times New Roman', serif;
     font-size: 14px;
     font-weight: 400;
@@ -34,56 +105,34 @@
     color: #000;
   }
 
-  @media screen and (min-width: 750px) {
-    .fe-stacked__title {
-      font-size: 16px;
-      letter-spacing: 0.32em;
-    }
-  }
-
-  .fe-stacked__stack {
+  .fe-mobile__stack {
     display: flex;
     flex-direction: column;
     gap: 0;
   }
 
-  .fe-stacked__item {
+  .fe-mobile__item {
     position: relative;
     display: block;
     width: 100%;
     line-height: 0;
     text-decoration: none;
     color: inherit;
-    overflow: hidden;
   }
 
-  @media screen and (min-width: 750px) {
-    .fe-stacked__item {
-      height: 80vh;
-      max-height: 700px;
-      min-height: 500px;
-    }
-  }
-
-  .fe-stacked__item img {
+  .fe-mobile__item img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
-    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  .fe-stacked__item:hover img {
-    transform: scale(1.03);
-  }
-
-  .fe-stacked__label {
+  .fe-mobile__label {
     position: absolute;
-    top: 24px;
-    left: 24px;
+    top: 16px;
+    left: 16px;
     z-index: 2;
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: #1a1a1a;
@@ -91,65 +140,118 @@
   }
 
   @media screen and (min-width: 750px) {
-    .fe-stacked__label {
-      top: 40px;
-      left: 40px;
-      font-size: 13px;
-      letter-spacing: 0.22em;
+    .fe-desktop {
+      display: block;
+    }
+
+    .fe-mobile {
+      display: none !important;
     }
   }
 </style>
 
 {%- liquid
+  assign m1 = section.settings.mobile_1_image
+  assign m2 = section.settings.mobile_2_image
+  assign m3 = section.settings.mobile_3_image
+  assign d1 = section.settings.desktop_1_image
+  assign d2 = section.settings.desktop_2_image
+  assign d3 = section.settings.desktop_3_image
+
   assign crescent_cdn = 'https://cdn.shopify.com/s/files/1/0812/9626/1360/files/crescent_bag_image_mobile_1.png?v=1779820365'
   assign obsidian_cdn = 'https://cdn.shopify.com/s/files/1/0812/9626/1360/files/obsidian_mobile_pic_1.png?v=1779820366'
   assign duffle_cdn = 'https://cdn.shopify.com/s/files/1/0812/9626/1360/files/duffle_bag_pic.png?v=1779820365'
 -%}
 
-<div class="fe-stacked-wrap">
-  <div class="fe-stacked">
-    <header class="fe-stacked__header">
-      <h1 class="fe-stacked__title">{{ section.settings.mobile_title | default: "THE FOUNDERS EDITION" }}</h1>
+<div class="fe-wrap">
+
+  {%- comment -%} DESKTOP ONLY {%- endcomment -%}
+  <div class="fe-desktop">
+    <div class="fe-desktop__title">
+      <h2>{{ section.settings.title | default: "The Founder's Edition" }}</h2>
+    </div>
+
+    <div class="fe-desktop__grid">
+      <!-- Crescent -->
+      <a href="{{ section.settings.desktop_1_link | default: section.settings.mobile_1_link | default: '#' }}" class="fe-desktop__card">
+        <div class="fe-desktop__card-img">
+          {% if d1 != blank %}
+            <img src="{{ d1 | image_url: width: 800 }}" alt="{{ section.settings.desktop_1_name }}" width="800" height="1067" loading="lazy">
+          {% elsif section.settings.product_1_image != blank %}
+            <img src="{{ section.settings.product_1_image | image_url: width: 800 }}" alt="{{ section.settings.desktop_1_name }}" width="800" height="1067" loading="lazy">
+          {% else %}
+            <img src="{{ crescent_cdn }}" alt="{{ section.settings.desktop_1_name | default: 'The Crescent' }}" width="800" height="1067" loading="lazy">
+          {% endif %}
+        </div>
+        <p class="fe-desktop__card-name">{{ section.settings.desktop_1_name | default: 'The Crescent' }}</p>
+      </a>
+
+      <!-- Obsidian -->
+      <a href="{{ section.settings.desktop_2_link | default: section.settings.mobile_2_link | default: '#' }}" class="fe-desktop__card">
+        <div class="fe-desktop__card-img">
+          {% if d2 != blank %}
+            <img src="{{ d2 | image_url: width: 800 }}" alt="{{ section.settings.desktop_2_name }}" width="800" height="1067" loading="lazy">
+          {% elsif section.settings.product_2_image != blank %}
+            <img src="{{ section.settings.product_2_image | image_url: width: 800 }}" alt="{{ section.settings.desktop_2_name }}" width="800" height="1067" loading="lazy">
+          {% else %}
+            <img src="{{ obsidian_cdn }}" alt="{{ section.settings.desktop_2_name | default: 'The Obsidian' }}" width="800" height="1067" loading="lazy">
+          {% endif %}
+        </div>
+        <p class="fe-desktop__card-name">{{ section.settings.desktop_2_name | default: 'The Obsidian' }}</p>
+      </a>
+
+      <!-- Duffle -->
+      <a href="{{ section.settings.desktop_3_link | default: section.settings.mobile_3_link | default: '#' }}" class="fe-desktop__card">
+        <div class="fe-desktop__card-img">
+          {% if d3 != blank %}
+            <img src="{{ d3 | image_url: width: 800 }}" alt="{{ section.settings.desktop_3_name }}" width="800" height="1067" loading="lazy">
+          {% elsif section.settings.product_3_image != blank %}
+            <img src="{{ section.settings.product_3_image | image_url: width: 800 }}" alt="{{ section.settings.desktop_3_name }}" width="800" height="1067" loading="lazy">
+          {% else %}
+            <img src="{{ duffle_cdn }}" alt="{{ section.settings.desktop_3_name | default: 'The Duffle' }}" width="800" height="1067" loading="lazy">
+          {% endif %}
+        </div>
+        <p class="fe-desktop__card-name">{{ section.settings.desktop_3_name | default: 'The Duffle' }}</p>
+      </a>
+    </div>
+  </div>
+
+  {%- comment -%} MOBILE ONLY {%- endcomment -%}
+  <div class="fe-mobile">
+    <header class="fe-mobile__header">
+      <h1 class="fe-mobile__title">{{ section.settings.mobile_title | default: "THE FOUNDERS EDITION" }}</h1>
     </header>
 
-    <div class="fe-stacked__stack">
-      <!-- 1. The Crescent -->
-      <a href="{{ section.settings.mobile_1_link | default: '#' }}" class="fe-stacked__item">
-        <span class="fe-stacked__label">{{ section.settings.mobile_1_name | default: 'THE CRESCENT' }}</span>
-        {% if section.settings.mobile_1_image != blank %}
-          <img src="{{ section.settings.mobile_1_image | image_url: width: 2000 }}" alt="{{ section.settings.mobile_1_name }}" width="2000" loading="eager">
-        {% elsif section.settings.desktop_1_image != blank %}
-          <img src="{{ section.settings.desktop_1_image | image_url: width: 2000 }}" alt="{{ section.settings.mobile_1_name }}" width="2000" loading="eager">
+    <div class="fe-mobile__stack">
+      <a href="{{ section.settings.mobile_1_link | default: '#' }}" class="fe-mobile__item">
+        <span class="fe-mobile__label">{{ section.settings.mobile_1_name | default: 'THE CRESCENT' }}</span>
+        {% if m1 != blank %}
+          <img src="{{ m1 | image_url: width: 1200 }}" alt="{{ section.settings.mobile_1_name }}" width="1200" height="800" loading="eager">
         {% else %}
-          <img src="{{ crescent_cdn }}" alt="The Crescent" width="2000" loading="eager">
+          <img src="{{ crescent_cdn }}" alt="The Crescent" width="1200" height="800" loading="eager">
         {% endif %}
       </a>
 
-      <!-- 2. The Obsidian -->
-      <a href="{{ section.settings.mobile_2_link | default: '#' }}" class="fe-stacked__item">
-        <span class="fe-stacked__label">{{ section.settings.mobile_2_name | default: 'THE OBSIDIAN' }}</span>
-        {% if section.settings.mobile_2_image != blank %}
-          <img src="{{ section.settings.mobile_2_image | image_url: width: 2000 }}" alt="{{ section.settings.mobile_2_name }}" width="2000" loading="lazy">
-        {% elsif section.settings.desktop_2_image != blank %}
-          <img src="{{ section.settings.desktop_2_image | image_url: width: 2000 }}" alt="{{ section.settings.mobile_2_name }}" width="2000" loading="lazy">
+      <a href="{{ section.settings.mobile_2_link | default: '#' }}" class="fe-mobile__item">
+        <span class="fe-mobile__label">{{ section.settings.mobile_2_name | default: 'THE OBSIDIAN' }}</span>
+        {% if m2 != blank %}
+          <img src="{{ m2 | image_url: width: 1200 }}" alt="{{ section.settings.mobile_2_name }}" width="1200" height="800" loading="lazy">
         {% else %}
-          <img src="{{ obsidian_cdn }}" alt="The Obsidian" width="2000" loading="lazy">
+          <img src="{{ obsidian_cdn }}" alt="The Obsidian" width="1200" height="800" loading="lazy">
         {% endif %}
       </a>
 
-      <!-- 3. The Traverse -->
-      <a href="{{ section.settings.mobile_3_link | default: '#' }}" class="fe-stacked__item">
-        <span class="fe-stacked__label">{{ section.settings.mobile_3_name | default: 'THE TRAVERSE' }}</span>
-        {% if section.settings.mobile_3_image != blank %}
-          <img src="{{ section.settings.mobile_3_image | image_url: width: 2000 }}" alt="{{ section.settings.mobile_3_name }}" width="2000" loading="lazy">
-        {% elsif section.settings.desktop_3_image != blank %}
-          <img src="{{ section.settings.desktop_3_image | image_url: width: 2000 }}" alt="{{ section.settings.mobile_3_name }}" width="2000" loading="lazy">
+      <a href="{{ section.settings.mobile_3_link | default: '#' }}" class="fe-mobile__item">
+        <span class="fe-mobile__label">{{ section.settings.mobile_3_name | default: 'THE TRAVERSE' }}</span>
+        {% if m3 != blank %}
+          <img src="{{ m3 | image_url: width: 1200 }}" alt="{{ section.settings.mobile_3_name }}" width="1200" height="800" loading="lazy">
         {% else %}
-          <img src="{{ duffle_cdn }}" alt="The Traverse" width="2000" loading="lazy">
+          <img src="{{ duffle_cdn }}" alt="The Traverse" width="1200" height="800" loading="lazy">
         {% endif %}
       </a>
     </div>
   </div>
+
 </div>
 
 {% schema %}
