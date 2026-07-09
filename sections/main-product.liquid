@@ -490,9 +490,9 @@
 
       <span class="nv-qty-label">Quantity</span>
       <div class="nv-qty">
-        <button class="nv-qty__btn" id="NvMinus-{{ section.id }}">&#8722;</button>
+        <button type="button" class="nv-qty__btn" id="NvMinus-{{ section.id }}">&#8722;</button>
         <input class="nv-qty__input" type="number" id="NvQtyInput-{{ section.id }}" value="1" min="1" max="99" readonly>
-        <button class="nv-qty__btn" id="NvPlus-{{ section.id }}">+</button>
+        <button type="button" class="nv-qty__btn" id="NvPlus-{{ section.id }}">+</button>
       </div>
 
       {%- assign total_pieces = product.metafields.custom.total_pieces | default: 40 -%}
@@ -595,8 +595,22 @@
       if (qtyHidden) qtyHidden.value = val;
     }
 
-    if (minusBtn) minusBtn.addEventListener('click', function() { setQty(parseInt(qtyInput.value) - 1); });
-    if (plusBtn)  plusBtn.addEventListener('click',  function() { setQty(parseInt(qtyInput.value) + 1); });
+    if (minusBtn) {
+      minusBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var currentVal = parseInt(qtyInput.value) || 1;
+        setQty(currentVal - 1);
+      });
+    }
+    if (plusBtn) {
+      plusBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var currentVal = parseInt(qtyInput.value) || 1;
+        setQty(currentVal + 1);
+      });
+    }
 
     // ── MONOGRAM TOGGLE ──
     var monogramBtn = document.getElementById('NvMonogramBtn-' + sid);

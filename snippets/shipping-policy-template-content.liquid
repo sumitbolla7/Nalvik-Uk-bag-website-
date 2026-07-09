@@ -1,0 +1,66 @@
+{% comment %}
+  NALVIK — Shipping Policy Page Template Content (renders automatically for pages with handle 'shipping-policy')
+{% endcomment %}
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+.policy-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  background-color: #ffffff;
+  font-family: 'Montserrat', sans-serif !important;
+  text-transform: uppercase !important;
+}
+
+.policy-title-main {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: #000000 !important;
+  text-align: center;
+  margin-bottom: 70px;
+  text-transform: uppercase !important;
+}
+
+.policy-body {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.8;
+  letter-spacing: 0.06em;
+  color: #555555 !important;
+  text-transform: uppercase !important;
+}
+
+.policy-body p, .policy-body div, .policy-body span, .policy-body li, .policy-body h1, .policy-body h2, .policy-body h3, .policy-body td, .policy-body th, .policy-body table {
+  font-family: 'Montserrat', sans-serif !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  line-height: 1.8 !important;
+  letter-spacing: 0.06em !important;
+  color: #555555 !important;
+}
+
+@media (max-width: 749px) {
+  .policy-container {
+    padding: 48px 20px;
+  }
+  .policy-title-main {
+    margin-bottom: 40px;
+  }
+}
+</style>
+
+<div class="policy-page" style="margin-top: 40px;">
+  <div class="policy-container">
+    <div class="policy-title-main">NALVIK — SHIPPING POLICY</div>
+    <div class="policy-body">
+      {%- if shop.shipping_policy.body != blank -%}
+        {{ shop.shipping_policy.body }}
+      {%- else -%}
+        {{ page.content }}
+      {%- endif -%}
+    </div>
+  </div>
+</div>

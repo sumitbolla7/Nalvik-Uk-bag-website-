@@ -8,6 +8,10 @@
   {% render 'access-template-content' %}
 {% elsif page.handle == 'refund-policy' or page.handle == 'refunds' %}
   {% render 'refund-policy-template-content' %}
+{% elsif page.handle == 'privacy-policy' or page.handle == 'privacy' %}
+  {% render 'privacy-policy-template-content' %}
+{% elsif page.handle == 'shipping-policy' or page.handle == 'shipping' %}
+  {% render 'shipping-policy-template-content' %}
 {% else %}
   {%- style -%}
     .section-{{ section.id }}-padding {
