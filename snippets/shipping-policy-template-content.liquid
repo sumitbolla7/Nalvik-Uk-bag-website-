@@ -33,13 +33,21 @@
   text-transform: uppercase !important;
 }
 
-.policy-body p, .policy-body div, .policy-body span, .policy-body li, .policy-body h1, .policy-body h2, .policy-body h3, .policy-body td, .policy-body th, .policy-body table {
+/* Wildcard catches every descendant tag Shopify's editor might output
+   (p, div, span, li, ul, ol, a, strong, em, b, i, blockquote, table, etc.) */
+.policy-body * {
   font-family: 'Montserrat', sans-serif !important;
   text-transform: uppercase !important;
   font-size: 11px !important;
   line-height: 1.8 !important;
   letter-spacing: 0.06em !important;
   color: #555555 !important;
+}
+
+/* Keep links visually distinct but still uppercase */
+.policy-body a {
+  color: #000000 !important;
+  text-decoration: underline !important;
 }
 
 @media (max-width: 749px) {
