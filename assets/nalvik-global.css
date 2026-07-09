@@ -19,31 +19,76 @@ body:not(.template-index) #MainContent .shopify-section.nalvik-hero-section {
   display: none !important;
 }
 
-/* Uppercase return/shipping policies and footer links in mobile view */
-@media screen and (max-width: 749px) {
-  .nalvik-footer__link {
-    text-transform: uppercase !important;
-  }
-  
-  body.template-policy,
-  body.template-policy-page,
-  body.page-refund-policy,
-  body.page-shipping-policy,
-  body.page-refunds,
-  body.page-shipping,
-  body.page-refund-policy-template-content,
-  body.page-shipping-policy-template-content {
-    text-transform: uppercase !important;
-  }
+/* Make policy text uppercase and styled cleanly on both PC and mobile */
+.nalvik-footer__link {
+  text-transform: uppercase !important;
+}
 
-  body.template-policy *,
-  body.template-policy-page *,
-  body.page-refund-policy *,
-  body.page-shipping-policy *,
-  body.page-refunds *,
-  body.page-shipping *,
-  body.page-refund-policy-template-content *,
-  body.page-shipping-policy-template-content * {
-    text-transform: uppercase !important;
+body.template-policy,
+body.template-policy-page,
+body.page-refund-policy,
+body.page-shipping-policy,
+body.page-privacy-policy,
+body.page-refunds,
+body.page-shipping,
+body.page-privacy {
+  text-transform: uppercase !important;
+}
+
+body.template-policy *,
+body.template-policy-page *,
+body.page-refund-policy *,
+body.page-shipping-policy *,
+body.page-privacy-policy *,
+body.page-refunds *,
+body.page-shipping *,
+body.page-privacy * {
+  text-transform: uppercase !important;
+}
+
+/* Style Shopify's native policies system layout to match FAQ page styling */
+body.template-policy .shopify-policy__container {
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  padding: 80px 24px !important;
+  background-color: #ffffff !important;
+  font-family: 'Montserrat', sans-serif !important;
+  text-transform: uppercase !important;
+}
+
+body.template-policy .shopify-policy__title {
+  text-align: center !important;
+  margin-bottom: 70px !important;
+  text-transform: uppercase !important;
+}
+
+body.template-policy .shopify-policy__title h1 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  font-style: normal !important;
+  letter-spacing: 0.25em !important;
+  text-transform: uppercase !important;
+  color: #000000 !important;
+}
+
+body.template-policy .shopify-policy__body,
+body.template-policy .shopify-policy__body * {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  line-height: 1.8 !important;
+  letter-spacing: 0.06em !important;
+  color: #555555 !important;
+  text-transform: uppercase !important;
+}
+
+@media (max-width: 749px) {
+  body.template-policy .shopify-policy__container {
+    padding: 48px 20px !important;
+  }
+  body.template-policy .shopify-policy__title {
+    margin-bottom: 40px !important;
   }
 }
+
