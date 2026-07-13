@@ -17,36 +17,68 @@
     }
   }
 
-  /* Hide default title/header block entirely (was: hiding children only,
-     which left the parent's margin/padding as a stray gap at the top) */
-  .title-wrapper-with-link {
-    display: none !important;
+  /* Cart title header */
+  .nalvik-cart-header {
+    margin-bottom: 40px;
+    padding-top: 40px;
+    border-bottom: 1.5px solid #000000;
+    padding-bottom: 18px;
   }
-  .cart-items thead { display: none !important; }
-  .loading-overlay, .loading-overlay__spinner { display: none !important; }
-
-  /* ALL CAPS global */
-  .cart__contents, .cart-item__name, .cart-item__name a,
-  .cart-item__details, .totals__total, .totals__total-value,
-  .cart__checkout-button, .cart__ctas,
-  .cart-item__discounted-prices, .discounts__discount, .cart__tax-note {
+  .nalvik-cart-title {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 24px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.05em !important;
     text-transform: uppercase !important;
-    letter-spacing: 1px;
+    color: #111111 !important;
   }
+
+  /* Reveal table headers */
+  .cart-items thead {
+    display: table-header-group !important;
+  }
+  .cart-items th {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 9px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.22em !important;
+    text-transform: uppercase !important;
+    color: #888888 !important;
+    padding: 0 0 20px 0 !important;
+    border: none !important;
+    border-bottom: 1.5px solid #f0f0f0 !important;
+  }
+
+  /* Hide default title/header elements */
+  .title-wrapper-with-link a.button { display: none !important; }
+  .title-wrapper-with-link .title--primary { display: none !important; }
+  .loading-overlay, .loading-overlay__spinner { display: none !important; }
 
   /* PRODUCT NAME */
   .cart-item__name,
   .cart-item__name a {
-    font-size: 22px !important;
-    font-weight: 600 !important;
-    letter-spacing: 1.2px !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.05em !important;
     text-transform: uppercase !important;
     font-style: normal !important;
-    color: #000 !important;
-    font-family: 'Inter', sans-serif !important;
+    color: #111111 !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    text-decoration: none !important;
+    display: block !important;
+    margin-bottom: 10px !important;
   }
 
-  /* PRICE */
+  /* PRICE UNIT */
+  .cart-item__price-unit {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #444444 !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* PRICE TOTAL */
   .cart-items .price,
   .cart-items .price--end,
   .cart-items .price.price--end,
@@ -57,45 +89,56 @@
   .cart-item__totals .price,
   .cart-item__totals span,
   .cart-item__totals dd,
-  .cart-item__details .product-option,
-  .cart-item__details .product-option *,
   .cart-item__old-price,
   .cart-item__final-price,
   .product-option {
     font-style: normal !important;
-    font-weight: 700 !important;
-    font-size: 17px !important;
-    color: #111 !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    color: #111111 !important;
     letter-spacing: 0.03em !important;
     font-family: 'Inter', sans-serif !important;
   }
 
   .cart-item__details .product-option {
-    font-size: 16px !important;
+    font-size: 11px !important;
+    color: #888888 !important;
+    font-weight: 400 !important;
+    text-transform: capitalize !important;
+    margin-bottom: 24px !important;
   }
 
-  .product-option dt {
-    font-weight: 500 !important;
-    font-style: normal !important;
-    color: #555 !important;
-    font-size: 13px !important;
+  /* QUANTITY SELECTOR */
+  .quantity.cart-quantity {
+    border: 1px solid #dcdcdc !important;
+    height: 38px !important;
+    width: 110px !important;
+    display: flex !important;
+    align-items: center !important;
+    background: #ffffff !important;
+    border-radius: 0 !important;
   }
-  .product-option dd {
-    font-weight: 600 !important;
-    font-style: normal !important;
-    color: #111 !important;
-    font-size: 13px !important;
-  }
-
-  /* QUANTITY */
   .quantity__button {
-    width: 44px !important;
-    height: 44px !important;
+    width: 32px !important;
+    height: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   .quantity__input {
-    font-size: 16px !important;
+    flex: 1 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    text-align: center !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 12px !important;
     font-weight: 500 !important;
-    font-style: normal !important;
+    background: transparent !important;
+    padding: 0 !important;
   }
 
   /* Hide quantity popup */
@@ -109,18 +152,19 @@
   /* IMAGE */
   .cart-item__media {
     vertical-align: top !important;
-    padding-top: 0 !important;
-    width: 160px !important;
+    padding: 24px 0 !important;
+    width: 220px !important;
   }
   .cart-item__image-container {
-    width: 160px !important;
+    width: 220px !important;
     height: 160px !important;
     overflow: hidden !important;
     display: block !important;
+    background: #fafafa !important;
   }
   .cart-item__image {
-    width: 160px !important;
-    height: 160px !important;
+    width: 100% !important;
+    height: 100% !important;
     object-fit: contain !important;
     object-position: center center !important;
     display: block !important;
@@ -130,10 +174,16 @@
   .cart-item__totals,
   .cart-item__quantity {
     vertical-align: top !important;
-    padding-top: 4px !important;
+    padding: 24px 0 !important;
   }
 
-  .cart-item { margin-bottom: 36px !important; }
+  .cart-item__details {
+    padding-left: 40px !important;
+  }
+
+  .cart-item {
+    border-bottom: 1.5px solid #f0f0f0 !important;
+  }
 
   /* TAX NOTE */
   .cart__tax-note {
@@ -149,17 +199,23 @@
     color: inherit !important;
   }
 
-  /* REMOVE BUTTON */
-  cart-remove-button a,
-  .cart-remove-button a {
-    opacity: 0.5;
-    transition: opacity 0.2s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  /* REMOVE LINK */
+  .cart-item__remove-link {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 11px !important;
+    color: #888888 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px !important;
+    cursor: pointer !important;
   }
-  cart-remove-button a:hover,
-  .cart-remove-button a:hover { opacity: 1; }
+  .cart-item__remove-link:hover {
+    color: #000000 !important;
+  }
+
+  /* Hide default remove trash button */
+  cart-remove-button {
+    display: none !important;
+  }
 
   /* MONOGRAM BADGE */
   .nalvik-monogram-badge {
@@ -360,9 +416,8 @@
 <cart-items class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="page-width">
 
-    <div class="title-wrapper-with-link">
-      <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
-      <a href="/collections/edition-1" class="button">{{- 'general.continue_shopping' | t -}}</a>
+    <div class="nalvik-cart-header">
+      <h1 class="nalvik-cart-title">YOUR CART ({{ cart.item_count }})</h1>
     </div>
 
     {%- comment -%}
@@ -416,68 +471,33 @@
                     </td>
 
                     <td class="cart-item__details">
-                      {%- if settings.show_vendor -%}
-                        <p class="caption-with-letter-spacing light">{{ item.product.vendor }}</p>
-                      {%- endif -%}
+                      <a href="{{ item.url }}" class="cart-item__name">{{ item.product.title | escape }}</a>
 
-                      <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
+                      <div class="cart-item__price-unit">{{ item.original_price | money }}</div>
 
-                      {%- if item.original_price != item.final_price -%}
-                        <div class="cart-item__discounted-prices">
-                          <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
-                          <s class="cart-item__old-price product-option">{{- item.original_price | money -}}</s>
-                          <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
-                          <strong class="cart-item__final-price product-option">{{ item.final_price | money }}</strong>
-                        </div>
-                      {%- else -%}
-                        <div class="product-option">{{ item.original_price | money }}</div>
-                      {%- endif -%}
-
-                      {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != null -%}
-                        <dl>
-                          {%- if item.product.has_only_default_variant == false -%}
-                            {%- for option in item.options_with_values -%}
-                              <div class="product-option">
-                                <dt>{{ option.name }}:</dt>
-                                <dd>{{ option.value }}</dd>
-                              </div>
-                            {%- endfor -%}
-                          {%- endif -%}
-
-                          {%- for property in item.properties -%}
-                            {%- assign property_first_char = property.first | slice: 0 -%}
-                            {%- if property.last != blank and property_first_char != '_' -%}
-                              {%- assign prop_name_lower = property.first | downcase -%}
-                              {%- if prop_name_lower contains 'monogram' -%}
-                                <div class="product-option">
-                                  <span class="nalvik-monogram-badge">{{ property.first | upcase }}: {{ property.last | upcase }}</span>
-                                </div>
-                              {%- else -%}
-                                <div class="product-option">
-                                  <dt>{{ property.first }}:</dt>
-                                  <dd>
-                                    {%- if property.last contains '/uploads/' -%}
-                                      <a href="{{ property.last }}" class="link" target="_blank">{{ property.last | split: '/' | last }}</a>
-                                    {%- else -%}
-                                      {{ property.last }}
-                                    {%- endif -%}
-                                  </dd>
-                                </div>
-                              {%- endif -%}
-                            {%- endif -%}
-                          {%- endfor -%}
-                        </dl>
-                        <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
-                      {%- endif -%}
-
-                      <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
-                        {%- for discount in item.line_level_discount_allocations -%}
-                          <li class="discounts__discount">
-                            {{- 'icon-discount.svg' | inline_asset_content -}}
-                            {{ discount.discount_application.title | escape }}
-                          </li>
+                      {%- if item.product.has_only_default_variant == false -%}
+                        {%- for option in item.options_with_values -%}
+                          <div class="product-option">
+                            {{ option.value }}
+                          </div>
                         {%- endfor -%}
-                      </ul>
+                      {%- endif -%}
+
+                      {%- for property in item.properties -%}
+                        {%- assign property_first_char = property.first | slice: 0 -%}
+                        {%- if property.last != blank and property_first_char != '_' -%}
+                          {%- assign prop_name_lower = property.first | downcase -%}
+                          {%- if prop_name_lower contains 'monogram' -%}
+                            <div class="product-option">
+                              <span class="nalvik-monogram-badge">{{ property.first | upcase }}: {{ property.last | upcase }}</span>
+                            </div>
+                          {%- endif -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+
+                      <div style="margin-top: 24px;">
+                        <a href="{{ item.url_to_remove }}" class="cart-item__remove-link" data-index="{{ item.index | plus: 1 }}">Remove</a>
+                      </div>
                     </td>
 
                     <td class="cart-item__totals right medium-hide large-up-hide">
