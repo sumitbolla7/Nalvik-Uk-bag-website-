@@ -17,9 +17,11 @@
     }
   }
 
-  /* Hide default title/header elements */
-  .title-wrapper-with-link a.button { display: none !important; }
-  .title-wrapper-with-link .title--primary { display: none !important; }
+  /* Hide default title/header block entirely (was: hiding children only,
+     which left the parent's margin/padding as a stray gap at the top) */
+  .title-wrapper-with-link {
+    display: none !important;
+  }
   .cart-items thead { display: none !important; }
   .loading-overlay, .loading-overlay__spinner { display: none !important; }
 
@@ -184,6 +186,13 @@
     align-items: center !important;
     justify-content: center !important;
     min-height: 70vh !important;
+  }
+
+  /* Cleaner than injecting a <style> tag conditionally in the markup:
+     a single class toggled by Liquid, hiding the whole block in one shot
+     with no extra reflow/flash. */
+  .cart__warnings.cart__warnings--hidden {
+    display: none !important;
   }
 
   .cart__empty-text {
@@ -356,14 +365,13 @@
       <a href="/collections/edition-1" class="button">{{- 'general.continue_shopping' | t -}}</a>
     </div>
 
-    <div class="cart__warnings">
+    {%- comment -%}
+      Single Liquid-driven class instead of a conditionally-injected <style>
+      block. Avoids an extra tag/reflow and is easier to reason about.
+    {%- endcomment -%}
+    <div class="cart__warnings{% if cart != empty %} cart__warnings--hidden{% endif %}">
       <h1 class="cart__empty-text">NO PIECES SELECTED</h1>
       <a href="/collections/edition-1" class="button">VIEW CURRENT EDITION</a>
-      {% if cart != empty %}
-        <style>
-          .cart__warnings { display: none !important; }
-        </style>
-      {% endif %}
       {%- if shop.customer_accounts_enabled and customer == null -%}
         <h2 class="cart__login-title">{{ 'sections.cart.login.title' | t }}</h2>
         <p class="cart__login-paragraph">
