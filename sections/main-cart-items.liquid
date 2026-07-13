@@ -372,12 +372,6 @@
     <div class="cart__warnings{% if cart != empty %} cart__warnings--hidden{% endif %}">
       <h1 class="cart__empty-text">NO PIECES SELECTED</h1>
       <a href="/collections/edition-1" class="button">VIEW CURRENT EDITION</a>
-      {%- if shop.customer_accounts_enabled and customer == null -%}
-        <h2 class="cart__login-title">{{ 'sections.cart.login.title' | t }}</h2>
-        <p class="cart__login-paragraph">
-          {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
-        </p>
-      {%- endif -%}
     </div>
 
     <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
