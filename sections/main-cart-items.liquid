@@ -153,11 +153,11 @@
   .cart-item__media {
     vertical-align: top !important;
     padding: 24px 0 !important;
-    width: 220px !important;
+    width: 300px !important;
   }
   .cart-item__image-container {
-    width: 220px !important;
-    height: 160px !important;
+    width: 300px !important;
+    height: 220px !important;
     overflow: hidden !important;
     display: block !important;
     background: #fafafa !important;
@@ -416,9 +416,11 @@
 <cart-items class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="page-width">
 
-    <div class="nalvik-cart-header">
-      <h1 class="nalvik-cart-title">YOUR CART ({{ cart.item_count }})</h1>
-    </div>
+    {%- if cart != empty -%}
+      <div class="nalvik-cart-header">
+        <h1 class="nalvik-cart-title">YOUR CART ({{ cart.item_count }})</h1>
+      </div>
+    {%- endif -%}
 
     {%- comment -%}
       Single Liquid-driven class instead of a conditionally-injected <style>
