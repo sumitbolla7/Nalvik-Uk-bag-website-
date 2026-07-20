@@ -376,7 +376,7 @@
 
     <nav class="nalvik-nav-right">
       {%- if shop.customer_accounts_enabled -%}
-        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}https://nalvik.netlify.app{%- endif -%}" class="nalvik-nav-link" rel="nofollow">Access</a>
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="nalvik-nav-link" rel="nofollow">Access</a>
       {%- endif -%}
       <a href="{{ routes.cart_url }}" class="nalvik-nav-link nalvik-cart">
         Cart
@@ -411,7 +411,7 @@
       <a href="{{ routes.root_url }}pages/about" class="nalvik-nav-link">Craftsmanship</a>
       <a href="{{ routes.root_url }}collections/archive" class="nalvik-nav-link">Archive</a>
       {%- if shop.customer_accounts_enabled -%}
-        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}https://nalvik.netlify.app{%- endif -%}" class="nalvik-nav-link">Access</a>
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="nalvik-nav-link">Access</a>
       {%- endif -%}
       <a href="/pages/contact" class="nalvik-nav-link">Contact</a>
     </div>
