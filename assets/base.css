@@ -2939,8 +2939,15 @@ footer,
   }
 }
 /* Privacy policy - left align all text */
-.policy,
-.policy * {
+.shopify-policy__container,
+.shopify-policy__container *,
+.shopify-policy__body,
+.shopify-policy__body *,
+[class*="policy"] p,
+[class*="policy"] h1,
+[class*="policy"] h2,
+[class*="policy"] h3,
+[class*="policy"] li,
+[class*="policy"] div {
   text-align: left !important;
 }
-
