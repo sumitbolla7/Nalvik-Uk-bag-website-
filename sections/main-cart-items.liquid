@@ -647,26 +647,26 @@
 
     function bindMinusButtons() {
       document.querySelectorAll('.quantity__button[name="minus"]').forEach(function (btn) {
-        var fresh = btn.cloneNode(true);
-        btn.parentNode.replaceChild(fresh, btn);
+        if (btn.dataset.customMinusBound) return;
+        btn.dataset.customMinusBound = "true";
 
-        fresh.addEventListener('click', function (e) {
+        btn.addEventListener('click', function (e) {
           var qInput = this.closest('quantity-input').querySelector('.quantity__input');
           if (!qInput) return;
 
           var current = parseInt(qInput.value, 10);
-          if (current > 1) return;
+          if (current <= 1) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
 
-          e.preventDefault();
-          e.stopImmediatePropagation();
+            var row = this.closest('tr.cart-item');
+            if (!row) return;
 
-          var row = this.closest('tr.cart-item');
-          if (!row) return;
-
-          var removeLink = row.querySelector('cart-remove-button a');
-          if (removeLink) {
-            pendingRemoveLink = removeLink;
-            openPopup(row);
+            var removeLink = row.querySelector('.cart-item__remove-link') || row.querySelector('cart-remove-button a');
+            if (removeLink) {
+              pendingRemoveLink = removeLink;
+              openPopup(row);
+            }
           }
         }, true);
       });

@@ -1104,6 +1104,18 @@
     });
   }
 
+  // Prevent duplicate additions on double clicks
+  var addForm = document.querySelector('form[action="/cart/add"]');
+  if (addForm) {
+    addForm.addEventListener('submit', function() {
+      var acquireBtn = addForm.querySelector('.nv-btn-acquire');
+      if (acquireBtn) {
+        acquireBtn.disabled = true;
+        acquireBtn.textContent = 'ADDING...';
+      }
+    });
+  }
+
 })();
 </script>
 
