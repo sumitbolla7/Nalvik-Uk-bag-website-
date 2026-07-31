@@ -2951,3 +2951,7 @@ footer,
 [class*="policy"] div {
   text-align: left !important;
 }
+.nalvik-contact,
+.nalvik-contact * {
+  text-align: left !important;
+}
