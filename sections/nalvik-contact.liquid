@@ -9,36 +9,6 @@
     padding: 80px 60px 100px;
   }
 
-  .nk-contact__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 0;
-  }
-
-  /* Top row — FAQ + Contact Us side by side, equal height */
-  .nk-contact__col {
-    padding: 48px 48px 48px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .nk-contact__col:nth-child(2) {
-    padding-left: 48px;
-    padding-right: 0;
-  }
-
-  /* Email — full width below */
-  .nk-contact__col--full {
-    grid-column: 1 / -1;
-    padding: 48px 0;
-    max-width: 50%;
-    border-top: 1px solid #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
   .nk-contact__text-wrap {
     flex: 1;
   }
@@ -85,12 +55,63 @@
 
   .nk-contact__btn:hover { background: #333; }
 
+  /* ================= DESKTOP (≥750px) ================= */
+  /* FAQ + Contact Us side by side, Email full width below */
+  @media (min-width: 750px) {
+    .nk-contact__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .nk-contact__col {
+      padding: 48px 48px 48px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .nk-contact__col:nth-child(2) {
+      padding-left: 48px;
+      padding-right: 0;
+    }
+
+    .nk-contact__col--full {
+      grid-column: 1 / -1;
+      padding: 48px 0;
+      max-width: 50%;
+      border-top: 1px solid #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
+  /* ================= MOBILE (<750px) ================= */
+  /* Everything stacked, identical left-aligned padding, no side-by-side columns */
   @media (max-width: 749px) {
-    .nk-contact { padding: 48px 24px 60px; }
-    .nk-contact__grid { grid-template-columns: 1fr; }
-    .nk-contact__col { padding: 36px 0; border-left: none; border-top: 1px solid #f0f0f0; }
-    .nk-contact__col:first-child { border-top: none; }
-    .nk-contact__col--full { max-width: 100%; }
+    .nk-contact {
+      padding: 48px 24px 60px;
+    }
+
+    .nk-contact__grid {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nk-contact__col,
+    .nk-contact__col--full {
+      padding: 36px 0 !important;
+      max-width: 100% !important;
+      border-top: 1px solid #f0f0f0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nk-contact__col:first-child {
+      border-top: none;
+      padding-top: 0 !important;
+    }
   }
 </style>
 
