@@ -2938,12 +2938,9 @@ footer,
     margin: 0 !important;
   }
 }
+/* Privacy policy - left align all text */
 .policy,
 .policy * {
-  text-transform: uppercase;
-  font-family: 'Inter', sans-serif;
-}
-/* Privacy policy - left align all text */
-.shopify-policy__container * {
   text-align: left !important;
 }
+
