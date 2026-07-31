@@ -1889,7 +1889,7 @@ nav.header__inline-menu {
 .template-customers .errors li, .template-customers .form-message p { font-size: 13px; color: #666; line-height: 1.6; list-style: none; margin: 0; }
 .template-customers .form-message svg, .template-customers .errors::before { display: none; }
 
-body[class*="policy"] .rte { max-width: 520px; margin: 0 auto; text-align: center; }
+body[class*="policy"] .rte { max-width: 520px; margin: 0 auto; text-align: left; }
 body[class*="policy"] .rte p { font-size: 15px; line-height: 1.7; color: #444; margin-bottom: 22px; }
 body[class*="policy"] .rte a, body[class*="policy"] .rte strong { font-size: 16px; letter-spacing: 0.02em; color: #000; }
 body[class*="policy"] main { padding-top: 80px; padding-bottom: 80px; }
