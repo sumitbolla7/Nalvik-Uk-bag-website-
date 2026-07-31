@@ -10,37 +10,25 @@
   }
 
   .nk-contact__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 0;
-  }
-
-  /* Top row — FAQ + Contact Us side by side, equal height */
-  .nk-contact__col {
-    padding: 48px 48px 48px 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    max-width: 600px;
   }
 
-  .nk-contact__col:nth-child(2) {
-    padding-left: 48px;
-    padding-right: 0;
-  }
-
-  /* Email — full width below */
-  .nk-contact__col--full {
-    grid-column: 1 / -1;
+  .nk-contact__col {
     padding: 48px 0;
-    max-width: 50%;
     border-top: 1px solid #f0f0f0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+  }
+
+  .nk-contact__col:first-child {
+    border-top: none;
+    padding-top: 0;
   }
 
   .nk-contact__text-wrap {
-    flex: 1;
+    margin-bottom: 28px;
   }
 
   .nk-contact__heading {
@@ -61,13 +49,12 @@
     text-transform: uppercase;
     color: #555;
     line-height: 1.9;
-    margin-bottom: 28px;
   }
 
   .nk-contact__btn {
     display: block;
-    width: 100%;
-    padding: 16px;
+    width: 240px;
+    padding: 16px 0;
     background: #1a1a1a;
     color: #ffffff;
     font-family: 'Inter', sans-serif;
@@ -80,17 +67,13 @@
     border: none;
     cursor: pointer;
     transition: background 0.2s;
-    margin-top: auto;
   }
 
   .nk-contact__btn:hover { background: #333; }
 
   @media (max-width: 749px) {
     .nk-contact { padding: 48px 24px 60px; }
-    .nk-contact__grid { grid-template-columns: 1fr; }
-    .nk-contact__col { padding: 36px 0; border-left: none; border-top: 1px solid #f0f0f0; }
-    .nk-contact__col:first-child { border-top: none; }
-    .nk-contact__col--full { max-width: 100%; }
+    .nk-contact__btn { width: 100%; }
   }
 </style>
 
@@ -106,6 +89,15 @@
       <a href="{{ section.settings.col1_btn_url | default: '/pages/faq' }}" class="nk-contact__btn">{{ section.settings.col1_btn_label | default: 'FAQ' }}</a>
     </div>
 
+    <!-- Email -->
+    <div class="nk-contact__col">
+      <div class="nk-contact__text-wrap">
+        <p class="nk-contact__heading">{{ section.settings.col3_heading | default: 'Email' }}</p>
+        <p class="nk-contact__body">{{ section.settings.col3_body | default: 'We strive to reply to you within 48 hours during business days.' }}</p>
+      </div>
+      <a href="{{ section.settings.col3_btn_url | default: 'mailto:hello@nalvik.com' }}" class="nk-contact__btn">{{ section.settings.col3_btn_label | default: 'Email Us' }}</a>
+    </div>
+
     <!-- Contact Us -->
     <div class="nk-contact__col">
       <div class="nk-contact__text-wrap">
@@ -113,15 +105,6 @@
         <p class="nk-contact__body">{{ section.settings.col2_body | default: 'Speak to one of our team members directly.' | newline_to_br }}</p>
       </div>
       <a href="{{ section.settings.col2_btn_url | default: '/pages/contact' }}" class="nk-contact__btn">{{ section.settings.col2_btn_label | default: 'Contact Us' }}</a>
-    </div>
-
-    <!-- Email — full width -->
-    <div class="nk-contact__col nk-contact__col--full">
-      <div class="nk-contact__text-wrap">
-        <p class="nk-contact__heading">{{ section.settings.col3_heading | default: 'Email' }}</p>
-        <p class="nk-contact__body">{{ section.settings.col3_body | default: 'We strive to reply to you within 48 hours during business days.' }}</p>
-      </div>
-      <a href="{{ section.settings.col3_btn_url | default: 'mailto:hello@nalvik.com' }}" class="nk-contact__btn">{{ section.settings.col3_btn_label | default: 'Email Us' }}</a>
     </div>
 
   </div>
