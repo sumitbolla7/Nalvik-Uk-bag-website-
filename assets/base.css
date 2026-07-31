@@ -2955,3 +2955,8 @@ footer,
 .nalvik-contact * {
   text-align: left !important;
 }
+/* Contact page - align all sections consistently */
+.nalvik-contact,
+.nalvik-contact * {
+  text-align: center !important;
+}
