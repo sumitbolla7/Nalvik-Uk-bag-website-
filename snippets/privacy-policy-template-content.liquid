@@ -1,7 +1,3 @@
-{% comment %}
-  NALVIK — Privacy Policy Page Template Content (renders automatically for pages with handle 'privacy-policy')
-{% endcomment %}
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
@@ -31,6 +27,13 @@
   letter-spacing: 0.06em;
   color: #555555 !important;
   text-transform: uppercase !important;
+  text-align: left !important;
+}
+
+/* Force left alignment on every element inside the policy body,
+   regardless of tag type or inline styles from the Shopify editor */
+.policy-body,
+.policy-body * {
   text-align: left !important;
 }
 
