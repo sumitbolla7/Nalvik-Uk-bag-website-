@@ -71,11 +71,21 @@
         </div>
 
         <div class="nv-btns">
-          <form method="post" action="/cart/add">
-            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
-            <input type="hidden" name="quantity" id="nv-form-qty" value="1" />
-            <button type="submit" class="nv-btn-acquire">ACQUIRE</button>
-          </form>
+          <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+          {%- assign product_form_id = 'product-form-' | append: section.id -%}
+          <product-form class="product-form" data-section="{{ section.id }}">
+            {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="product-variant-id" />
+              <input type="hidden" name="quantity" id="nv-form-qty" value="1" />
+              
+              <!-- Monogramming properties -->
+              <input type="hidden" name="properties[Monogram]" id="nv-form-monogram" value="" />
+              <input type="hidden" name="properties[Emboss Color]" id="nv-form-monogram-color" value="" />
+
+              <button type="submit" name="add" class="nv-btn-acquire">ACQUIRE</button>
+            {%- endform -%}
+          </product-form>
+
           <div class="nv-mono-anchor">
             <button class="nv-btn-mono" id="nv-mono-btn">CUSTOM MONOGRAM</button>
             <div class="nv-mono-popup" id="nv-mono-popup">
@@ -108,9 +118,10 @@
   </div>
 </div>
 
-<!-- FLOATING MOBILE BUY BUTTON -->
+<!-- FLOATING MOBILE BUY BUTTONS -->
 <div class="nv-floating-bar" id="nvFloatingBar">
-  <button type="button" class="nv-floating-btn" id="nvFloatingBtn">AQUIRE</button>
+  <button type="button" class="nv-floating-btn nv-floating-btn--acquire" id="nvFloatingBtnAcquire">ACQUIRE</button>
+  <button type="button" class="nv-floating-btn nv-floating-btn--mono" id="nvFloatingBtnMono">CUSTOM MONOGRAM</button>
 </div>
 
 <!-- DETAILS PANEL (slides from right) -->
@@ -905,22 +916,31 @@
     z-index: 999;
     transform: translateY(100%);
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    display: block;
+    display: flex !important;
+    gap: 12px;
   }
 
   .nv-floating-btn {
-    width: 100%;
-    background: #111111;
-    color: #ffffff;
+    flex: 1;
     border: none;
-    padding: 16px;
+    padding: 16px 8px;
     font-family: 'Inter', sans-serif;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     cursor: pointer;
     text-align: center;
+    box-sizing: border-box;
+  }
+  .nv-floating-btn--acquire {
+    background: #111111;
+    color: #ffffff;
+  }
+  .nv-floating-btn--mono {
+    background: #ffffff;
+    color: #111111;
+    border: 1px solid #111111;
   }
 }
 
@@ -1070,6 +1090,11 @@
     var initials = monoInput ? monoInput.value.toUpperCase().trim() : '';
     var color = document.getElementById('nv-popup-color') ? document.getElementById('nv-popup-color').value : '';
     if (initials.length > 0) {
+      var formMono = document.getElementById('nv-form-monogram');
+      var formMonoColor = document.getElementById('nv-form-monogram-color');
+      if (formMono) formMono.value = initials;
+      if (formMonoColor) formMonoColor.value = color;
+
       this.textContent = '✓ SAVED';
       this.style.background = '#2a7a4b';
       setTimeout(function() { closePopup(); }, 1200);
@@ -1080,15 +1105,16 @@
 
   /* ── FLOATING MOBILE BAR SCROLL HANDLER ── */
   var floatingBar = document.getElementById('nvFloatingBar');
-  var floatingBtn = document.getElementById('nvFloatingBtn');
+  var floatingBtnAcquire = document.getElementById('nvFloatingBtnAcquire');
+  var floatingBtnMono = document.getElementById('nvFloatingBtnMono');
   var mainAcquireBtn = document.querySelector('.nv-btn-acquire');
   var lastScrollY = window.scrollY;
 
-  if (floatingBar && floatingBtn && mainAcquireBtn) {
+  if (floatingBar && floatingBtnAcquire && floatingBtnMono && mainAcquireBtn) {
     window.addEventListener('scroll', function() {
       var currentScrollY = window.scrollY;
       
-      // Check if user is scrolling up and has scrolled past 300px
+      // Check if user is scrolling up and has scrolled past 300px (swiping from below to upper)
       if (currentScrollY < lastScrollY && currentScrollY > 300) {
         floatingBar.style.transform = 'translateY(0)';
       } else {
@@ -1098,9 +1124,15 @@
       lastScrollY = currentScrollY;
     }, { passive: true });
 
-    // Handle add to cart click
-    floatingBtn.addEventListener('click', function() {
+    // Handle add to cart click from sticky bar
+    floatingBtnAcquire.addEventListener('click', function() {
       mainAcquireBtn.click();
+    });
+
+    // Handle monogram click from sticky bar
+    floatingBtnMono.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (monoBtn) monoBtn.click();
     });
   }
 
